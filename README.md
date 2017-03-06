@@ -23,6 +23,10 @@ Para crear rama (commit es el número del cambio):
 Crearos una cuenta y hacer un fork del repositorio (Arriba a la derecha, donde pone fork).
 Luego desde la consola de git poneis:
 
-    git clone https://git.github.com/VUESTROUSUARIO/VUESTROREPO
+    git clone https://github.com/USUARIO/REPO.git
+    
+Ejemplo:
+
+    git clone https://github.com/jaimejimbo/ifcwebgrupo.git
     
 Y asi lo teneis en local.
