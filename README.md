@@ -47,3 +47,8 @@ Ejemplo:
     git clone https://github.com/jaimejimbo/ifcwebgrupo.git
     
 Y asi lo teneis en local.
+
+
+Más info:
+
+    https://git-scm.com/docs
