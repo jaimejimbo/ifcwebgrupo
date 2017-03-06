@@ -49,6 +49,4 @@ Ejemplo:
 Y asi lo teneis en local.
 
 
-Más info:
-
-    https://git-scm.com/docs
+Más info: https://git-scm.com/docs
