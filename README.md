@@ -49,4 +49,8 @@ Ejemplo:
 Y asi lo teneis en local.
 
 
-Más info: https://git-scm.com/docs
+#Tutorial: https://try.github.io
+
+#plugin eclipse: https://www.eclipse.org/egit/
+
+#Más info: https://git-scm.com/docs
