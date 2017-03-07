@@ -1,5 +1,12 @@
 #Descarga: https://git-scm.com/download/win
 
+#Tutorial: https://try.github.io
+
+#plugin eclipse: https://www.eclipse.org/egit/
+
+#Más info: https://git-scm.com/docs
+
+
 Se descarga una consola de git. Pinchando en el enlace del escritorio se abre. Luego se va a la carpeta que se quiera con:
 
     cd "C:\carpeta1\carpeta2\carpeta3"
@@ -48,9 +55,3 @@ Ejemplo:
     
 Y asi lo teneis en local.
 
-
-#Tutorial: https://try.github.io
-
-#plugin eclipse: https://www.eclipse.org/egit/
-
-#Más info: https://git-scm.com/docs
