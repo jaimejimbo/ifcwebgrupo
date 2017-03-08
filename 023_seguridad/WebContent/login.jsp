@@ -8,8 +8,8 @@
 </head>
 <body>
 <form action="j_security_check" method="post">
-	<p>Introduce nombre: <input type="text" value="nombre"></p>
-	<p>Introduce contraseña: <input type="text" value="pass"></p>
+	<p>Introduce nombre: <input type="text"></p>
+	<p>Introduce contraseña: <input type="text"></p>
 	<input type="submit" value="Entrar">
 </form>
 </body>
