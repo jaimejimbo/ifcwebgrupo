@@ -1,0 +1,19 @@
+body{
+	background-color:#ccc;
+}
+
+.bckwhite{
+	background-color:white;
+}
+
+label{
+	width: 100%;
+}
+
+.bigw{
+	width: 100%;
+}
+
+.right{
+	right: 0px;
+}
