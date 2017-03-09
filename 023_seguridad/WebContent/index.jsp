@@ -7,6 +7,7 @@
 <title>Seguridad</title>
 </head>
 <body>
+hola
 <form action="Publico" method="get">
 	<input type="submit" value="Publico">
 </form>
