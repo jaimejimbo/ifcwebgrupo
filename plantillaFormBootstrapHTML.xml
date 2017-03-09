@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates><template autoinsert="true" context="html_all" deleted="false" description="" enabled="true" name="FormBootstrap">&lt;form method="post" action=""&gt;&#13;
+	&lt;div class="form-group"&gt;&#13;
+		&lt;label for="input1"&gt;&#13;
+			&lt;div class="col-lg-1 col-md-1 col-sm-3 col-xs-3"&gt;Input 1&lt;/div&gt;&#13;
+			&lt;div class="col-lg-1 col-md-1 col-sm-3 col-xs-3"&gt;&lt;input type="text" id="input1" name="input1" placeholder="input1" /&gt;&lt;/div&gt;&#13;
+		&lt;/label&gt;&#13;
+	&lt;/div&#13;
+	&lt;input type="submit" value="enviar" onclick="onclick()" class="btn btn-warning" /&gt;&#13;
+&lt;/form&gt;</template></templates>
