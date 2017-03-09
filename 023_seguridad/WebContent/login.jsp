@@ -28,7 +28,7 @@
 	        	msg +='	<div class="form-group">';
 	        	msg +='		<label for="pwd">';
 	        	msg +='			<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Contraseña</div>';
-	        	msg +='			<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12"><input onclick="checkpwd()" class="bigw" oninput="checkpwd()" type="password" id="pwd" name="pwd" /></div>';
+	        	msg +='			<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12"><input onclick="" class="bigw" oninput="" type="password" id="pwd" name="pwd" /></div>';
 	        	msg +='		</label>';
 	        	msg +='		<div id="pwdcheckinfo"></div>';
 	        	msg +='	</div>';
