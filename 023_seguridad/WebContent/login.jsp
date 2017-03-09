@@ -9,32 +9,69 @@
 	<link rel="stylesheet" href="custom.css">
     <title>Iniciar Sesión</title>
   </head>
-  <body>
+  <body onload="loadlogin()">
   	<div class="col-lg-3 col-md-3 col-sm-3 col-xs-2"></div>
-  	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-8 bckwhite">
-    <h2 class="text-center">Inicio de sesión</h2>
-    <form action="j_security_check" method="post">
-		<div class="form-group">
-			<label for="email">
-				<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Email</div>
-				<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12"><input onclick="checkmail()" class="bigw" oninput="checkmail()" type="email" id="email" name="email" placeholder="Introduzca su email" /></div>
-			</label>
-			<div id="emailcheckinfo"></div>
-		</div>
-		<div class="form-group">
-			<label for="pwd">
-				<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Contraseña</div>
-				<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12"><input onclick="checkpwd()" class="bigw" oninput="checkpwd()" type="password" id="pwd" name="pwd" /></div>
-			</label>
-			<div id="pwdcheckinfo"></div>
-		</div>
-		<div class="form-group text-right">
-			<input type="submit" value="enviar" onclick="onclick()" class="btn btn-info" id="loginbtn" />
-		</div>
-	</form>
+  	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-8 bckwhite" id="login">
 	</div>
 	
 	<script>
+		function loadlogin(){
+			var msg = '<h2 class="text-center">Inicio de sesión</h2>';
+		        msg +=   '<form action="j_security_check" method="post">';
+	        	msg +='			<div class="form-group">';
+	        	msg +='				<label for="email">';
+	        	msg +='						<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Email</div>';
+	        	msg +='									<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12"><input onclick="checkmail()" class="bigw" oninput="checkmail()" type="email" id="email" name="email" placeholder="Introduzca su email" /></div>';
+	        	msg +='		</label>';
+	        	msg +='		<div id="emailcheckinfo"></div>';
+	        	msg +='	</div>';
+	        	msg +='	<div class="form-group">';
+	        	msg +='		<label for="pwd">';
+	        	msg +='			<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Contraseña</div>';
+	        	msg +='			<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12"><input onclick="checkpwd()" class="bigw" oninput="checkpwd()" type="password" id="pwd" name="pwd" /></div>';
+	        	msg +='		</label>';
+	        	msg +='		<div id="pwdcheckinfo"></div>';
+	        	msg +='	</div>';
+	        	msg +='	<div class="form-group text-right">';
+	        	msg +='	       <a href="#" onclick="loadreg()">Registrarme</a>';
+	        	msg +='				<input type="submit" value="enviar" onclick="onclick()" class="btn btn-info" id="loginbtn" />';
+	        	msg +='			</div>';
+	        	msg +='		</form>';
+			$("#login").html(msg);
+		}
+		
+		function loadreg(){
+			var msg = '<h2 class="text-center">Registro</h2>';
+		        msg +=   '<form action="j_security_check" method="post">';
+	        	msg +='			<div class="form-group">';
+	        	msg +='				<label for="email">';
+	        	msg +='						<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Email</div>';
+	        	msg +='									<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12"><input onclick="checkmail()" class="bigw" oninput="checkmail()" type="email" id="email" name="email" placeholder="Introduzca su email" /></div>';
+	        	msg +='		</label>';
+	        	msg +='		<div id="emailcheckinfo"></div>';
+	        	msg +='	</div>';
+	        	msg +='	<div class="form-group">';
+	        	msg +='		<label for="pwd">';
+	        	msg +='			<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Contraseña</div>';
+	        	msg +='			<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12"><input onclick="checkpwd()" class="bigw" oninput="checkpwd()" type="password" id="pwd" name="pwd" /></div>';
+	        	msg +='		</label>';
+	        	msg +='		<div id="pwdcheckinfo"></div>';
+	        	msg +='	</div>';
+	        	msg +='	<div class="form-group">';
+	        	msg +='		<label for="pwd2">';
+	        	msg +='			<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Repita contraseña</div>';
+	        	msg +='			<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12"><input onclick="checkpwd2()" class="bigw" oninput="checkpwd2()" type="password" id="pwd2" name="pwd2" /></div>';
+	        	msg +='		</label>';
+	        	msg +='		<div id="pwdcheckinfo2"></div>';
+	        	msg +='	</div>';
+	        	msg +='	<div class="form-group text-right">';
+	        	msg +='	       <a href="#" onclick="loadlogin()">Ya tengo cuenta</a>';
+	        	msg +='				<input type="submit" value="enviar" onclick="onclick()" class="btn btn-info" id="loginbtn" />';
+	        	msg +='			</div>';
+	        	msg +='		</form>';
+			$("#login").html(msg);
+		}
+	
 		function checkmail(){
 			var email = $("#email").val();
 			var regmail = /^[a-z0-9\._+-]*@[a-z0-9\.-]+\.[a-z0-9]{1,4}/;
@@ -73,6 +110,19 @@
 				$("#loginbtn").disabled=false;
 			}
 			$("#pwdcheckinfo").html(msg);
+		}
+		function checkpwd2(){
+			checkpwd();
+			var pwd = $("#pwd").val();
+			var pwd2 = $("#pwd2").val();
+			var msg="";
+			if (pwd!=pwd2){
+				msg += "<h5>Las contraseñas no coinciden</h5>";
+			}
+			if (msg==""){
+				$("#loginbtn").disabled=false;
+			}
+			$("#pwdcheckinfo2").html(msg);
 		}
 	</script>
 	
