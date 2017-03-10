@@ -10,8 +10,8 @@
     <title>Iniciar Sesión</title>
   </head>
   <body onload="loadlogin()">
-  	<div class="col-lg-3 col-md-3 col-sm-3 col-xs-2"></div>
-  	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-8 bckwhite" id="login">
+  	<div class="col-lg-3 col-md-2 col-sm-1 col-xs-1"></div>
+  	<div class="col-lg-6 col-md-8 col-sm-10 col-xs-10 bckwhite" id="login">
 	</div>
 	
 	<script>
