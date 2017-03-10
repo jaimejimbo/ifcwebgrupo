@@ -17,7 +17,7 @@
 	<script>
 		function loadlogin(){
 			var msg = '<h2 class="text-center">Inicio de sesión</h2>';
-		        msg +=   '<form action="j_security_check" method="post">';
+		        msg +=   '<form action="login.php" method="post">';
 	        	msg +='			<div class="form-group">';
 	        	msg +='				<label for="email">';
 	        	msg +='						<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Email</div>';
@@ -42,7 +42,7 @@
 		
 		function loadreg(){
 			var msg = '<h2 class="text-center">Registro</h2>';
-		        msg +=   '<form action="j_security_check" method="post">';
+		        msg +=   '<form action="registrar.php" method="post">';
 	        	msg +='			<div class="form-group">';
 	        	msg +='				<label for="email">';
 	        	msg +='						<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Email</div>';
