@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-03-2017 a las 21:41:52
--- Versión del servidor: 10.1.21-MariaDB
--- Versión de PHP: 5.6.30
+-- Tiempo de generación: 10-03-2017 a las 13:39:51
+-- Versión del servidor: 10.1.19-MariaDB
+-- Versión de PHP: 5.6.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -45,11 +45,20 @@ select clientes.cliente_id from clientes where clientes.nombre=inombre$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `cliente_nombre_id` (IN `iid` INT)  NO SQL
 SELECT clientes.nombre from clientes where clientes.cliente_id=iid$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `crear_cuenta` (IN `idesc` VARCHAR(500), IN `ifondos` DECIMAL(10,2), IN `inombre` VARCHAR(50))  NO SQL
+insert into cuentas(descripción, fondos, nombre) values(idesc, ifondos, inombre)$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `fondos_nombre_cuenta` (IN `inombre` VARCHAR(50))  NO SQL
 select cuentas.fondos from cuentas where cuentas.nombre=inombre$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `nombres_cuenta` (IN `icid` INT)  NO SQL
 select cuentas.nombre from cuentas where cuentas.cuenta_id=(SELECT posesiones.cuenta_id from posesiones where posesiones.cliente_id=icid)$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `nuevo_cliente` (IN `inombre` VARCHAR(50), IN `iemail` VARCHAR(50), IN `idni` VARCHAR(20), IN `idir` VARCHAR(300), IN `ipwd` VARCHAR(500))  NO SQL
+INSERT into clientes(nombre, email, DNI, dirección, pwd) values(inombre, iemail, idni, idir, ipwd)$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `transacción` (IN `icid1` INT, IN `icid2` INT, IN `icu1` INT, IN `icu2` INT, IN `ifec` VARCHAR(50), IN `info` VARCHAR(500), IN `ican` DECIMAL(10,2))  NO SQL
+insert into transacciones(cliente1_id, cliente2_id, cuenta1_id, cuenta2_id, fecha, concepto, cantidad) values (icid1, icid2, icu1, icu2, ifec, info, ican)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `trans_cliente` (IN `icid` INT)  NO SQL
 select transacciones.fecha, transacciones.concepto, transacciones.cantidad from transacciones where transacciones.cliente1_id=icid or transacciones.cliente2_id=icid order by transacciones.fecha DESC$$
@@ -67,8 +76,17 @@ CREATE TABLE `clientes` (
   `nombre` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
   `DNI` varchar(20) NOT NULL,
-  `dirección` varchar(300) NOT NULL
+  `dirección` varchar(300) NOT NULL,
+  `pwd` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `clientes`
+--
+
+INSERT INTO `clientes` (`cliente_id`, `nombre`, `email`, `DNI`, `dirección`, `pwd`) VALUES
+(1, 'Carmelo', 'cescribano@hotmail.com', '05147894', 'c/ Arenal, 5', 'soybonito'),
+(2, 'Gonzalo', 'gonzaloes@hotmail.com', '150150150', 'c/Juan Carlos 2, 23', 'soyuntioguay');
 
 -- --------------------------------------------------------
 
@@ -82,6 +100,14 @@ CREATE TABLE `cuentas` (
   `fondos` decimal(10,2) NOT NULL,
   `nombre` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `cuentas`
+--
+
+INSERT INTO `cuentas` (`cuenta_id`, `descripción`, `fondos`, `nombre`) VALUES
+(1, 'cuenta1', '5.00', 'cuenta1'),
+(2, 'cuenta2', '100005.00', 'cuenta2');
 
 -- --------------------------------------------------------
 
@@ -107,10 +133,28 @@ CREATE TABLE `transacciones` (
   `cliente2_id` int(11) NOT NULL,
   `cuenta1_id` int(11) NOT NULL,
   `cuenta2_id` int(11) NOT NULL,
-  `fecha` int(11) NOT NULL,
+  `fecha` varchar(50) NOT NULL,
   `concepto` varchar(500) NOT NULL,
   `cantidad` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `transacciones`
+--
+
+INSERT INTO `transacciones` (`id`, `cliente1_id`, `cliente2_id`, `cuenta1_id`, `cuenta2_id`, `fecha`, `concepto`, `cantidad`) VALUES
+(1, 1, 2, 1, 2, 'toldayº', '15', '5.00');
+
+--
+-- Disparadores `transacciones`
+--
+DELIMITER $$
+CREATE TRIGGER `actualizar_fondos` AFTER INSERT ON `transacciones` FOR EACH ROW BEGIN
+	update cuentas set cuentas.fondos=cuentas.fondos+NEW.cantidad where cuentas.cuenta_id=NEW.cuenta2_id ;
+	update cuentas set cuentas.fondos=cuentas.fondos-NEW.cantidad where cuentas.cuenta_id=NEW.cuenta1_id ;
+END
+$$
+DELIMITER ;
 
 --
 -- Índices para tablas volcadas
@@ -158,12 +202,12 @@ ALTER TABLE `transacciones`
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `cliente_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `cliente_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `cuentas`
 --
 ALTER TABLE `cuentas`
-  MODIFY `cuenta_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `cuenta_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `posesiones`
 --
@@ -173,7 +217,7 @@ ALTER TABLE `posesiones`
 -- AUTO_INCREMENT de la tabla `transacciones`
 --
 ALTER TABLE `transacciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- Restricciones para tablas volcadas
 --
