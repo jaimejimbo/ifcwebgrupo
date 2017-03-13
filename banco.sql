@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.6.5.2
+-- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-03-2017 a las 13:39:51
--- Versión del servidor: 10.1.19-MariaDB
--- Versión de PHP: 5.6.28
+-- Tiempo de generación: 13-03-2017 a las 22:18:27
+-- Versión del servidor: 10.1.21-MariaDB
+-- Versión de PHP: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -51,11 +51,14 @@ insert into cuentas(descripción, fondos, nombre) values(idesc, ifondos, inombre
 CREATE DEFINER=`root`@`localhost` PROCEDURE `fondos_nombre_cuenta` (IN `inombre` VARCHAR(50))  NO SQL
 select cuentas.fondos from cuentas where cuentas.nombre=inombre$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_salt` (IN `iemail` VARCHAR(100))  NO SQL
+select clientes.salt from clientes where clientes.email=iemail$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `nombres_cuenta` (IN `icid` INT)  NO SQL
 select cuentas.nombre from cuentas where cuentas.cuenta_id=(SELECT posesiones.cuenta_id from posesiones where posesiones.cliente_id=icid)$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `nuevo_cliente` (IN `inombre` VARCHAR(50), IN `iemail` VARCHAR(50), IN `idni` VARCHAR(20), IN `idir` VARCHAR(300), IN `ipwd` VARCHAR(500))  NO SQL
-INSERT into clientes(nombre, email, DNI, dirección, pwd) values(inombre, iemail, idni, idir, ipwd)$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `nuevo_cliente` (IN `inombre` VARCHAR(50), IN `iemail` VARCHAR(50), IN `idni` VARCHAR(20), IN `idir` VARCHAR(300), IN `ipwd` VARCHAR(500), IN `isalt` VARCHAR(500))  NO SQL
+INSERT into clientes(nombre, email, DNI, dirección, pwd, salt) values(inombre, iemail, idni, idir, ipwd, isalt)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `transacción` (IN `icid1` INT, IN `icid2` INT, IN `icu1` INT, IN `icu2` INT, IN `ifec` VARCHAR(50), IN `info` VARCHAR(500), IN `ican` DECIMAL(10,2))  NO SQL
 insert into transacciones(cliente1_id, cliente2_id, cuenta1_id, cuenta2_id, fecha, concepto, cantidad) values (icid1, icid2, icu1, icu2, ifec, info, ican)$$
@@ -77,16 +80,18 @@ CREATE TABLE `clientes` (
   `email` varchar(50) NOT NULL,
   `DNI` varchar(20) NOT NULL,
   `dirección` varchar(300) NOT NULL,
-  `pwd` varchar(500) NOT NULL
+  `pwd` varchar(500) NOT NULL,
+  `salt` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `clientes`
 --
 
-INSERT INTO `clientes` (`cliente_id`, `nombre`, `email`, `DNI`, `dirección`, `pwd`) VALUES
-(1, 'Carmelo', 'cescribano@hotmail.com', '05147894', 'c/ Arenal, 5', 'soybonito'),
-(2, 'Gonzalo', 'gonzaloes@hotmail.com', '150150150', 'c/Juan Carlos 2, 23', 'soyuntioguay');
+INSERT INTO `clientes` (`cliente_id`, `nombre`, `email`, `DNI`, `dirección`, `pwd`, `salt`) VALUES
+(1, 'Carmelo', 'cescribano@hotmail.com', '05147894', 'c/ Arenal, 5', 'soybonito', ''),
+(2, 'Gonzalo', 'gonzaloes@hotmail.com', '150150150', 'c/Juan Carlos 2, 23', 'soyuntioguay', ''),
+(3, 'Pepe', 'pepe@pepe.com', '929292929', 'c/Arenal 5', 'dc9a0e88a422680d8885e720b9e2b8cd7f5c22b42ec574487c974b581b15d3d76a19c629f6a8e2a4bcbdc6fd6eb895685789aeb7e630b0c222703a543fe8c248', '');
 
 -- --------------------------------------------------------
 
@@ -202,7 +207,7 @@ ALTER TABLE `transacciones`
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `cliente_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `cliente_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `cuentas`
 --
