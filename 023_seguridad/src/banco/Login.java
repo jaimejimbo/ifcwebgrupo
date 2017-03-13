@@ -2,6 +2,7 @@ package banco;
 
 import java.io.IOException;
 import java.sql.Connection;
+import org.mindrot.jbcrypt.BCrypt;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,8 +35,10 @@ public class Login extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String email = request.getParameter("email");
-		String pwd = request.getParameter("pwd");
-		
+		String salt = BCrypt.gensalt(16);
+		String pwd = BCrypt.hashpw(request.getParameter("pwd"), salt);
+		System.out.println(salt);
+		System.out.println(pwd);
 	}
 
 	/**
