@@ -6,6 +6,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
+
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  * Servlet implementation class Registrar
@@ -27,7 +31,11 @@ public class Registrar extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String email = request.getParameter("email");
+		String salt = BCrypt.gensalt(16);
+		String pwd = BCrypt.hashpw(request.getParameter("pwd"), salt);
+		HttpSession sesion = request.getSession();
+		sesion.setAttribute("email", email);
 	}
 
 	/**
