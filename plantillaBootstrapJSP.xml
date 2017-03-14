@@ -8,6 +8,7 @@
     &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;&#13;
     &lt;link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"&gt;&#13;
 	&lt;link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"&gt;&#13;
+	&lt;link rel="stylesheet" href="custom.css"&gt;&#13;
 &#13;
     &lt;title&gt;Plantilla Bootstrap&lt;/title&gt;&#13;
   &lt;/head&gt;&#13;
