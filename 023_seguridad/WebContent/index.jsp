@@ -11,7 +11,7 @@
   </head>
   <body>
   	<div class="col-lg-4 col-md-4 col-sm-3 col-xs-2"></div>
-  	<div class="col-lg-4 col-md-4 col-sm-6 col-xs-8 bckwhite">
+  	<div class="col-lg-4 col-md-4 col-sm-6 col-xs-8 main-bg">
 	<h2 class="text-center">Hola</h2>
 	<form action="Publico" method="get">
 		<input type="submit" value="Publico">

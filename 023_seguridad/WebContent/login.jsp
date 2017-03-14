@@ -11,7 +11,7 @@
   </head>
   <body onload="loadlogin()">
   	<div class="col-lg-3 col-md-2 col-sm-1 col-xs-1"></div>
-  	<div class="col-lg-6 col-md-8 col-sm-10 col-xs-10 bckwhite" id="login">
+  	<div class="col-lg-6 col-md-8 col-sm-10 col-xs-10 main-bg" id="login">
 	</div>
 	
 	<script>
@@ -19,16 +19,16 @@
 			var msg = '<h2 class="text-center">Inicio de sesión</h2>';
 		        msg +=   '<form action="login.php" method="post">';
 	        	msg +='			<div class="form-group">';
-	        	msg +='				<label for="email">';
+	        	msg +='				<label for="email" class="fill-width">';
 	        	msg +='						<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Email</div>';
-	        	msg +='									<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12"><input onclick="checkmail()" class="bigw" oninput="checkmail()" type="email" id="email" name="email" placeholder="Introduzca su email" /></div>';
+	        	msg +='									<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12"><input onclick="checkmail()" class="fill-width" oninput="checkmail()" type="email" id="email" name="email" placeholder="Introduzca su email" /></div>';
 	        	msg +='		</label>';
 	        	msg +='		<div id="emailcheckinfo"></div>';
 	        	msg +='	</div>';
-	        	msg +='	<div class="form-group">';
-	        	msg +='		<label for="pwd">';
+	        	msg +='	<div class="form-group" >';
+	        	msg +='		<label for="pwd" class="fill-width">';
 	        	msg +='			<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Contraseña</div>';
-	        	msg +='			<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12"><input onclick="" class="bigw" oninput="" type="password" id="pwd" name="pwd" /></div>';
+	        	msg +='			<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12"><input onclick="" class="fill-width" oninput="" type="password" id="pwd" name="pwd" /></div>';
 	        	msg +='		</label>';
 	        	msg +='		<div id="pwdcheckinfo"></div>';
 	        	msg +='	</div>';
@@ -44,23 +44,23 @@
 			var msg = '<h2 class="text-center">Registro</h2>';
 		        msg +=   '<form action="registrar.php" method="post">';
 	        	msg +='			<div class="form-group">';
-	        	msg +='				<label for="email">';
+	        	msg +='				<label for="email" class="fill-width">';
 	        	msg +='						<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Email</div>';
-	        	msg +='									<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12"><input onclick="checkmail()" class="bigw" oninput="checkmail()" type="email" id="email" name="email" placeholder="Introduzca su email" /></div>';
+	        	msg +='									<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12"><input onclick="checkmail()" class="fill-width" oninput="checkmail()" type="email" id="email" name="email" placeholder="Introduzca su email" /></div>';
 	        	msg +='		</label>';
 	        	msg +='		<div id="emailcheckinfo"></div>';
 	        	msg +='	</div>';
 	        	msg +='	<div class="form-group">';
-	        	msg +='		<label for="pwd">';
+	        	msg +='		<label for="pwd" class="fill-width">';
 	        	msg +='			<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Contraseña</div>';
-	        	msg +='			<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12"><input onclick="checkpwd()" class="bigw" oninput="checkpwd()" type="password" id="pwd" name="pwd" /></div>';
+	        	msg +='			<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12"><input onclick="checkpwd()" class="fill-width" oninput="checkpwd()" type="password" id="pwd" name="pwd" /></div>';
 	        	msg +='		</label>';
 	        	msg +='		<div id="pwdcheckinfo"></div>';
 	        	msg +='	</div>';
 	        	msg +='	<div class="form-group">';
-	        	msg +='		<label for="pwd2">';
+	        	msg +='		<label for="pwd2" class="fill-width">';
 	        	msg +='			<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Repita contraseña</div>';
-	        	msg +='			<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12"><input onclick="checkpwd2()" class="bigw" oninput="checkpwd2()" type="password" id="pwd2" name="pwd2" /></div>';
+	        	msg +='			<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12"><input onclick="checkpwd2()" class="fill-width" oninput="checkpwd2()" type="password" id="pwd2" name="pwd2" /></div>';
 	        	msg +='		</label>';
 	        	msg +='		<div id="pwdcheckinfo2"></div>';
 	        	msg +='	</div>';
