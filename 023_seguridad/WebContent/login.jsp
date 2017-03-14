@@ -21,7 +21,7 @@
 	        	msg +='			<div class="form-group">';
 	        	msg +='				<label for="email" class="fill-width">';
 	        	msg +='						<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Email</div>';
-	        	msg +='									<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12"><input onclick="checkmail()" class="fill-width" oninput="checkmail()" type="email" id="email" name="email" placeholder="Introduzca su email" /></div>';
+	        	msg +='									<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12"><input class="fill-width" onclick="checkmail()" class="fill-width" oninput="checkmail()" type="email" id="email" name="email" placeholder="Introduzca su email" /></div>';
 	        	msg +='		</label>';
 	        	msg +='		<div id="emailcheckinfo"></div>';
 	        	msg +='	</div>';

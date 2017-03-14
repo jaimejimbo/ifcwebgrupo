@@ -12,7 +12,7 @@
   </head>
   <body>
   	<div class="col-lg-4 col-md-4 col-sm-3 col-xs-2"></div>
-  	<div class="col-lg-4 col-md-4 col-sm-6 col-xs-8  main-bg">
+  	<div class="col-lg-4 col-md-4 col-sm-6 col-xs-8 main-bg">
 		<h2>Página de error al hacer login</h2>
 	</div>
     <!--[if lt IE 9]>
