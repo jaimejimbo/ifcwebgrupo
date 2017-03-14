@@ -6,6 +6,6 @@
     background-color: white;	&#13;
 }&#13;
 &#13;
-fill-width{&#13;
+.fill-width{&#13;
 	width: 100%;&#13;
 }</template></templates>
