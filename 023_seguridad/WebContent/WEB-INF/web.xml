@@ -10,13 +10,13 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   <filter>
-  	<description>Encriptado de contraseñas usando BCrypt</description>
-  	<filter-name>bcrypt</filter-name>
-  	<filter-class>banco.Encriptacion</filter-class>
+    <description>Encriptado de contraseñas usando BCrypt</description>
+    <filter-name>bcrypt</filter-name>
+    <filter-class>banco.Encriptacion</filter-class>
   </filter>
   <filter-mapping>
-  	<filter-name>bcrypt</filter-name>
-  	<url-pattern>/Login</url-pattern>
+    <filter-name>bcrypt</filter-name>
+    <url-pattern>/Login</url-pattern>
   </filter-mapping>
   <servlet>
     <servlet-name>Privado</servlet-name>
