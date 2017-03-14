@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates><template autoinsert="true" context="css_new" deleted="false" description="Main for bootstrap" enabled="true" name="Main">body{&#13;
+	background-color: black;&#13;
+}&#13;
+&#13;
+.main-bg{&#13;
+    background-color: white;	&#13;
+}&#13;
+&#13;
+fill-width{&#13;
+	width: 100%;&#13;
+}</template></templates>

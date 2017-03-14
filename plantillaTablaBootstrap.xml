@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates><template autoinsert="true" context="jsp_all" deleted="false" description="" enabled="true" name="TableBootstrap">&lt;table class="table table-striped"&gt;&#13;
+	&lt;thead&gt;&#13;
+		&lt;th&gt;Col1&lt;/th&gt;&lt;th&gt;Col2&lt;/th&gt;&#13;
+	&lt;/thead&gt;&#13;
+  	&lt;tbody&gt;&#13;
+  		&lt;tr&gt;&lt;td&gt;E11&lt;/td&gt;&lt;td&gt;E12&lt;/td&gt;&lt;/tr&gt;&#13;
+  		&lt;tr&gt;&lt;td&gt;E21&lt;/td&gt;&lt;td&gt;E22&lt;/td&gt;&lt;/tr&gt;&#13;
+  		&lt;tr&gt;&lt;td&gt;E31&lt;/td&gt;&lt;td&gt;E32&lt;/td&gt;&lt;/tr&gt;&#13;
+  	&lt;/tbody&gt;&#13;
+&lt;/table&gt;&#13;
+</template></templates>
