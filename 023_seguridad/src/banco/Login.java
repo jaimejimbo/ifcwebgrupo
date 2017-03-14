@@ -36,7 +36,7 @@ public class Login extends HttpServlet {
 		// TODO Auto-generated method stub
 		String email = request.getParameter("email");
 		String salt = BCrypt.gensalt(16);
-		String pwd = BCrypt.hashpw(request.getParameter("pwd"), salt);
+		String pwd = (String)request.getAttribute("pwd");
 		System.out.println(salt);
 		System.out.println(pwd);
 	}
