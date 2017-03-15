@@ -35,8 +35,8 @@ public class Login extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String email = request.getParameter("email");
-		String salt = null; //
-		String pwd = BCrypt.hashpw(request.getParameter("pwd"), salt);
+		String salt = BCrypt.gensalt(16);
+		String pwd = (String)request.getAttribute("pwd");
 		System.out.println(salt);
 		System.out.println(pwd);
 	}

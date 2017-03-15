@@ -9,6 +9,15 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <filter>
+    <description>Encriptado de contraseñas usando BCrypt</description>
+    <filter-name>bcrypt</filter-name>
+    <filter-class>banco.Encriptacion</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>bcrypt</filter-name>
+    <url-pattern>/Login</url-pattern>
+  </filter-mapping>
   <servlet>
     <servlet-name>Privado</servlet-name>
     <servlet-class>Privado</servlet-class>
@@ -27,8 +36,8 @@
   <login-config>
     <auth-method>FORM</auth-method>
     <form-login-config>
-    	<form-login-page>/login.jsp</form-login-page>
-    	<form-error-page>/login-failed.jsp</form-error-page>
+      <form-login-page>/login.jsp</form-login-page>
+      <form-error-page>/login-failed.jsp</form-error-page>
     </form-login-config>
   </login-config>
   <security-role>

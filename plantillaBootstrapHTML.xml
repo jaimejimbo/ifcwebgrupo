@@ -6,12 +6,13 @@
     &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;&#13;
     &lt;link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"&gt;&#13;
 	&lt;link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"&gt;&#13;
+	&lt;link rel="stylesheet" href="custom.css"&gt;&#13;
 &#13;
-    &lt;title&gt;Bootstrap 101 Template&lt;/title&gt;&#13;
+    &lt;title&gt;Plantilla Bootstrap&lt;/title&gt;&#13;
   &lt;/head&gt;&#13;
   &lt;body&gt;&#13;
   	&lt;div class="col-lg-4 col-md-4 col-sm-3 col-xs-2"&gt;&lt;/div&gt;&#13;
-  	&lt;div class="col-lg-4 col-md-4 col-sm-6 col-xs-8"&gt;&#13;
+  	&lt;div class="col-lg-4 col-md-4 col-sm-6 col-xs-8 main_bg"&gt;&#13;
     &lt;h1&gt;Hello, world!&lt;/h1&gt;&#13;
 	&lt;/div&gt;&#13;
     &lt;!--[if lt IE 9]&gt;&#13;
