@@ -8,7 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.ejb.EJBException;
-import javax.ejb.LocalBean;
 import javax.ejb.SessionBean;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
@@ -19,8 +18,7 @@ import org.mindrot.jbcrypt.BCrypt;
  * Session Bean implementation class Salt
  */
 @Stateless
-@LocalBean
-public class Salt implements SaltRemote, SaltLocal, SessionBean {
+public class Salt implements SessionBean {
 	private Connection con = null;
 	private PreparedStatement pstmt = null;
 	private String url = "";
@@ -33,7 +31,6 @@ public class Salt implements SaltRemote, SaltLocal, SessionBean {
     public Salt() {
     }
 
-	@Override
 	public String hash(String pwd, String salt, String email) {
 		String encrypted = "";
 		if (salt!=""){
