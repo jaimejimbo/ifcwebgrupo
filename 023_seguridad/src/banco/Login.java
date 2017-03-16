@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.mysql.jdbc.PreparedStatement;
 
 /**
  * Servlet implementation class Login
@@ -19,7 +18,7 @@ import com.mysql.jdbc.PreparedStatement;
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Connection con;
-	private PreparedStatement pstmt;
+	private java.sql.PreparedStatement pstmt;
        
     /**
      * @see HttpServlet#HttpServlet()
