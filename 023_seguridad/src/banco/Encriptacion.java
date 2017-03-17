@@ -21,15 +21,14 @@ public class Encriptacion implements Filter{
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain fchain)
 			throws IOException, ServletException {
-		String reg = request.getParameter("reg");
-		String salt;
-		if (reg=="yes"){
-			salt = null;
-		} else {
-			salt = BCrypt.gensalt(16);
-		};
+		String email = request.getParameter("email");
+		String salt = null;
+		//Conectar y coger salt
+		//if not salt
+		//	salt = BCrypt.gensalt(16);
 		String password = request.getParameter("pwd");
 		request.setAttribute("pwd", (String)BCrypt.hashpw(password, salt));
+		request.setAttribute("salt", salt);
 		fchain.doFilter(request, response);
 	}
 
