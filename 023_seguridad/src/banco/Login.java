@@ -1,7 +1,12 @@
 package banco;
 
 import java.io.IOException;
+import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import org.mindrot.jbcrypt.BCrypt;
 
 import javax.servlet.ServletException;
@@ -9,8 +14,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.mysql.jdbc.PreparedStatement;
 
 /**
  * Servlet implementation class Login
@@ -19,7 +24,7 @@ import com.mysql.jdbc.PreparedStatement;
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Connection con;
-	private PreparedStatement pstmt;
+	private java.sql.PreparedStatement pstmt;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -34,11 +39,62 @@ public class Login extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		HttpSession sesion = request.getSession();
+		
 		String email = request.getParameter("email");
 		String salt = BCrypt.gensalt(16);
-		String pwd = BCrypt.hashpw(request.getParameter("pwd"), salt);
+		String pwd = (String)request.getAttribute("pwd");
 		System.out.println(salt);
 		System.out.println(pwd);
+		
+		Connection conexion = null;
+		CallableStatement cs = null;
+		ResultSet rs = null;
+
+		try{
+			
+			Class.forName("com.mysql.jdbc.Driver");
+			conexion = DriverManager.getConnection("jdbc:mysql://localhost/banco","root","");
+			cs = conexion.prepareCall("{call login(?,?)}");
+			cs.setString(1, email);
+			cs.setString(2, pwd);
+			rs = cs.executeQuery();
+			
+			if(rs.next()){
+				System.out.println("El usuario existe. Se inicia sesion.");
+				
+				sesion.setAttribute("email",email);
+				sesion.setAttribute("password",pwd);
+				
+			
+			}else{
+				System.out.println("El usuario no existe.");
+			}		
+			
+			}catch(SQLException e){
+				
+				e.printStackTrace();
+			
+			}catch(ClassNotFoundException e){
+				
+				e.printStackTrace();
+			
+			}
+			
+			finally{
+				
+				try{
+					
+					cs.close();
+					conexion.close();
+				
+				}catch(Exception e){
+					
+					e.printStackTrace();
+				}
+			
+			}
 	}
 
 	/**
