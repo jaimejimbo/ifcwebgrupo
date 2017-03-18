@@ -1,6 +1,12 @@
 package banco;
 
 import java.io.IOException;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,6 +42,54 @@ public class Registrar extends HttpServlet {
 		String pwd = BCrypt.hashpw(request.getParameter("pwd"), salt);
 		HttpSession sesion = request.getSession();
 		sesion.setAttribute("email", email);
+			
+		Connection conexion = null;
+		CallableStatement cs = null;
+		CallableStatement cst = null;
+		ResultSet rs = null;
+		
+		try{
+			
+			Class.forName("com.mysql.jdbc.Driver");
+			conexion = DriverManager.getConnection("jdbc:mysql://localhost/banco","root","");
+			cs = conexion.prepareCall("{call cliente_id_email(?)}");
+			cs.setString(1, email);
+			rs = cs.executeQuery();
+			
+			if(rs.next()){
+				System.out.println("El registro ya existe.");
+			}else{
+				cst = conexion.prepareCall("{call nuevo_cliente(0,?,0,0,?,?)}");
+				cst.setString(1, email);
+				cst.setString(2, pwd);
+				cst.setString(3, salt);
+				rs = cst.executeQuery();
+				System.out.println("Se ha creado un nuevo usuario.");
+			}		
+		
+		}catch(SQLException e){
+			
+			e.printStackTrace();
+		
+		}catch(ClassNotFoundException e){
+			
+			e.printStackTrace();
+		
+		}
+		
+		finally{
+			
+			try{
+				cst.close();
+				cs.close();
+				conexion.close();
+			
+			}catch(Exception e){
+				
+				e.printStackTrace();
+			}
+		
+		}
 	}
 
 	/**
