@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-03-2017 a las 22:21:09
+-- Tiempo de generación: 18-03-2017 a las 13:08:56
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 5.6.30
 
@@ -28,7 +28,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `cliente_direccion_id` (IN `iid` INT
 select clientes.dirección from clientes where clientes.cliente_id=iid$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `cliente_dni_id` (IN `iid` INT)  NO SQL
-select clientes.email from clientes where clientes.cliente_id=iid$$
+select clientes.DNI from clientes where clientes.cliente_id=iid$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `cliente_email_id` (IN `iid` INT)  NO SQL
 select clientes.email from clientes where clientes.cliente_id=iid$$
@@ -54,7 +54,7 @@ select cuentas.fondos from cuentas where cuentas.nombre=inombre$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_salt` (IN `iemail` VARCHAR(100))  NO SQL
 select clientes.salt from clientes where clientes.email=iemail$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `login` (IN `iemail` VARCHAR(50), IN `ipwd` INT(100))  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `login` (IN `iemail` VARCHAR(50), IN `ipwd` VARCHAR(100))  NO SQL
 select count(*) from clientes where clientes.email=iemail and clientes.pwd=ipwd$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `nombres_cuenta` (IN `icid` INT)  NO SQL
