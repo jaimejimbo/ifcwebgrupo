@@ -29,6 +29,7 @@ public class Encriptacion implements Filter{
 		String password = request.getParameter("pwd");
 		request.setAttribute("pwd", (String)BCrypt.hashpw(password, salt));
 		request.setAttribute("salt", salt);
+		System.out.println();
 		fchain.doFilter(request, response);
 	}
 
