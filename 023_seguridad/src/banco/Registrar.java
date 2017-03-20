@@ -45,7 +45,6 @@ public class Registrar extends HttpServlet {
 		String salt = (String)request.getAttribute("salt");
 		String pwd = (String)request.getAttribute("pwd");
 		HttpSession sesion = request.getSession();
-		sesion.setAttribute("email", email);
 			
 		Connection con = null;
 		CallableStatement cs = null;
