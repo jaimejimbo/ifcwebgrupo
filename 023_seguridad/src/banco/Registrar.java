@@ -23,10 +23,10 @@ import org.mindrot.jbcrypt.BCrypt;
 @WebServlet({ "/Registrar", "/registrar.php", "/registrar.html" })
 public class Registrar extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private String url = "jdbc:mysql://localhost/banco";
-	private String user = "root";
-	private String sqlpwd = "";
-	private String classurl = "com.mysql.jdbc.Driver";
+	private String url = Messages.getString("sqlurl"); //$NON-NLS-1$
+	private String user = Messages.getString("sqluser"); //$NON-NLS-1$
+	private String sqlpwd = Messages.getString("sqlpwd"); //$NON-NLS-1$
+	private String classurl = Messages.getString("classurl"); //$NON-NLS-1$
        
     /**
      * @see HttpServlet#HttpServlet()

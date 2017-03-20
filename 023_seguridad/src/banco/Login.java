@@ -23,9 +23,9 @@ public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Connection con;
 	private CallableStatement cs;
-	private String url = "jdbc:mysql://localhost/banco";
-	private String user = "root";
-	private String sqlpwd = "";
+	private String url = Messages.getString("sqlurl"); //$NON-NLS-1$
+	private String user = Messages.getString("sqluser"); //$NON-NLS-1$
+	private String sqlpwd = Messages.getString("sqlpwd"); //$NON-NLS-1$
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -43,15 +43,15 @@ public class Login extends HttpServlet {
 		
 		HttpSession sesion = request.getSession();
 		
-		String email = request.getParameter("email");
-		String pwd = (String)request.getAttribute("pwd");
+		String email = request.getParameter("email"); //$NON-NLS-1$
+		String pwd = (String)request.getAttribute("pwd"); //$NON-NLS-1$
 
 		try{
 
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.jdbc.Driver"); //$NON-NLS-1$
 			con = DriverManager.getConnection(url, user, sqlpwd);
 			ResultSet rs;
-			cs = con.prepareCall("call login(?,?)");
+			cs = con.prepareCall("call login(?,?)"); //$NON-NLS-1$
 			cs.setString(1, email);
 			cs.setString(2, pwd);
 			rs = cs.executeQuery();
@@ -62,15 +62,15 @@ public class Login extends HttpServlet {
 				ex.printStackTrace();
 			}
 			if(coinc==0){
-				sesion.setAttribute("cliente_id", -1);
+				sesion.setAttribute("cliente_id", -1); //$NON-NLS-1$
 			}else if(coinc==1){
-				cs = con.prepareCall("call cliente_id_email(?)");
+				cs = con.prepareCall("call cliente_id_email(?)"); //$NON-NLS-1$
 				rs = cs.executeQuery();
 				int cliente_id = rs.getRow();
-				sesion.setAttribute("cliente_id", cliente_id);
-				sesion.setAttribute("email", email);
+				sesion.setAttribute("cliente_id", cliente_id); //$NON-NLS-1$
+				sesion.setAttribute("email", email); //$NON-NLS-1$
 			}else{
-				System.out.println("Error");
+				System.out.println("Error"); //$NON-NLS-1$
 			}
 			
 		}catch(SQLException e){

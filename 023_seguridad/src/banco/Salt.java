@@ -25,9 +25,10 @@ public class Salt implements SessionBean {
 	private static final long serialVersionUID = 2697837237897559165L;
 	private Connection con = null;
 	private PreparedStatement pstmt = null;
-	private String url = "";
-	private String user = "root";
-	private String pwd = "";
+	private String url = Messages.getString("sqlurl"); //$NON-NLS-1$
+	private String user = Messages.getString("sqluser"); //$NON-NLS-1$
+	private String sqlpwd = Messages.getString("sqlpwd"); //$NON-NLS-1$
+	private String classurl = Messages.getString("classurl"); //$NON-NLS-1$
 	
     /**
      * Default constructor. 
@@ -61,13 +62,13 @@ public class Salt implements SessionBean {
 	@Override
 	public void ejbActivate() throws EJBException, RemoteException {
     	try {
-			Class.forName("com.mysql.jdbc.Driver.class");
+			Class.forName(classurl);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     	try {
-			con = DriverManager.getConnection(url, user, pwd);
+			con = DriverManager.getConnection(url, user, sqlpwd);
 			pstmt = con.prepareStatement("call get_salt(?, ?)");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
