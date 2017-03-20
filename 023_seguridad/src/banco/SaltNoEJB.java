@@ -13,16 +13,12 @@ public class SaltNoEJB {
 	
 	private Connection con = null;
 	private CallableStatement call = null;
-	private String url = "jdbc:mysql://localhost/banco";
-	private String user = "root";
-	private String sqlpwd = "";
-	private String classurl = "com.mysql.jdbc.Driver";
 	
 	public SaltNoEJB(){
 		
 	}
 
-	public String getSalt(String pwd, String salt, String email) {
+	public String getSalt(String pwd, String salt, String email, String classurl, String sqlurl, String sqluser, String sqlpwd) {
     	try {
 			Class.forName(classurl);
 		} catch (ClassNotFoundException e) {
@@ -30,7 +26,7 @@ public class SaltNoEJB {
 			e.printStackTrace();
 		}
     	try {
-			con = DriverManager.getConnection(url, user, sqlpwd);
+			con = DriverManager.getConnection(sqlurl, sqluser, sqlpwd);
 			call = con.prepareCall("call get_salt(?)");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

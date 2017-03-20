@@ -4,6 +4,22 @@
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
+  <context-param>
+  	<param-name>classurl</param-name>
+  	<param-value>com.mysql.jdbc.Driver.class</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>sqlurl</param-name>
+  	<param-value>jdbc:mysql://localhost/banco</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>sqluser</param-name>
+  	<param-value>root</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>sqlpwd</param-name>
+  	<param-value></param-value>
+  </context-param>
   <filter>
   	<filter-name>encriptar</filter-name>
   	<filter-class>banco.Encriptacion</filter-class>

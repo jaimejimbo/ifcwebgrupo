@@ -23,10 +23,10 @@ import org.mindrot.jbcrypt.BCrypt;
 @WebServlet({ "/Registrar", "/registrar.php", "/registrar.html" })
 public class Registrar extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private String url = Messages.getString("sqlurl"); //$NON-NLS-1$
-	private String user = Messages.getString("sqluser"); //$NON-NLS-1$
-	private String sqlpwd = Messages.getString("sqlpwd"); //$NON-NLS-1$
-	private String classurl = Messages.getString("classurl"); //$NON-NLS-1$
+	String classurl;
+	String sqlurl;
+	String sqluser;
+	String sqlpwd;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -44,6 +44,10 @@ public class Registrar extends HttpServlet {
 		String email = request.getParameter("email");
 		String salt = (String)request.getAttribute("salt");
 		String pwd = (String)request.getAttribute("pwd");
+		this.classurl = (String)request.getAttribute("classurl"); //$NON-NLS-1$
+		this.sqlurl = (String)request.getAttribute("sqlurl"); //$NON-NLS-1$
+		this.sqluser = (String)request.getAttribute("sqluser"); //$NON-NLS-1$
+		this.sqlpwd = (String)request.getAttribute("sqlpwd"); //$NON-NLS-1$
 		HttpSession sesion = request.getSession();
 			
 		Connection con = null;
@@ -53,7 +57,7 @@ public class Registrar extends HttpServlet {
 		try{
 
 			Class.forName(classurl);
-			con = DriverManager.getConnection(url, user, sqlpwd);
+			con = DriverManager.getConnection(sqlurl, sqluser, sqlpwd);
 			cs = con.prepareCall("{call cliente_id_email(?)}");
 			cs.setString(1, email);
 			rs = cs.executeQuery();

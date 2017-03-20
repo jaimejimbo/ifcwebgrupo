@@ -23,9 +23,10 @@ public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Connection con;
 	private CallableStatement cs;
-	private String url = Messages.getString("sqlurl"); //$NON-NLS-1$
-	private String user = Messages.getString("sqluser"); //$NON-NLS-1$
-	private String sqlpwd = Messages.getString("sqlpwd"); //$NON-NLS-1$
+	String classurl;
+	String sqlurl;
+	String sqluser;
+	String sqlpwd;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -40,6 +41,10 @@ public class Login extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		this.classurl = (String)request.getAttribute("classurl"); //$NON-NLS-1$
+		this.sqlurl = (String)request.getAttribute("sqlurl"); //$NON-NLS-1$
+		this.sqluser = (String)request.getAttribute("sqluser"); //$NON-NLS-1$
+		this.sqlpwd = (String)request.getAttribute("sqlpwd"); //$NON-NLS-1$
 		
 		HttpSession sesion = request.getSession();
 		
@@ -48,8 +53,8 @@ public class Login extends HttpServlet {
 
 		try{
 
-			Class.forName("com.mysql.jdbc.Driver"); //$NON-NLS-1$
-			con = DriverManager.getConnection(url, user, sqlpwd);
+			Class.forName(classurl);
+			con = DriverManager.getConnection(sqlurl, sqluser, sqlpwd);
 			ResultSet rs;
 			cs = con.prepareCall("call login(?,?)"); //$NON-NLS-1$
 			cs.setString(1, email);

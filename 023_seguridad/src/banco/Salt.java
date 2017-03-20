@@ -11,6 +11,7 @@ import javax.ejb.EJBException;
 import javax.ejb.SessionBean;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
+import javax.naming.Context;
 
 import org.mindrot.jbcrypt.BCrypt;
 
