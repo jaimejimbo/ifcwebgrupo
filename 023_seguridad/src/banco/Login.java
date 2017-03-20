@@ -44,9 +44,7 @@ public class Login extends HttpServlet {
 		
 		String email = request.getParameter("email");
 		String pwd = (String)request.getAttribute("pwd");
-		//comprobar en BD el login
 		HttpSession session = request.getSession();
-		//session.setAttribute(, );
 		System.out.println(pwd);
 		
 		Connection conexion = null;
@@ -61,14 +59,9 @@ public class Login extends HttpServlet {
 			cs.setString(1, email);
 			cs.setString(2, pwd);
 			rs = cs.executeQuery();
-			
-			if(rs.next()){
+			System.out.println(pwd);
+			if(rs.getInt(1)>0){
 				System.out.println("El usuario existe. Se inicia sesion.");
-				
-				sesion.setAttribute("email",email);
-				sesion.setAttribute("password",pwd);
-				
-			
 			}else{
 				System.out.println("El usuario no existe.");
 			}		
