@@ -19,6 +19,10 @@ import org.mindrot.jbcrypt.BCrypt;
  */
 @Stateless
 public class Salt implements SessionBean {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2697837237897559165L;
 	private Connection con = null;
 	private PreparedStatement pstmt = null;
 	private String url = "";

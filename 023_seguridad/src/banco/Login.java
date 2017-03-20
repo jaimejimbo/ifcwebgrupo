@@ -7,8 +7,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.mindrot.jbcrypt.BCrypt;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,7 +22,7 @@ import javax.servlet.http.HttpSession;
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Connection con;
-	private java.sql.PreparedStatement pstmt;
+	private CallableStatement cs;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -44,51 +42,52 @@ public class Login extends HttpServlet {
 		
 		String email = request.getParameter("email");
 		String pwd = (String)request.getAttribute("pwd");
-		HttpSession session = request.getSession();
 		System.out.println(pwd);
-		
-		Connection conexion = null;
-		CallableStatement cs = null;
-		ResultSet rs = null;
 
 		try{
 			
 			Class.forName("com.mysql.jdbc.Driver");
-			conexion = DriverManager.getConnection("jdbc:mysql://localhost/banco","root","");
-			cs = conexion.prepareCall("{call login(?,?)}");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/banco","root","");
+			ResultSet rs;
+			cs = con.prepareCall("{call login(?,?)}");
 			cs.setString(1, email);
 			cs.setString(2, pwd);
 			rs = cs.executeQuery();
-			System.out.println(pwd);
-			if(rs.getInt(1)>0){
+			int coinc = -1;
+			try{
+				coinc = rs.getRow();
+			}catch(SQLException ex){
+				ex.printStackTrace();
+			}
+			if(coinc==0){
+				System.out.println("El usuario no existe.");
+			}else if(coinc==1){
 				System.out.println("El usuario existe. Se inicia sesion.");
 			}else{
-				System.out.println("El usuario no existe.");
-			}		
-			
-			}catch(SQLException e){
-				
-				e.printStackTrace();
-			
-			}catch(ClassNotFoundException e){
-				
-				e.printStackTrace();
-			
+				System.out.println("Error");
 			}
 			
-			finally{
+		}catch(SQLException e){
 				
-				try{
-					
-					cs.close();
-					conexion.close();
-				
-				}catch(Exception e){
-					
-					e.printStackTrace();
-				}
+			e.printStackTrace();
 			
+		}catch(ClassNotFoundException e){
+				
+			e.printStackTrace();
+			
+		}finally{
+				
+			try{
+				
+				cs.close();
+				con.close();
+			
+			}catch(Exception e){
+				
+				e.printStackTrace();
 			}
+		
+		}
 	}
 
 	/**
