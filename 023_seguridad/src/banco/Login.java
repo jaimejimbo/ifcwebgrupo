@@ -23,6 +23,9 @@ public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Connection con;
 	private CallableStatement cs;
+	private String url = "jdbc:mysql://localhost/banco";
+	private String user = "root";
+	private String sqlpwd = "";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -42,14 +45,13 @@ public class Login extends HttpServlet {
 		
 		String email = request.getParameter("email");
 		String pwd = (String)request.getAttribute("pwd");
-		System.out.println(pwd);
 
 		try{
-			
+
 			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/banco","root","");
+			con = DriverManager.getConnection(url, user, sqlpwd);
 			ResultSet rs;
-			cs = con.prepareCall("{call login(?,?)}");
+			cs = con.prepareCall("call login(?,?)");
 			cs.setString(1, email);
 			cs.setString(2, pwd);
 			rs = cs.executeQuery();
@@ -60,9 +62,13 @@ public class Login extends HttpServlet {
 				ex.printStackTrace();
 			}
 			if(coinc==0){
-				System.out.println("El usuario no existe.");
+				sesion.setAttribute("cliente_id", -1);
 			}else if(coinc==1){
-				System.out.println("El usuario existe. Se inicia sesion.");
+				cs = con.prepareCall("call cliente_id_email(?)");
+				rs = cs.executeQuery();
+				int cliente_id = rs.getRow();
+				sesion.setAttribute("cliente_id", cliente_id);
+				sesion.setAttribute("email", email);
 			}else{
 				System.out.println("Error");
 			}

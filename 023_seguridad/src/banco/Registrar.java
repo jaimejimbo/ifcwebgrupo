@@ -23,6 +23,10 @@ import org.mindrot.jbcrypt.BCrypt;
 @WebServlet({ "/Registrar", "/registrar.php", "/registrar.html" })
 public class Registrar extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private String url = "jdbc:mysql://localhost/banco";
+	private String user = "root";
+	private String sqlpwd = "";
+	private String classurl = "com.mysql.jdbc.Driver";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -38,33 +42,40 @@ public class Registrar extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String email = request.getParameter("email");
-		String salt = BCrypt.gensalt(16);
-		String pwd = BCrypt.hashpw(request.getParameter("pwd"), salt);
+		String salt = (String)request.getAttribute("salt");
+		String pwd = (String)request.getAttribute("pwd");
 		HttpSession sesion = request.getSession();
 		sesion.setAttribute("email", email);
 			
-		Connection conexion = null;
+		Connection con = null;
 		CallableStatement cs = null;
-		CallableStatement cst = null;
 		ResultSet rs = null;
 		
 		try{
-			
-			Class.forName("com.mysql.jdbc.Driver");
-			conexion = DriverManager.getConnection("jdbc:mysql://localhost/banco","root","");
-			cs = conexion.prepareCall("{call cliente_id_email(?)}");
+
+			Class.forName(classurl);
+			con = DriverManager.getConnection(url, user, sqlpwd);
+			cs = con.prepareCall("{call cliente_id_email(?)}");
 			cs.setString(1, email);
 			rs = cs.executeQuery();
+			boolean next = rs.next();
+			cs.close();
 			
-			if(rs.next()){
+			if(next){
 				System.out.println("El registro ya existe.");
 			}else{
-				cst = conexion.prepareCall("{call nuevo_cliente(0,?,0,0,?,?)}");
-				cst.setString(1, email);
-				cst.setString(2, pwd);
-				cst.setString(3, salt);
-				rs = cst.executeQuery();
-				System.out.println("Se ha creado un nuevo usuario.");
+				cs = con.prepareCall("{call nuevo_cliente('',?,'','',?,?)}");
+				cs.setString(1, email);
+				cs.setString(2, pwd);
+				cs.setString(3, salt);
+				rs = cs.executeQuery();
+				cs = con.prepareCall("call cliente_id_email(?)");
+				cs.setString(1, email);
+				rs = cs.executeQuery();
+				int cliente_id = rs.getRow();
+				sesion.setAttribute("cliente_id", cliente_id);
+				sesion.setAttribute("email", email);
+				cs.close();
 			}		
 		
 		}catch(SQLException e){
@@ -80,9 +91,8 @@ public class Registrar extends HttpServlet {
 		finally{
 			
 			try{
-				cst.close();
 				cs.close();
-				conexion.close();
+				con.close();
 			
 			}catch(Exception e){
 				

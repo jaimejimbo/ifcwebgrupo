@@ -22,12 +22,10 @@ public class Encriptacion implements Filter{
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain fchain)
 			throws IOException, ServletException {
 		String email = request.getParameter("email");
-		String salt = BCrypt.gensalt(16);
+		String salt = null;
 		String pwd = request.getParameter("pwd");
-		System.out.println("Entra en el filtro");
-		System.out.println(pwd);
-		System.out.println(salt);
-		//Conseguir salt con el ejb
+		SaltNoEJB snejb = new SaltNoEJB();
+		salt = snejb.getSalt(pwd, salt, email);
 		request.setAttribute("pwd", (String)BCrypt.hashpw(pwd, salt));
 		request.setAttribute("salt", salt);
 		fchain.doFilter(request, response);
