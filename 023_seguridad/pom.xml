@@ -4,8 +4,21 @@
   <artifactId>023_seguridad</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
+  <repositories>
+  	<repository>
+  		<id>java.net</id>
+  		<url>http://download.java.net/maven/2</url>
+  	</repository>
+  </repositories>
   <dependencies>
-  <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+  <!-- JAVAX -->
+  	<dependency>
+  		<groupId>javax</groupId>
+  		<artifactId>javaee-api</artifactId>
+  		<version>6.0</version>
+  		<scope>provided</scope>
+  	</dependency>
+	<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 	<dependency>
 	    <groupId>mysql</groupId>
 	    <artifactId>mysql-connector-java</artifactId>
@@ -17,12 +30,11 @@
 	    <version>3.0.1</version>
 	    <scope>provided</scope>
 	</dependency>
-	<!-- https://mvnrepository.com/artifact/javax.ejb/ejb-api -->
+	<!-- https://mvnrepository.com/artifact/javax.ejb/javax.ejb-api -->
 	<dependency>
 	    <groupId>javax.ejb</groupId>
-	    <artifactId>ejb-api</artifactId>
-	    <version>3.0</version>
-	    <scope>provided</scope>
+	    <artifactId>javax.ejb-api</artifactId>
+	    <version>3.2</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/javax.websocket/javax.websocket-api -->
 	<dependency>

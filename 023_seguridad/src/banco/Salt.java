@@ -8,9 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.ejb.EJBException;
+import javax.ejb.Stateless;
 import javax.ejb.SessionBean;
 import javax.ejb.SessionContext;
-import javax.ejb.Stateless;
 import javax.naming.Context;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -26,10 +26,6 @@ public class Salt implements SessionBean {
 	private static final long serialVersionUID = 2697837237897559165L;
 	private Connection con = null;
 	private PreparedStatement pstmt = null;
-	private String url = Messages.getString("sqlurl"); //$NON-NLS-1$
-	private String user = Messages.getString("sqluser"); //$NON-NLS-1$
-	private String sqlpwd = Messages.getString("sqlpwd"); //$NON-NLS-1$
-	private String classurl = Messages.getString("classurl"); //$NON-NLS-1$
 	
     /**
      * Default constructor. 
@@ -37,11 +33,25 @@ public class Salt implements SessionBean {
     public Salt() {
     }
 
-	public String hash(String pwd, String salt, String email) {
-		String encrypted = "";
-		if (salt!=""){
-			encrypted = BCrypt.hashpw(pwd, salt);
-			return encrypted;
+	public String hash(String pwd, String salt, String email, String classurl, String sqlurl, String sqluser, String sqlpwd) {
+
+    	try {
+			Class.forName(classurl);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Error0");
+			e.printStackTrace();
+		}
+    	try {
+			con = DriverManager.getConnection(sqlurl, sqluser, sqlpwd);
+			pstmt = con.prepareStatement("call get_salt(?)");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Error1");
+			e.printStackTrace();
+		}
+		if (salt!=null){
+			return salt;
 		}
 		try {
 			pstmt.setString(1, email);
@@ -51,30 +61,18 @@ public class Salt implements SessionBean {
 			} else {
 				salt = BCrypt.gensalt(16);
 			}
-			encrypted = BCrypt.hashpw(pwd, salt);
-			return encrypted;
+			return salt;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			System.out.println("ERROR2");
 			e.printStackTrace();
 		}
+		System.out.println(email);
 		return "";
 	}
 
 	@Override
 	public void ejbActivate() throws EJBException, RemoteException {
-    	try {
-			Class.forName(classurl);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	try {
-			con = DriverManager.getConnection(url, user, sqlpwd);
-			pstmt = con.prepareStatement("call get_salt(?, ?)");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 	}
 

@@ -36,8 +36,8 @@ public class Encriptacion implements Filter{
 		request.setAttribute("sqlurl", sqlurl);
 		request.setAttribute("sqluser", sqluser);
 		request.setAttribute("sqlpwd", sqlpwd);
-		SaltNoEJB snejb = new SaltNoEJB();
-		salt = snejb.getSalt(pwd, salt, email, classurl, sqlurl, sqluser, sqlpwd);
+		Salt snejb = new Salt();
+		salt = snejb.hash(pwd, salt, email, classurl, sqlurl, sqluser, sqlpwd);
 		request.setAttribute("pwd", (String)BCrypt.hashpw(pwd, salt)); //$NON-NLS-1$
 		request.setAttribute("salt", salt); //$NON-NLS-1$
 		fchain.doFilter(request, response);
