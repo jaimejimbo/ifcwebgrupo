@@ -67,7 +67,6 @@ public class Salt implements SessionBean {
 			System.out.println("ERROR2");
 			e.printStackTrace();
 		}
-		System.out.println(email);
 		return "";
 	}
 
