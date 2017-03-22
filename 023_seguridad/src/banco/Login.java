@@ -74,6 +74,7 @@ public class Login extends HttpServlet {
 				int cliente_id = rs.getRow();
 				sesion.setAttribute("cliente_id", cliente_id); //$NON-NLS-1$
 				sesion.setAttribute("email", email); //$NON-NLS-1$
+				sesion.setAttribute("allowed", true);
 			}else{
 				System.out.println("Error"); //$NON-NLS-1$
 			}

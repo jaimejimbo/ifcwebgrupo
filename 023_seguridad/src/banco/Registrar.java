@@ -78,6 +78,7 @@ public class Registrar extends HttpServlet {
 				int cliente_id = rs.getRow();
 				sesion.setAttribute("cliente_id", cliente_id);
 				sesion.setAttribute("email", email);
+				sesion.setAttribute("allowed", true);
 				cs.close();
 			}		
 		
