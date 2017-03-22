@@ -67,7 +67,8 @@ public class Login extends HttpServlet {
 				ex.printStackTrace();
 			}
 			if(coinc==0){
-				sesion.setAttribute("cliente_id", -1); //$NON-NLS-1$
+				sesion.setAttribute("cliente_id", null); //$NON-NLS-1$
+				response.sendRedirect(request.getContextPath().concat("/login.jsp"));
 			}else if(coinc==1){
 				cs = con.prepareCall("call cliente_id_email(?)"); //$NON-NLS-1$
 				rs = cs.executeQuery();
@@ -108,7 +109,6 @@ public class Login extends HttpServlet {
 				
 				e.printStackTrace();
 			}
-			response.sendRedirect(request.getContextPath().concat("/login.jsp"));
 		}
 	}
 
