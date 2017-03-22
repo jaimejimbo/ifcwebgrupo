@@ -80,6 +80,8 @@ public class Registrar extends HttpServlet {
 				sesion.setAttribute("email", email);
 				sesion.setAttribute("allowed", true);
 				cs.close();
+				con.close();
+				response.sendRedirect(request.getContextPath().concat("/Privado"));
 			}		
 		
 		}catch(SQLException e){
@@ -97,7 +99,7 @@ public class Registrar extends HttpServlet {
 			try{
 				cs.close();
 				con.close();
-			
+				response.sendRedirect(request.getContextPath().concat("/login.jsp"));
 			}catch(Exception e){
 				
 				e.printStackTrace();

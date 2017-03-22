@@ -75,6 +75,16 @@ public class Login extends HttpServlet {
 				sesion.setAttribute("cliente_id", cliente_id); //$NON-NLS-1$
 				sesion.setAttribute("email", email); //$NON-NLS-1$
 				sesion.setAttribute("allowed", true);
+				try{
+					
+					cs.close();
+					con.close();
+				
+				}catch(Exception e){
+					
+					e.printStackTrace();
+				}
+				response.sendRedirect(request.getContextPath().concat("/Privado"));
 			}else{
 				System.out.println("Error"); //$NON-NLS-1$
 			}
@@ -98,7 +108,7 @@ public class Login extends HttpServlet {
 				
 				e.printStackTrace();
 			}
-		
+			response.sendRedirect(request.getContextPath().concat("/login.jsp"));
 		}
 	}
 
