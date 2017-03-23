@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.mysql.jdbc.ResultSetMetaData;
+
 
 /**
  * Servlet implementation class Login
@@ -62,7 +64,11 @@ public class Login extends HttpServlet {
 			rs = cs.executeQuery();
 			int coinc = -1;
 			try{
-				coinc = rs.getRow();
+				if(rs.next()){
+					coinc=1;
+				} else {
+					coinc=0;
+				}
 			}catch(SQLException ex){
 				ex.printStackTrace();
 			}
@@ -71,8 +77,10 @@ public class Login extends HttpServlet {
 				response.sendRedirect(request.getContextPath().concat("/login.jsp"));
 			}else if(coinc==1){
 				cs = con.prepareCall("call cliente_id_email(?)"); //$NON-NLS-1$
+				cs.setString(1, email);
 				rs = cs.executeQuery();
-				int cliente_id = rs.getRow();
+				rs.next();
+				int cliente_id = rs.getInt(1);
 				sesion.setAttribute("cliente_id", cliente_id); //$NON-NLS-1$
 				sesion.setAttribute("email", email); //$NON-NLS-1$
 				sesion.setAttribute("allowed", true);
@@ -87,7 +95,7 @@ public class Login extends HttpServlet {
 				}
 				response.sendRedirect(request.getContextPath().concat("/Privado"));
 			}else{
-				System.out.println("Error"); //$NON-NLS-1$
+				System.out.println("Error del coinc"); //$NON-NLS-1$
 			}
 			
 		}catch(SQLException e){
