@@ -1,8 +1,11 @@
 package banco;
 
 import java.io.IOException;
+import java.sql.CallableStatement;
 import java.sql.Connection;
-import org.mindrot.jbcrypt.BCrypt;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.mysql.jdbc.PreparedStatement;
 
 /**
  * Servlet implementation class Login
@@ -20,7 +22,11 @@ import com.mysql.jdbc.PreparedStatement;
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Connection con;
-	private PreparedStatement pstmt;
+	private CallableStatement cs;
+	String classurl;
+	String sqlurl;
+	String sqluser;
+	String sqlpwd;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -35,12 +41,75 @@ public class Login extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String email = request.getParameter("email");
-		String pwd = (String)request.getAttribute("pwd");
-		//comprobar en BD el login
-		HttpSession session = request.getSession();
-		//session.setAttribute(, );
-		System.out.println(pwd);
+		this.classurl = (String)request.getAttribute("classurl"); //$NON-NLS-1$
+		this.sqlurl = (String)request.getAttribute("sqlurl"); //$NON-NLS-1$
+		this.sqluser = (String)request.getAttribute("sqluser"); //$NON-NLS-1$
+		this.sqlpwd = (String)request.getAttribute("sqlpwd"); //$NON-NLS-1$
+		
+		HttpSession sesion = request.getSession();
+		
+		String email = request.getParameter("email"); //$NON-NLS-1$
+		String pwd = (String)request.getAttribute("pwd"); //$NON-NLS-1$
+
+		try{
+
+			Class.forName(classurl);
+			con = DriverManager.getConnection(sqlurl, sqluser, sqlpwd);
+			ResultSet rs;
+			cs = con.prepareCall("call login(?,?)"); //$NON-NLS-1$
+			cs.setString(1, email);
+			cs.setString(2, pwd);
+			rs = cs.executeQuery();
+			int coinc = -1;
+			try{
+				coinc = rs.getRow();
+			}catch(SQLException ex){
+				ex.printStackTrace();
+			}
+			if(coinc==0){
+				sesion.setAttribute("cliente_id", null); //$NON-NLS-1$
+				response.sendRedirect(request.getContextPath().concat("/login.jsp"));
+			}else if(coinc==1){
+				cs = con.prepareCall("call cliente_id_email(?)"); //$NON-NLS-1$
+				rs = cs.executeQuery();
+				int cliente_id = rs.getRow();
+				sesion.setAttribute("cliente_id", cliente_id); //$NON-NLS-1$
+				sesion.setAttribute("email", email); //$NON-NLS-1$
+				sesion.setAttribute("allowed", true);
+				try{
+					
+					cs.close();
+					con.close();
+				
+				}catch(Exception e){
+					
+					e.printStackTrace();
+				}
+				response.sendRedirect(request.getContextPath().concat("/Privado"));
+			}else{
+				System.out.println("Error"); //$NON-NLS-1$
+			}
+			
+		}catch(SQLException e){
+				
+			e.printStackTrace();
+			
+		}catch(ClassNotFoundException e){
+				
+			e.printStackTrace();
+			
+		}finally{
+				
+			try{
+				
+				cs.close();
+				con.close();
+			
+			}catch(Exception e){
+				
+				e.printStackTrace();
+			}
+		}
 	}
 
 	/**

@@ -21,14 +21,25 @@ public class Encriptacion implements Filter{
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain fchain)
 			throws IOException, ServletException {
-		String email = request.getParameter("email");
+		String email = request.getParameter("email"); //$NON-NLS-1$
 		String salt = null;
-		//Conectar y coger salt
-		//if not salt
-		//	salt = BCrypt.gensalt(16);
-		String password = request.getParameter("pwd");
-		request.setAttribute("pwd", (String)BCrypt.hashpw(password, salt));
-		request.setAttribute("salt", salt);
+		String pwd = request.getParameter("pwd");
+		//String classurl = request.getParameter("classurl"); //$NON-NLS-1$
+		//String sqlurl = request.getParameter("sqlurl"); //$NON-NLS-1$
+		//String sqluser = request.getParameter("sqluser"); //$NON-NLS-1$
+		//String sqlpwd = request.getParameter("sqlpwd"); //$NON-NLS-1$
+		String classurl = "com.mysql.jdbc.Driver";
+		String sqlurl = "jdbc:mysql://localhost/banco";
+		String sqluser = "root";
+		String sqlpwd = "";
+		request.setAttribute("classurl", classurl);
+		request.setAttribute("sqlurl", sqlurl);
+		request.setAttribute("sqluser", sqluser);
+		request.setAttribute("sqlpwd", sqlpwd);
+		Salt snejb = new Salt();
+		salt = snejb.hash(pwd, salt, email, classurl, sqlurl, sqluser, sqlpwd);
+		request.setAttribute("pwd", (String)BCrypt.hashpw(pwd, salt)); //$NON-NLS-1$
+		request.setAttribute("salt", salt); //$NON-NLS-1$
 		fchain.doFilter(request, response);
 	}
 

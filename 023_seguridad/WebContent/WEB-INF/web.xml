@@ -2,36 +2,50 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
   <display-name>023_seguridad</display-name>
   <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
     <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <context-param>
+    <param-name>classurl</param-name>
+    <param-value>com.mysql.jdbc.Driver.class</param-value>
+  </context-param>
+  <context-param>
+    <param-name>sqlurl</param-name>
+    <param-value>jdbc:mysql://localhost/banco</param-value>
+  </context-param>
+  <context-param>
+    <param-name>sqluser</param-name>
+    <param-value>root</param-value>
+  </context-param>
+  <context-param>
+    <param-name>sqlpwd</param-name>
+    <param-value></param-value>
+  </context-param>
+  <filter>
+    <filter-name>encriptar</filter-name>
+    <filter-class>banco.Encriptacion</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>encriptar</filter-name>
+    <url-pattern>/login.php</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>encriptar</filter-name>
+    <url-pattern>/registrar.php</url-pattern>
+  </filter-mapping>
   <servlet>
     <servlet-name>Privado</servlet-name>
     <servlet-class>Privado</servlet-class>
   </servlet>
-  <security-constraint>
-    <web-resource-collection>
-      <web-resource-name>ZonaPrivada</web-resource-name>
-      <url-pattern>/Privado</url-pattern>
-      <http-method>GET</http-method>
-      <http-method>POST</http-method>
-    </web-resource-collection>
-    <auth-constraint>
-      <role-name>role1</role-name>
-    </auth-constraint>
-  </security-constraint>
-  <login-config>
-    <auth-method>FORM</auth-method>
-    <form-login-config>
-      <form-login-page>/login.jsp</form-login-page>
-      <form-error-page>/login-failed.jsp</form-error-page>
-    </form-login-config>
-  </login-config>
-  <security-role>
-    <role-name>role1</role-name>
-  </security-role>
+  <filter>
+  	<filter-name>controlacceso</filter-name>
+  	<filter-class>banco.Acceso</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>controlacceso</filter-name>
+  	<servlet-name>Privado</servlet-name>
+  </filter-mapping>
+  <filter-mapping>
+  	<filter-name>controlacceso</filter-name>
+	<url-pattern>/Privado</url-pattern>
+  </filter-mapping>
 </web-app>
