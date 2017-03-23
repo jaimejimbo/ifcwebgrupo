@@ -13,7 +13,6 @@
   	<div class="col-lg-3 col-md-2 col-sm-1 col-xs-1"></div>
   	<div class="col-lg-6 col-md-8 col-sm-10 col-xs-10 main-bg" id="login">
 	</div>
-	
 	<script>
 		function loadlogin(){
 			var msg = '<h2 class="text-center">Inicio de sesión</h2>';

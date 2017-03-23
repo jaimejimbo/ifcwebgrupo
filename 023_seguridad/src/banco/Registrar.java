@@ -66,6 +66,7 @@ public class Registrar extends HttpServlet {
 			
 			if(next){
 				System.out.println("El registro ya existe.");
+				response.sendRedirect(request.getContextPath().concat("/login.jsp"));
 			}else{
 				cs = con.prepareCall("{call nuevo_cliente('',?,'','',?,?)}");
 				cs.setString(1, email);
@@ -99,10 +100,7 @@ public class Registrar extends HttpServlet {
 			try{
 				cs.close();
 				con.close();
-				response.sendRedirect(request.getContextPath().concat("/login.jsp"));
 			}catch(Exception e){
-				
-				e.printStackTrace();
 			}
 		
 		}

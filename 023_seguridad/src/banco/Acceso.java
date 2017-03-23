@@ -1,6 +1,8 @@
 package banco;
 
 import java.io.IOException;
+
+import javax.jms.ServerSession;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -10,6 +12,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet Filter implementation class Acceso
@@ -42,9 +45,11 @@ public class Acceso implements Filter {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
 		boolean allowed = false;
+		HttpSession sesion = req.getSession();
 		try{
-			allowed = (boolean)req.getAttribute("allowed");
-		} catch (Exception ex){
+			allowed = (boolean)sesion.getAttribute("allowed");
+		} catch (NullPointerException ex){
+			System.out.println("El parámetro no existe");
 			allowed = false;
 		}
 		if (allowed){
