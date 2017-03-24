@@ -1,22 +1,23 @@
 # ToDo
-- Registro (jaime)
-- Inicio sesion (Jaime)
 - Ver cuenta 
 - Transferencia (>0€)
-- Base de datos (X)
 - Conexion a base de datos
 - Diseño
 - 
 
 
 ## Alicia
-- Transferencia
-
+- Cuentas
+- Diseño
 
 ## Gonzalo
-- Base de datos (Login Registro)
-
+- Transferencias
 
 ## Jaime
-- Seguridad (encriptacion contraseña)
+- Diseño
 
+# Hecho
+- Seguridad (encriptacion contraseña)
+- Base de datos (Login Registro)
+- Transferencia
+- Base de datos (X)
