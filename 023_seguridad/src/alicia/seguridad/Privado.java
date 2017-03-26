@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class Privado
@@ -28,6 +29,15 @@ public class Privado extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Página banco privada ").append(request.getContextPath());
+		
+		HttpSession sesion = request.getSession();
+		
+		Integer cliente_id = (Integer) sesion.getAttribute("cliente_id"); //$NON-NLS-1$
+		String email = (String) sesion.getAttribute("email"); //$NON-NLS-1$
+		
+		
+		
+		response.sendRedirect("/023_seguridad/cuenta.jsp");
 	}
 
 	/**
