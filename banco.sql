@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-03-2017 a las 19:58:14
+-- Tiempo de generación: 26-03-2017 a las 20:06:47
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 5.6.30
 
@@ -24,6 +24,9 @@ DELIMITER $$
 --
 -- Procedimientos
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `asociar_cuenta` (IN `icid` INT, IN `icuen` INT)  NO SQL
+insert into posesiones(cliente_id, cuenta_id) values (icid, icuen)$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `cliente_direccion_id` (IN `iid` INT)  NO SQL
 select clientes.dirección from clientes where clientes.cliente_id=iid$$
 
@@ -47,6 +50,12 @@ SELECT clientes.nombre from clientes where clientes.cliente_id=iid$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `crear_cuenta` (IN `idesc` VARCHAR(500), IN `ifondos` DECIMAL(10,2), IN `inombre` VARCHAR(50))  NO SQL
 insert into cuentas(descripción, fondos, nombre) values(idesc, ifondos, inombre)$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `cuenta_id` (IN `inombre` VARCHAR(100))  NO SQL
+select cuentas.cuenta_id from cuentas where cuentas.nombre=inombre$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `disociar_cuenta` (IN `icid` INT, IN `icuen` INT)  NO SQL
+delete from posesiones where posesiones.cliente_id=icid and posesiones.cuenta_id=icuen$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `fondos_nombre_cuenta` (IN `inombre` VARCHAR(50))  NO SQL
 select cuentas.fondos from cuentas where cuentas.nombre=inombre$$
