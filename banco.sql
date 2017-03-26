@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-03-2017 a las 13:08:56
+-- Tiempo de generación: 26-03-2017 a las 20:06:47
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 5.6.30
 
@@ -24,6 +24,9 @@ DELIMITER $$
 --
 -- Procedimientos
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `asociar_cuenta` (IN `icid` INT, IN `icuen` INT)  NO SQL
+insert into posesiones(cliente_id, cuenta_id) values (icid, icuen)$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `cliente_direccion_id` (IN `iid` INT)  NO SQL
 select clientes.dirección from clientes where clientes.cliente_id=iid$$
 
@@ -48,13 +51,19 @@ SELECT clientes.nombre from clientes where clientes.cliente_id=iid$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `crear_cuenta` (IN `idesc` VARCHAR(500), IN `ifondos` DECIMAL(10,2), IN `inombre` VARCHAR(50))  NO SQL
 insert into cuentas(descripción, fondos, nombre) values(idesc, ifondos, inombre)$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `cuenta_id` (IN `inombre` VARCHAR(100))  NO SQL
+select cuentas.cuenta_id from cuentas where cuentas.nombre=inombre$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `disociar_cuenta` (IN `icid` INT, IN `icuen` INT)  NO SQL
+delete from posesiones where posesiones.cliente_id=icid and posesiones.cuenta_id=icuen$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `fondos_nombre_cuenta` (IN `inombre` VARCHAR(50))  NO SQL
 select cuentas.fondos from cuentas where cuentas.nombre=inombre$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_salt` (IN `iemail` VARCHAR(100))  NO SQL
 select clientes.salt from clientes where clientes.email=iemail$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `login` (IN `iemail` VARCHAR(50), IN `ipwd` VARCHAR(100))  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `login` (IN `iemail` VARCHAR(50), IN `ipwd` VARCHAR(500))  NO SQL
 select count(*) from clientes where clientes.email=iemail and clientes.pwd=ipwd$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `nombres_cuenta` (IN `icid` INT)  NO SQL
@@ -63,8 +72,8 @@ select cuentas.nombre from cuentas where cuentas.cuenta_id=(SELECT posesiones.cu
 CREATE DEFINER=`root`@`localhost` PROCEDURE `nuevo_cliente` (IN `inombre` VARCHAR(50), IN `iemail` VARCHAR(50), IN `idni` VARCHAR(20), IN `idir` VARCHAR(300), IN `ipwd` VARCHAR(500), IN `isalt` VARCHAR(500))  NO SQL
 INSERT into clientes(nombre, email, DNI, dirección, pwd, salt) values(inombre, iemail, idni, idir, ipwd, isalt)$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `transacción` (IN `icid1` INT, IN `icid2` INT, IN `icu1` INT, IN `icu2` INT, IN `ifec` VARCHAR(50), IN `info` VARCHAR(500), IN `ican` DECIMAL(10,2))  NO SQL
-insert into transacciones(cliente1_id, cliente2_id, cuenta1_id, cuenta2_id, fecha, concepto, cantidad) values (icid1, icid2, icu1, icu2, ifec, info, ican)$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `transacción` (IN `icid1` INT, IN `icid2` INT, IN `icu1` VARCHAR(100), IN `icu2` VARCHAR(100), IN `ifec` VARCHAR(50), IN `info` VARCHAR(500), IN `ican` DECIMAL(10,2))  NO SQL
+insert into transacciones(cliente1_id, cliente2_id, cuenta1_id, cuenta2_id, fecha, concepto, cantidad) values (icid1, icid2, (select cuentas.id from cuentas where cuentas.nombre=icu1), (select cuentas.id from cuentas where cuentas.nombre=icu2), ifec, info, ican)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `trans_cliente` (IN `icid` INT)  NO SQL
 select transacciones.fecha, transacciones.concepto, transacciones.cantidad from transacciones where transacciones.cliente1_id=icid or transacciones.cliente2_id=icid order by transacciones.fecha DESC$$
@@ -94,7 +103,12 @@ CREATE TABLE `clientes` (
 INSERT INTO `clientes` (`cliente_id`, `nombre`, `email`, `DNI`, `dirección`, `pwd`, `salt`) VALUES
 (1, 'Carmelo', 'cescribano@hotmail.com', '05147894', 'c/ Arenal, 5', 'soybonito', ''),
 (2, 'Gonzalo', 'gonzaloes@hotmail.com', '150150150', 'c/Juan Carlos 2, 23', 'soyuntioguay', ''),
-(3, 'Pepe', 'pepe@pepe.com', '929292929', 'c/Arenal 5', 'dc9a0e88a422680d8885e720b9e2b8cd7f5c22b42ec574487c974b581b15d3d76a19c629f6a8e2a4bcbdc6fd6eb895685789aeb7e630b0c222703a543fe8c248', '');
+(3, 'Pepe', 'pepe@pepe.com', '929292929', 'c/Arenal 5', 'dc9a0e88a422680d8885e720b9e2b8cd7f5c22b42ec574487c974b581b15d3d76a19c629f6a8e2a4bcbdc6fd6eb895685789aeb7e630b0c222703a543fe8c248', ''),
+(4, '', 'jaime@jaime.net', '', '', '$2a$16$cL9AJFFKp.0RqQwapJtrvum/nQ.TPxr07OnpdOyG6Z.VDZyxbtyz6', '$2a$16$cL9AJFFKp.0RqQwapJtrvu'),
+(5, '', 'falso@falso.com', '', '', '$2a$16$jGHXzrtLXO.qW7N6.d0fQ.SIzNRQGcRlJ.yYuKAEmAwVtdj7R4S3K', '$2a$16$jGHXzrtLXO.qW7N6.d0fQ.'),
+(6, '', 'uno@uno.es', '', '', '$2a$16$VnPSPzMZitmmY9NHfmDLY.7gNWj59DO9.11q/koo9Qyj2bgs0sRE2', '$2a$16$VnPSPzMZitmmY9NHfmDLY.'),
+(7, '', 'dos@dos.com', '', '', '$2a$16$abroEk9ozgqCApIV60hIPOwiy/1lIT9jt5q7XR6GHR4CVdUT1RTkO', '$2a$16$abroEk9ozgqCApIV60hIPO'),
+(8, '', 'tres@tres.com', '', '', '$2a$16$iIzRMk9oQjFolQYSfY/Wt.tmcQr.YOUlR.jrM1cQxjoJjn5tx/x1e', '$2a$16$iIzRMk9oQjFolQYSfY/Wt.');
 
 -- --------------------------------------------------------
 
@@ -210,7 +224,7 @@ ALTER TABLE `transacciones`
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `cliente_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `cliente_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT de la tabla `cuentas`
 --
