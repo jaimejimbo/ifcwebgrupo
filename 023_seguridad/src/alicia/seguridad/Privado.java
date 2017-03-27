@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class Privado
  */
-@WebServlet("/Privado")
+@WebServlet("/Privado2")
 public class Privado extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
