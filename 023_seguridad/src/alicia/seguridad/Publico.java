@@ -29,7 +29,7 @@ public class Publico extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Página banco pública ").append(request.getContextPath());
 		
-		response.sendRedirect("/023_seguridad/cuenta.jsp");
+		
 	}
 
 	/**
