@@ -28,6 +28,8 @@ public class Publico extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Página banco pública ").append(request.getContextPath());
+		
+		
 	}
 
 	/**

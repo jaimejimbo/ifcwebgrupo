@@ -22,6 +22,7 @@ import org.mindrot.jbcrypt.BCrypt;
  */
 @WebServlet({ "/Registrar", "/registrar.php", "/registrar.html" })
 public class Registrar extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
 	String classurl;
 	String sqlurl;
@@ -41,13 +42,23 @@ public class Registrar extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		// Recupero los valores de los campos: nombre, dni y dirección del formulario para crear un cliente.
+		
 		String email = request.getParameter("email");
+		String nombre = request.getParameter("nombre");
+		String dni = request.getParameter("dni");
+		String direccion = request.getParameter("direccion");
+		
+		
 		String salt = (String)request.getAttribute("salt");
 		String pwd = (String)request.getAttribute("pwd");
+		
 		this.classurl = (String)request.getAttribute("classurl"); //$NON-NLS-1$
 		this.sqlurl = (String)request.getAttribute("sqlurl"); //$NON-NLS-1$
 		this.sqluser = (String)request.getAttribute("sqluser"); //$NON-NLS-1$
 		this.sqlpwd = (String)request.getAttribute("sqlpwd"); //$NON-NLS-1$
+		
 		HttpSession sesion = request.getSession();
 			
 		Connection con = null;
@@ -65,23 +76,46 @@ public class Registrar extends HttpServlet {
 			cs.close();
 			
 			if(next){
+				
 				System.out.println("El registro ya existe.");
 				response.sendRedirect(request.getContextPath().concat("/login.jsp"));
+				
 			}else{
-				cs = con.prepareCall("{call nuevo_cliente('',?,'','',?,?)}");
-				cs.setString(1, email);
-				cs.setString(2, pwd);
-				cs.setString(3, salt);
+				
+				cs = con.prepareCall("{call nuevo_cliente(?,?,?,?,?,?)}");
+				
+				cs.setString(2, email);
+				cs.setString(5, pwd);
+				cs.setString(6, salt);
+				
+				// Añado a la consulta los campos que faltan para que quede el registro completo en la tabla "clientes".
+				
+				cs.setString(1, nombre);
+				cs.setString(3, dni);
+				cs.setString(4, direccion);
+				
 				rs = cs.executeQuery();
+				
 				cs = con.prepareCall("call cliente_id_email(?)");
+				
 				cs.setString(1, email);
 				rs = cs.executeQuery();
+				
 				int cliente_id = rs.getRow();
+				
+				// Voy a utilizar estas sesiones en "Privado.java" para conocer el resto de los datos del registro en la tabla "clientes"
+				// del cliente que inicia sesión.
+				
 				sesion.setAttribute("cliente_id", cliente_id);
 				sesion.setAttribute("email", email);
+				
 				sesion.setAttribute("allowed", true);
+				
 				cs.close();
 				con.close();
+				
+				// Redirección al método "post" de "Privado.java".
+				
 				response.sendRedirect(request.getContextPath().concat("/Privado"));
 			}		
 		
@@ -98,11 +132,15 @@ public class Registrar extends HttpServlet {
 		finally{
 			
 			try{
+				
 				cs.close();
 				con.close();
+				
 			}catch(Exception e){
+				
+				e.printStackTrace();
+			
 			}
-		
 		}
 	}
 

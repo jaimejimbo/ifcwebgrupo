@@ -21,6 +21,8 @@ public class Encriptacion implements Filter{
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain fchain)
 			throws IOException, ServletException {
+		
+		
 		String email = request.getParameter("email"); //$NON-NLS-1$
 		String salt = null;
 		String pwd = request.getParameter("pwd");
