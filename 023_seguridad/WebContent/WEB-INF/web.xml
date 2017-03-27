@@ -37,15 +37,15 @@
     <servlet-class>Privado</servlet-class>
   </servlet>
   <filter>
-  	<filter-name>controlacceso</filter-name>
-  	<filter-class>banco.Acceso</filter-class>
+    <filter-name>controlacceso</filter-name>
+    <filter-class>banco.Acceso</filter-class>
   </filter>
   <filter-mapping>
-  	<filter-name>controlacceso</filter-name>
-  	<servlet-name>Privado</servlet-name>
+    <filter-name>controlacceso</filter-name>
+    <servlet-name>Privado</servlet-name>
   </filter-mapping>
   <filter-mapping>
-  	<filter-name>controlacceso</filter-name>
-	<url-pattern>/Privado</url-pattern>
+    <filter-name>controlacceso</filter-name>
+    <url-pattern>/Privado</url-pattern>
   </filter-mapping>
 </web-app>

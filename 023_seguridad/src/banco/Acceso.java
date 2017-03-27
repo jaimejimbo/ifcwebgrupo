@@ -42,20 +42,32 @@ public class Acceso implements Filter {
 		// place your code here
 
 		// pass the request along the filter chain
+		
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
 		boolean allowed = false;
+		
 		HttpSession sesion = req.getSession();
+		
 		try{
+			
 			allowed = (boolean)sesion.getAttribute("allowed");
+		
 		} catch (NullPointerException ex){
+			
 			System.out.println("El parámetro no existe");
 			allowed = false;
+		
 		}
+		
 		if (allowed){
+			
 			chain.doFilter(request, response);
+		
 		} else {
+			
 			res.sendRedirect(req.getContextPath().concat("/login.jsp"));
+		
 		}
 	}
 
