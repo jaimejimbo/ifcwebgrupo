@@ -48,18 +48,18 @@ public class Privado extends HttpServlet {
 		
 		HttpSession sesion = request.getSession();
 		
-		this.classurl = (String)request.getAttribute("classurl"); //$NON-NLS-1$
+		/*this.classurl = (String)request.getAttribute("classurl"); //$NON-NLS-1$
 		System.out.println(classurl);
 		this.sqlurl = (String)request.getAttribute("sqlurl"); //$NON-NLS-1$
 		System.out.println(sqlurl);
 		this.sqluser = (String)request.getAttribute("sqluser"); //$NON-NLS-1$
 		System.out.println(sqluser);
 		this.sqlpwd = (String)request.getAttribute("sqlpwd"); //$NON-NLS-1$
-		System.out.println(sqlpwd);
+		System.out.println(sqlpwd);*/
 		
 		// He visto que hay un procedimiento ya creado para obtener el nombre a partir del id.
 		
-		Integer cliente_id = (Integer) request.getAttribute("cliente_id");
+		Integer cliente_id = (Integer) sesion.getAttribute("cliente_id");
 		System.out.println(cliente_id);
 		
 		
@@ -69,8 +69,8 @@ public class Privado extends HttpServlet {
 		
 		try{
 
-			Class.forName(classurl);
-			con = DriverManager.getConnection(sqlurl, sqluser, sqlpwd);
+			Class.forName("com.mysql.jdbc.Driver");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/banco", "root", "");
 			
 			// Utilizo el procedimiento ya creado para obtener el nombre del cliente logeado.
 			
