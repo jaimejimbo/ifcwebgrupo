@@ -15,7 +15,7 @@
 				<li><a href="ingresar.jsp">Ingresar dinero</a></li>
 				<li><a href="retirar.jsp">Retirar dinero</a></li>
 				<li><a href="transferir.jsp">Transferencia bancaria</a></li>
-				<li><a href="crear.jsp">Crear cuenta</a></li>
+				<li><a href="crearcuenta.jsp">Crear cuenta</a></li>
 				<li>
 					<form action="Cerrar" method="get">
 						<input type="submit" value="Cerrar sesión">

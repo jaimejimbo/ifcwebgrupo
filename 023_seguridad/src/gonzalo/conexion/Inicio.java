@@ -62,7 +62,7 @@ public class Inicio extends HttpServlet {
 		try{
 			
 			Class.forName("com.mysql.jdbc.Driver");
-			conexion = DriverManager.getConnection("jdbc:mysql://localhost/bancoonline","root","");
+			conexion = DriverManager.getConnection("jdbc:mysql://localhost/banco","root","");
 			st = conexion.createStatement();
 			rs = st.executeQuery("SELECT * FROM usuarios where nombre='"+nombre+"' and contraseña ='"+contraseña+"'");
 			
