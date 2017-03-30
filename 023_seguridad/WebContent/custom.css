@@ -1,5 +1,5 @@
 body{
-	background-color: black;
+	background-color: white;
 }
 
 .main-bg{
@@ -8,4 +8,27 @@ body{
 
 .fill-width{
 	width: 100%;
+}
+
+.hoverblack{
+	color: black !important;
+}
+
+.hoverblack:hover{
+	color: white !important;
+	background-color: black !important;
+} 
+
+.custombrand{
+	color: black !important;
+	background-color: #cc4444 !important;
+	font-family: 'Macondo', cursive;
+	font-size: 2ex;
+}
+
+.custombrand:hover{
+	color: #cc4444 !important; 
+	background-color: black !important;
+	font-family: 'Macondo', cursive;
+	font-size: 2ex;
 }
