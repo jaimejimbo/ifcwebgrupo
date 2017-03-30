@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-03-2017 a las 20:06:47
+-- Tiempo de generación: 30-03-2017 a las 19:13:32
 -- Versión del servidor: 10.1.21-MariaDB
--- Versión de PHP: 5.6.30
+-- Versión de PHP: 7.1.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -51,8 +51,8 @@ SELECT clientes.nombre from clientes where clientes.cliente_id=iid$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `crear_cuenta` (IN `idesc` VARCHAR(500), IN `ifondos` DECIMAL(10,2), IN `inombre` VARCHAR(50))  NO SQL
 insert into cuentas(descripción, fondos, nombre) values(idesc, ifondos, inombre)$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `cuenta_id` (IN `inombre` VARCHAR(100))  NO SQL
-select cuentas.cuenta_id from cuentas where cuentas.nombre=inombre$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `cuenta_id` (IN `inombre` VARCHAR(100), OUT `cuenta_ide` INT(11))  NO SQL
+select cuenta_id into cuenta_ide from cuentas where nombre=inombre$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `disociar_cuenta` (IN `icid` INT, IN `icuen` INT)  NO SQL
 delete from posesiones where posesiones.cliente_id=icid and posesiones.cuenta_id=icuen$$
@@ -108,7 +108,8 @@ INSERT INTO `clientes` (`cliente_id`, `nombre`, `email`, `DNI`, `dirección`, `p
 (5, '', 'falso@falso.com', '', '', '$2a$16$jGHXzrtLXO.qW7N6.d0fQ.SIzNRQGcRlJ.yYuKAEmAwVtdj7R4S3K', '$2a$16$jGHXzrtLXO.qW7N6.d0fQ.'),
 (6, '', 'uno@uno.es', '', '', '$2a$16$VnPSPzMZitmmY9NHfmDLY.7gNWj59DO9.11q/koo9Qyj2bgs0sRE2', '$2a$16$VnPSPzMZitmmY9NHfmDLY.'),
 (7, '', 'dos@dos.com', '', '', '$2a$16$abroEk9ozgqCApIV60hIPOwiy/1lIT9jt5q7XR6GHR4CVdUT1RTkO', '$2a$16$abroEk9ozgqCApIV60hIPO'),
-(8, '', 'tres@tres.com', '', '', '$2a$16$iIzRMk9oQjFolQYSfY/Wt.tmcQr.YOUlR.jrM1cQxjoJjn5tx/x1e', '$2a$16$iIzRMk9oQjFolQYSfY/Wt.');
+(8, '', 'tres@tres.com', '', '', '$2a$16$iIzRMk9oQjFolQYSfY/Wt.tmcQr.YOUlR.jrM1cQxjoJjn5tx/x1e', '$2a$16$iIzRMk9oQjFolQYSfY/Wt.'),
+(9, 'arturo', 'arturo@gmail.com', '99999999D', 'C/ Madrid', '$2a$16$EgUrkN/AxO1r5InTLuf9X.U5zkmfhzGo0PCQdqQCEJxoY0l0jV4Cy', '$2a$16$EgUrkN/AxO1r5InTLuf9X.');
 
 -- --------------------------------------------------------
 
@@ -129,7 +130,9 @@ CREATE TABLE `cuentas` (
 
 INSERT INTO `cuentas` (`cuenta_id`, `descripción`, `fondos`, `nombre`) VALUES
 (1, 'cuenta1', '5.00', 'cuenta1'),
-(2, 'cuenta2', '100005.00', 'cuenta2');
+(2, 'cuenta2', '100005.00', 'cuenta2'),
+(3, 'alfredo', '1234.00', 'alfredo'),
+(12, 'para ahorrar', '1000.00', 'ahorro');
 
 -- --------------------------------------------------------
 
@@ -138,10 +141,17 @@ INSERT INTO `cuentas` (`cuenta_id`, `descripción`, `fondos`, `nombre`) VALUES
 --
 
 CREATE TABLE `posesiones` (
-  `id` int(11) NOT NULL,
   `cliente_id` int(11) NOT NULL,
-  `cuenta_id` int(11) NOT NULL
+  `cuenta_id` int(11) NOT NULL,
+  `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `posesiones`
+--
+
+INSERT INTO `posesiones` (`cliente_id`, `cuenta_id`, `id`) VALUES
+(9, 12, 1);
 
 -- --------------------------------------------------------
 
@@ -229,12 +239,12 @@ ALTER TABLE `clientes`
 -- AUTO_INCREMENT de la tabla `cuentas`
 --
 ALTER TABLE `cuentas`
-  MODIFY `cuenta_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `cuenta_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT de la tabla `posesiones`
 --
 ALTER TABLE `posesiones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `transacciones`
 --
