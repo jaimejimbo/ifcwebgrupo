@@ -8,7 +8,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-		<link rel="stylesheet" href="../css/custom.css">
+		<link rel="stylesheet" href="../../css/custom.css">
 		<link href="https://fonts.googleapis.com/css?family=Spirax" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Macondo" rel="stylesheet">
 		<title>Inicio</title>
@@ -49,11 +49,11 @@
 		      </ul>
 		      <ul class="nav navbar-nav navbar-right">
 		        <li class="dropdown">
-		          <a href="#" class="hoverblack" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= session.getAttribute("nombre") %> <span class="caret hoverblack"></span></a>
+		          <a href="#" class="hoverblack" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= session.getAttribute("nombre") %> <span class="caret"></span></a>
 		          <ul class="dropdown-menu">
-		            <li><a href="#" class="hoverblack">Preferencias</a></li>
-		            <li><a href="#" class="hoverblack">Ayuda</a></li>
-		            <li><a href="#" class="hoverblack">Cerrar sesión</a></li>
+		            <li><a href="#">Preferencias</a></li>
+		            <li><a href="#">Ayuda</a></li>
+		            <li><a href="../../logout.php">Cerrar sesión</a></li>
 		          </ul>
 		        </li>
 		      </ul>
@@ -68,6 +68,16 @@
 		</nav>
 	  	<div class="col-lg-4 col-md-3 col-sm-2 col-xs-1"></div>
 	  	<div class="col-lg-4 col-md-6 col-sm-8 col-xs-10 main-bg">
+			<!-- Creo el menú que conduce a las distintas operaciones que puede realizar el cliente dentro de su sesión. -->
+				<p><a href="ingresar.jsp">Ingresar dinero</a></p>
+				<p><a href="retirar.jsp">Retirar dinero</a></p>
+				<p><a href="transferir.jsp">Transferencia bancaria</a></p>
+				<p><a href="crearcuenta.jsp">Crear cuenta</a></p>
+				<p>
+					<form action="Cerrar" method="get">
+						<input type="submit" value="Cerrar sesión">
+					</form>
+				</p>
 		</div>
 		<div id="output"></div>
 		<script>

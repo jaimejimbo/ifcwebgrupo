@@ -7,7 +7,7 @@
 <title>Transferir dinero</title>
 </head>
 <body>
-	<form action="Transferencias" method="post">
+	<form action="../../Transferencias" method="post">
 		<p><input type="text" name="receptor" size="35" placeholder="Introduzca nombre cliente a enviar dinero."></p>
 		<p><input type="number" name="cantidad" size="35" placeholder="Introduzca cantidad."></p>
 		<p><input type="text" name="concepto" size="35" placeholder="Introduzca concepto."></p>

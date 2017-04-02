@@ -8,7 +8,7 @@
 </head>
 <body>
 <h2>Crear cuenta</h2>
-	<form action="Crearcuenta" method="post">
+	<form action="../../Crearcuenta" method="post">
 		<p><input type="text" name="nombrecuenta" size="50" placeholder="Introduzca un nombre para la cuenta."></p>
 		<p><input type="text" name="descripcion" size="50" placeholder="Introduzca una descripcion para la cuenta."></p>
 		<p><input type="float" name="fondos" size="50" placeholder="Introduzca los fondos para la cuenta."></p>

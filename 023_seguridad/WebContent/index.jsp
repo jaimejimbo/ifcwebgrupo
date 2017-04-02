@@ -1,13 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-     	<% 
-     		String nombre = null;
-     		try{
-     			nombre = (String)session.getAttribute("nombre");
-     		} catch (Exception ex){
- 				nombre = "Iniciar sesión";
- 			}
- 		%>
+<%!String nombre;%>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -16,7 +9,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-		<link rel="stylesheet" href="/css/custom.css">
+		<link rel="stylesheet" href="css/custom.css">
 		<link href="https://fonts.googleapis.com/css?family=Spirax" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Macondo" rel="stylesheet">
 		<title>Inicio</title>
@@ -38,7 +31,15 @@
 		    <!-- Collect the nav links, forms, and other content for toggling -->
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      <ul class="nav navbar-nav navbar-right">
-		        <li><a href="jsp/privado/indexlogged.jsp" class="hoverblack"><%=nombre%></a></li>
+		        <li><a href="jsp/privado/indexlogged.jsp" class="hoverblack">
+		 <%
+			nombre = (String)session.getAttribute("nombre");
+		   	if (nombre==null){
+		   		nombre = "Iniciar sesión";
+		   	} else {
+		   		response.sendRedirect("jsp/privado/indexlogged.jsp");
+		   	}
+ 		%><%=nombre%></a></li>
 		      </ul>
 		      <form class="navbar-form navbar-right">
 		        <div class="form-group">
@@ -51,6 +52,7 @@
 		</nav>
 	  	<div class="col-lg-4 col-md-3 col-sm-2 col-xs-1"></div>
 	  	<div class="col-lg-4 col-md-6 col-sm-8 col-xs-10 main-bg">
+	  		Aquí irían los datos públicos.
 		</div>
 		<div id="output"></div>
 		<script>
