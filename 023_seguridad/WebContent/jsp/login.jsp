@@ -6,7 +6,7 @@
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-		<link rel="stylesheet" href="custom.css">
+		<link rel="stylesheet" href="../css/custom.css">
 	    <title>Iniciar Sesión</title>
   	</head>
   	<body onload="loadlogin()">
@@ -16,7 +16,7 @@
 		
 			function loadlogin(){
 				var msg = '<h2 class="text-center">Inicio de sesión</h2>';
-			        msg +='<form action="login.php" method="post">';
+			        msg +='<form action="../login.php" method="post">';
 		        	msg +='		<div class="form-group">';
 		        	msg +='			<label for="email" class="fill-width">';
 		        	msg +='				<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Email</div>';
@@ -41,7 +41,7 @@
 		
 			function loadreg(){
 				var msg = '<h2 class="text-center">Registro</h2>';
-			        msg +='<form action="registrar.php" method="post">';
+			        msg +='<form action="../registrar.php" method="post">';
 		        	msg +='		<div class="form-group">';
 		        	msg +='			<label for="email" class="fill-width">';
 		        	msg +='				<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Email</div>';

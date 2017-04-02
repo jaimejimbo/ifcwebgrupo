@@ -66,7 +66,7 @@ public class Acceso implements Filter {
 		
 		} else {
 			
-			res.sendRedirect(req.getContextPath().concat("/login.jsp"));
+			res.sendRedirect(req.getContextPath().concat("/jsp/login.jsp"));
 		
 		}
 	}

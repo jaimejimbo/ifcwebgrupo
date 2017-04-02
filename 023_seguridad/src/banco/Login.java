@@ -81,8 +81,14 @@ public class Login extends HttpServlet {
 				rs = cs.executeQuery();
 				rs.next();
 				int cliente_id = rs.getInt(1);
+				cs = con.prepareCall("call cliente_nombre_id(?)");
+				cs.setInt(1, cliente_id);
+				rs = cs.executeQuery();
+				rs.next();
+				String nombre = rs.getString(1);
 				sesion.setAttribute("cliente_id", cliente_id); //$NON-NLS-1$
 				sesion.setAttribute("email", email); //$NON-NLS-1$
+				sesion.setAttribute("nombre", nombre);
 				sesion.setAttribute("allowed", true);
 				try{
 					
@@ -93,7 +99,7 @@ public class Login extends HttpServlet {
 					
 					e.printStackTrace();
 				}
-				response.sendRedirect(request.getContextPath().concat("/Privado"));
+				response.sendRedirect(request.getContextPath().concat("/jsp/privado/indexlogged.jsp"));
 			}else{
 				System.out.println("Error del coinc"); //$NON-NLS-1$
 			}

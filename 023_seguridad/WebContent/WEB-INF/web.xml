@@ -53,4 +53,8 @@
     <filter-name>controlacceso</filter-name>
     <url-pattern>/Privado</url-pattern>
   </filter-mapping>
+  <filter-mapping>
+    <filter-name>controlacceso</filter-name>
+    <url-pattern>/jsp/privado/*</url-pattern>
+  </filter-mapping>
 </web-app>

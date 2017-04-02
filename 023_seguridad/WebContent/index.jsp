@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-		<link rel="stylesheet" href="custom.css">
+		<link rel="stylesheet" href="/css/custom.css">
 		<link href="https://fonts.googleapis.com/css?family=Spirax" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Macondo" rel="stylesheet">
 		<title>Inicio</title>
@@ -28,7 +28,7 @@
 		    <!-- Collect the nav links, forms, and other content for toggling -->
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      <ul class="nav navbar-nav navbar-right">
-		        <li><a href="indexlogged.jsp" class="hoverblack">Iniciar sesión</a></li>
+		        <li><a href="jsp/privado/indexlogged.jsp" class="hoverblack">Iniciar sesión</a></li>
 		      </ul>
 		      <form class="navbar-form navbar-right">
 		        <div class="form-group">
