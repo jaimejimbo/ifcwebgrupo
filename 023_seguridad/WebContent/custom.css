@@ -23,12 +23,12 @@ body{
 	color: black !important;
 	background-color: #cc4444 !important;
 	font-family: 'Macondo', cursive;
-	font-size: 2ex;
+	font-size: 2em;
 }
 
 .custombrand:hover{
 	color: #cc4444 !important; 
 	background-color: black !important;
 	font-family: 'Macondo', cursive;
-	font-size: 2ex;
+	font-size: 2em;
 }

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
   <display-name>023_seguridad</display-name>
+  
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
+  
   <context-param>
     <param-name>classurl</param-name>
     <param-value>com.mysql.jdbc.Driver.class</param-value>
@@ -20,6 +22,7 @@
     <param-name>sqlpwd</param-name>
     <param-value></param-value>
   </context-param>
+  
   <filter>
     <filter-name>encriptar</filter-name>
     <filter-class>banco.Encriptacion</filter-class>
@@ -32,10 +35,12 @@
     <filter-name>encriptar</filter-name>
     <url-pattern>/registrar.php</url-pattern>
   </filter-mapping>
+  
   <servlet>
     <servlet-name>Privado</servlet-name>
     <servlet-class>Privado</servlet-class>
   </servlet>
+  
   <filter>
     <filter-name>controlacceso</filter-name>
     <filter-class>banco.Acceso</filter-class>
