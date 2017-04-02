@@ -55,7 +55,6 @@ public class Acceso implements Filter {
 		
 		} catch (NullPointerException ex){
 			
-			System.out.println("El parámetro no existe");
 			allowed = false;
 		
 		}

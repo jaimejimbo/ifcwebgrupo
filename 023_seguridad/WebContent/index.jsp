@@ -1,3 +1,13 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+     	<% 
+     		String nombre = null;
+     		try{
+     			nombre = (String)session.getAttribute("nombre");
+     		} catch (Exception ex){
+ 				nombre = "Iniciar sesión";
+ 			}
+ 		%>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -28,7 +38,7 @@
 		    <!-- Collect the nav links, forms, and other content for toggling -->
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      <ul class="nav navbar-nav navbar-right">
-		        <li><a href="jsp/privado/indexlogged.jsp" class="hoverblack">Iniciar sesión</a></li>
+		        <li><a href="jsp/privado/indexlogged.jsp" class="hoverblack"><%=nombre%></a></li>
 		      </ul>
 		      <form class="navbar-form navbar-right">
 		        <div class="form-group">
