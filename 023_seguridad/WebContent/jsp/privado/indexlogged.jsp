@@ -69,15 +69,12 @@
 	  	<div class="col-lg-4 col-md-3 col-sm-2 col-xs-1"></div>
 	  	<div class="col-lg-4 col-md-6 col-sm-8 col-xs-10 main-bg">
 			<!-- Creo el menú que conduce a las distintas operaciones que puede realizar el cliente dentro de su sesión. -->
+	
 				<p><a href="ingresar.jsp">Ingresar dinero</a></p>
 				<p><a href="retirar.jsp">Retirar dinero</a></p>
 				<p><a href="transferir.jsp">Transferencia bancaria</a></p>
 				<p><a href="crearcuenta.jsp">Crear cuenta</a></p>
-				<p>
-					<form action="Cerrar" method="get">
-						<input type="submit" value="Cerrar sesión">
-					</form>
-				</p>
+				<p><a href="eliminarcuenta.jsp">Eliminar cuenta</a></p>
 		</div>
 		<div id="output"></div>
 		<script>
