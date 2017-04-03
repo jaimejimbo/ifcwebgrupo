@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%!String nombre;%>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -6,7 +9,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-		<link rel="stylesheet" href="custom.css">
+		<link rel="stylesheet" href="css/custom.css">
 		<link href="https://fonts.googleapis.com/css?family=Spirax" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Macondo" rel="stylesheet">
 		<title>Inicio</title>
@@ -27,33 +30,16 @@
 		
 		    <!-- Collect the nav links, forms, and other content for toggling -->
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-		      <ul class="nav navbar-nav">
-		        <li><a href="#" class="hoverblack">Noticias</a></li>
-		        <li><a href="#" class="hoverblack">Ofertas</a></li>
-		        <li><a href="#" class="hoverblack">Cuentas</a></li>
-		        <li><a href="#" class="hoverblack">Correo</a></li>
-		        <!--<li class="dropdown">
-		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-		          <ul class="dropdown-menu">
-		            <li><a href="#">Action</a></li>
-		            <li><a href="#">Another action</a></li>
-		            <li><a href="#">Something else here</a></li>
-		            <li role="separator" class="divider"></li>
-		            <li><a href="#">Separated link</a></li>
-		            <li role="separator" class="divider"></li>
-		            <li><a href="#">One more separated link</a></li>
-		          </ul>
-		        </li>-->
-		      </ul>
 		      <ul class="nav navbar-nav navbar-right">
-		        <li class="dropdown">
-		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Nombre <span class="caret"></span></a>
-		          <ul class="dropdown-menu">
-		            <li><a href="#">Preferencias</a></li>
-		            <li><a href="#">Ayuda</a></li>
-		            <li><a href="#">Cerrar sesión</a></li>
-		          </ul>
-		        </li>
+		        <li><a href="jsp/privado/indexlogged.jsp" class="hoverblack">
+		 <%
+			nombre = (String)session.getAttribute("nombre");
+		   	if (nombre==null){
+		   		nombre = "Iniciar sesión";
+		   	} else {
+		   		response.sendRedirect("jsp/privado/indexlogged.jsp");
+		   	}
+ 		%><%=nombre%></a></li>
 		      </ul>
 		      <form class="navbar-form navbar-right">
 		        <div class="form-group">
@@ -66,6 +52,7 @@
 		</nav>
 	  	<div class="col-lg-4 col-md-3 col-sm-2 col-xs-1"></div>
 	  	<div class="col-lg-4 col-md-6 col-sm-8 col-xs-10 main-bg">
+	  		Aquí irían los datos públicos.
 		</div>
 		<div id="output"></div>
 		<script>

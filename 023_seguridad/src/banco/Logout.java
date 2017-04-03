@@ -11,14 +11,14 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class Cerrar
  */
-@WebServlet("/Cerrar")
-public class Cerrar extends HttpServlet {
+@WebServlet("/logout.php")
+public class Logout extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Cerrar() {
+    public Logout() {
         super();
         // TODO Auto-generated constructor stub
     }

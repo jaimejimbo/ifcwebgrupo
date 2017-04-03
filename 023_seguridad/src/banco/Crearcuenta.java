@@ -72,7 +72,7 @@ public class Crearcuenta extends HttpServlet {
 			Class.forName("com.mysql.jdbc.Driver");
 			conexion = DriverManager.getConnection("jdbc:mysql://localhost/banco","root","");
 
-			// Utilizo el procedimiento creado "crear_cuentas" para crear la cuenta en la tabla "cuentas".
+			// Utilizo el procedimiento creado "crear_cuenta" para crear la cuenta en la tabla "cuentas".
 			
 			cs1 = conexion.prepareCall("{call crear_cuenta(?,?,?)}");
 			cs1.setString(1, descripcion);

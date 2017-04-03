@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-03-2017 a las 19:13:32
+-- Tiempo de generación: 01-04-2017 a las 13:47:02
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 7.1.1
 
@@ -54,8 +54,11 @@ insert into cuentas(descripción, fondos, nombre) values(idesc, ifondos, inombre
 CREATE DEFINER=`root`@`localhost` PROCEDURE `cuenta_id` (IN `inombre` VARCHAR(100), OUT `cuenta_ide` INT(11))  NO SQL
 select cuenta_id into cuenta_ide from cuentas where nombre=inombre$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `disociar_cuenta` (IN `icid` INT, IN `icuen` INT)  NO SQL
-delete from posesiones where posesiones.cliente_id=icid and posesiones.cuenta_id=icuen$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `disociar_cuenta` (IN `icid` INT)  NO SQL
+delete from posesiones where posesiones.cliente_id=icid$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `eliminar_cuenta` (IN `cuenta_ide` INT(11))  NO SQL
+delete from cuentas where cuenta_id=cuenta_ide$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `fondos_nombre_cuenta` (IN `inombre` VARCHAR(50))  NO SQL
 select cuentas.fondos from cuentas where cuentas.nombre=inombre$$
@@ -71,6 +74,12 @@ select cuentas.nombre from cuentas where cuentas.cuenta_id=(SELECT posesiones.cu
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `nuevo_cliente` (IN `inombre` VARCHAR(50), IN `iemail` VARCHAR(50), IN `idni` VARCHAR(20), IN `idir` VARCHAR(300), IN `ipwd` VARCHAR(500), IN `isalt` VARCHAR(500))  NO SQL
 INSERT into clientes(nombre, email, DNI, dirección, pwd, salt) values(inombre, iemail, idni, idir, ipwd, isalt)$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `seleccionar_cuentas` (IN `cuenta_ide` INT(11))  NO SQL
+select * from cuentas where cuenta_id=cuenta_ide$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `seleccionar_cuenta_id` (IN `cliente_id` INT(11))  NO SQL
+select cuenta_id from posesiones where cliente_id=cliente_id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `transacción` (IN `icid1` INT, IN `icid2` INT, IN `icu1` VARCHAR(100), IN `icu2` VARCHAR(100), IN `ifec` VARCHAR(50), IN `info` VARCHAR(500), IN `ican` DECIMAL(10,2))  NO SQL
 insert into transacciones(cliente1_id, cliente2_id, cuenta1_id, cuenta2_id, fecha, concepto, cantidad) values (icid1, icid2, (select cuentas.id from cuentas where cuentas.nombre=icu1), (select cuentas.id from cuentas where cuentas.nombre=icu2), ifec, info, ican)$$
@@ -132,7 +141,7 @@ INSERT INTO `cuentas` (`cuenta_id`, `descripción`, `fondos`, `nombre`) VALUES
 (1, 'cuenta1', '5.00', 'cuenta1'),
 (2, 'cuenta2', '100005.00', 'cuenta2'),
 (3, 'alfredo', '1234.00', 'alfredo'),
-(12, 'para ahorrar', '1000.00', 'ahorro');
+(13, 'jubilacion', '1500.00', 'jubilacion');
 
 -- --------------------------------------------------------
 
@@ -151,7 +160,7 @@ CREATE TABLE `posesiones` (
 --
 
 INSERT INTO `posesiones` (`cliente_id`, `cuenta_id`, `id`) VALUES
-(9, 12, 1);
+(9, 13, 2);
 
 -- --------------------------------------------------------
 
@@ -239,12 +248,12 @@ ALTER TABLE `clientes`
 -- AUTO_INCREMENT de la tabla `cuentas`
 --
 ALTER TABLE `cuentas`
-  MODIFY `cuenta_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `cuenta_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT de la tabla `posesiones`
 --
 ALTER TABLE `posesiones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `transacciones`
 --

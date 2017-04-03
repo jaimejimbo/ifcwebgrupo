@@ -55,7 +55,6 @@ public class Acceso implements Filter {
 		
 		} catch (NullPointerException ex){
 			
-			System.out.println("El parámetro no existe");
 			allowed = false;
 		
 		}
@@ -66,7 +65,7 @@ public class Acceso implements Filter {
 		
 		} else {
 			
-			res.sendRedirect(req.getContextPath().concat("/login.jsp"));
+			res.sendRedirect(req.getContextPath().concat("/jsp/login.jsp"));
 		
 		}
 	}
