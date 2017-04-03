@@ -45,18 +45,6 @@
 					<li><a href="eliminarcuenta.jsp">Eliminar cuenta</a></li>
 		          </ul>
 		        </li>
-		        <!--<li class="dropdown">
-		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-		          <ul class="dropdown-menu">
-		            <li><a href="#">Action</a></li>
-		            <li><a href="#">Another action</a></li>
-		            <li><a href="#">Something else here</a></li>
-		            <li role="separator" class="divider"></li>
-		            <li><a href="#">Separated link</a></li>
-		            <li role="separator" class="divider"></li>
-		            <li><a href="#">One more separated link</a></li>
-		          </ul>
-		        </li>-->
 		      </ul>
 		      <ul class="nav navbar-nav navbar-right">
 		        <li class="dropdown">
@@ -79,8 +67,11 @@
 		</nav>
 	  	<div class="col-lg-1 col-md-1 col-sm-1"></div>
 	  	<div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 main-bg">
-			<!-- Creo el menú que conduce a las distintas operaciones que puede realizar el cliente dentro de su sesión. -->
-	
+			<h2 class="text-center">Ayuda</h2>
+			<h3>Cómo hacer un ingreso</h3>
+			Pulsa ingresos
+			<h3>Cómo crear una cuenta</h3>
+			Dale a crear cuentas
 		</div>
 		<div id="output"></div>
 	    <!--[if lt IE 9]>
