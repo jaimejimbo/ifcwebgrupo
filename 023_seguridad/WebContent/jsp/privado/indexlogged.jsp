@@ -31,8 +31,21 @@
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      <ul class="nav navbar-nav">
 		        <li><a href="#" class="hoverblack">Noticias</a></li>
-		        <li><a href="#" class="hoverblack">Ofertas</a></li>
-		        <li><a href="#" class="hoverblack">Cuentas</a></li>
+		        <li class="dropdown">
+		          <a href="#" class="hoverblack" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Operaciones<span class="caret"></span></a>
+		          <ul class="dropdown-menu">
+					<li><a href="ingresar.jsp">Ingresar dinero</a></li>
+					<li><a href="retirar.jsp">Retirar dinero</a></li>
+					<li><a href="transferir.jsp">Transferencia bancaria</a></li>
+		          </ul>
+		        </li>
+		        <li class="dropdown">
+		          <a href="#" class="hoverblack" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cuentas<span class="caret"></span></a>
+		          <ul class="dropdown-menu">
+					<li><a href="crearcuenta.jsp">Crear cuenta</a></li>
+					<li><a href="eliminarcuenta.jsp">Eliminar cuenta</a></li>
+		          </ul>
+		        </li>
 		        <li><a href="#" class="hoverblack">Correo</a></li>
 		        <!--<li class="dropdown">
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
@@ -70,11 +83,6 @@
 	  	<div class="col-lg-4 col-md-6 col-sm-8 col-xs-10 main-bg">
 			<!-- Creo el menú que conduce a las distintas operaciones que puede realizar el cliente dentro de su sesión. -->
 	
-				<p><a href="ingresar.jsp">Ingresar dinero</a></p>
-				<p><a href="retirar.jsp">Retirar dinero</a></p>
-				<p><a href="transferir.jsp">Transferencia bancaria</a></p>
-				<p><a href="crearcuenta.jsp">Crear cuenta</a></p>
-				<p><a href="eliminarcuenta.jsp">Eliminar cuenta</a></p>
 		</div>
 		<div id="output"></div>
 		<script>
