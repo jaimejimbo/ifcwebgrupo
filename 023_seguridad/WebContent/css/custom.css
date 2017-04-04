@@ -32,3 +32,26 @@ body{
 	font-family: 'Macondo', cursive;
 	font-size: 2em;
 }
+
+.navbar-nav > li > .dropdown-menu > li > a {
+	background-color: white !important;
+	color: black !important;
+}
+
+.navbar-nav > li > .dropdown-menu>li:hover > a {
+	background-image: none;
+	background-color: black !important;
+	color: white !important;
+}
+
+ul.nav li.dropdown:hover > ul.dropdown-menu {
+    display: block;    
+}
+
+.dropdown-menu li:hover .sub-menu {
+    visibility: visible;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
