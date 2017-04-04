@@ -67,8 +67,7 @@
 		</nav>
 	  	<div class="col-lg-1 col-md-1 col-sm-1"></div>
 	  	<div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 main-bg">
-			<!-- Creo el menú que conduce a las distintas operaciones que puede realizar el cliente dentro de su sesión. -->
-	
+	  		<!-- contenido -->
 		</div>
 		<div id="output"></div>
 	    <!--[if lt IE 9]>
