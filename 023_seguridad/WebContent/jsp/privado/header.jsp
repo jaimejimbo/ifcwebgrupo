@@ -8,7 +8,7 @@
 		        <span class="icon-bar"></span>
 		        <span class="icon-bar"></span>
 		      </button>
-		      <a class="navbar-brand custombrand" href="#">Banco</a>
+		      <a class="navbar-brand custombrand" href="indexlogged.jsp">Banco</a>
 		    </div>
 		
 		    <!-- Collect the nav links, forms, and other content for toggling -->
