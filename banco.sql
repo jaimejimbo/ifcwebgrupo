@@ -52,7 +52,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `crear_cuenta` (IN `idesc` VARCHAR(5
 insert into cuentas(descripción, fondos, nombre) values(idesc, ifondos, inombre)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `cuenta_id` (IN `inombre` VARCHAR(100), OUT `cuenta_ide` INT(11))  NO SQL
-select cuenta_id into cuenta_ide from cuentas where nombre=inombre$$
+select cuenta_id into cuenta_ide from cuentas where cuentas.nombre=inombre$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `disociar_cuenta` (IN `icid` INT)  NO SQL
 delete from posesiones where posesiones.cliente_id=icid$$
@@ -66,7 +66,7 @@ select cuentas.fondos from cuentas where cuentas.nombre=inombre$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_salt` (IN `iemail` VARCHAR(100))  NO SQL
 select clientes.salt from clientes where clientes.email=iemail$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `login` (IN `iemail` VARCHAR(50), IN `ipwd` VARCHAR(500))  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `login` (IN `iemail` VARCHAR(50), IN `ipwd` VARCHAR(500), OUT `clientes` INT)  NO SQL
 select count(*) from clientes where clientes.email=iemail and clientes.pwd=ipwd$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `nombres_cuenta` (IN `icid` INT)  NO SQL
