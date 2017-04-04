@@ -40,7 +40,7 @@
 		          </ul>
 		        </li>
 		      </ul>
-		      <form class="navbar-form navbar-right">
+		      <form class="navbar-form navbar-right" action="/Buscar" method="post">
 		        <div class="form-group">
 		          <input type="text" class="form-control" placeholder="Búsqueda">
 		        </div>
