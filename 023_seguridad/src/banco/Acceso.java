@@ -60,7 +60,6 @@ public class Acceso implements Filter {
 		}
 		
 		if (allowed){
-			
 			chain.doFilter(request, response);
 		
 		} else {
