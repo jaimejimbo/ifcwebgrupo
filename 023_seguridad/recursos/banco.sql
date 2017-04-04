@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 28-03-2017 a las 23:20:16
+-- Tiempo de generación: 04-04-2017 a las 22:33:22
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -67,7 +67,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `login` (IN `iemail` VARCHAR(50), IN
 select count(*) from clientes where clientes.email=iemail and clientes.pwd=ipwd$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `nombres_cuenta` (IN `icid` INT)  NO SQL
-select cuentas.nombre from cuentas where cuentas.cuenta_id=(SELECT posesiones.cuenta_id from posesiones where posesiones.cliente_id=icid)$$
+select cuentas.cuenta_id,cuentas.nombre from cuentas where cuentas.cuenta_id IN (SELECT posesiones.cuenta_id from posesiones where posesiones.cliente_id=icid)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `nuevo_cliente` (IN `inombre` VARCHAR(50), IN `iemail` VARCHAR(50), IN `idni` VARCHAR(20), IN `idir` VARCHAR(300), IN `ipwd` VARCHAR(500), IN `isalt` VARCHAR(500))  NO SQL
 INSERT into clientes(nombre, email, DNI, dirección, pwd, salt) values(inombre, iemail, idni, idir, ipwd, isalt)$$
@@ -129,8 +129,9 @@ CREATE TABLE `cuentas` (
 --
 
 INSERT INTO `cuentas` (`cuenta_id`, `descripción`, `fondos`, `nombre`) VALUES
-(1, 'cuenta1', '2.00', 'cuenta1'),
-(2, 'cuenta2', '100008.00', 'cuenta2');
+(1, 'cuenta1', '400.00', 'cuenta1'),
+(2, 'cuenta2', '100716.00', 'cuenta2'),
+(3, 'cuenta ahorro de Ali', '900.00', 'cuenta_ahorro');
 
 -- --------------------------------------------------------
 
@@ -143,6 +144,15 @@ CREATE TABLE `posesiones` (
   `cliente_id` int(11) NOT NULL,
   `cuenta_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `posesiones`
+--
+
+INSERT INTO `posesiones` (`id`, `cliente_id`, `cuenta_id`) VALUES
+(1, 10, 1),
+(2, 10, 3),
+(3, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -168,7 +178,13 @@ CREATE TABLE `transacciones` (
 INSERT INTO `transacciones` (`id`, `cliente1_id`, `cliente2_id`, `cuenta1_id`, `cuenta2_id`, `fecha`, `concepto`, `cantidad`) VALUES
 (1, 1, 2, 1, 2, 'toldayº', '15', '5.00'),
 (5, 1, 2, 1, 2, 'fecha', 'concepto de transferencia', '1.00'),
-(6, 1, 2, 1, 2, 'Tue Mar 28 21:33:19 GMT+01:00 2017', 'prueba de transf', '2.00');
+(6, 1, 2, 1, 2, 'Tue Mar 28 21:33:19 GMT+01:00 2017', 'prueba de transf', '2.00'),
+(13, 10, 1, 1, 2, 'Tue Apr 04 20:34:05 CEST 2017', 'eo', '2.00'),
+(14, 10, 1, 1, 2, 'Tue Apr 04 20:51:28 CEST 2017', 'prueba de transferencia chachiguay', '100.00'),
+(23, 10, 1, 1, 2, 'Tue Apr 04 21:59:44 CEST 2017', 'laksdjalkjdsa', '100.00'),
+(24, 10, 1, 1, 2, 'Tue Apr 04 22:00:55 CEST 2017', 'laksdjalkjdsa', '100.00'),
+(25, 10, 1, 1, 2, 'Tue Apr 04 22:04:49 CEST 2017', 'carmelo se forra hoy', '100.00'),
+(26, 10, 1, 3, 2, 'Tue Apr 04 22:11:50 CEST 2017', 'weee', '100.00');
 
 --
 -- Disparadores `transacciones`
@@ -232,17 +248,17 @@ ALTER TABLE `clientes`
 -- AUTO_INCREMENT de la tabla `cuentas`
 --
 ALTER TABLE `cuentas`
-  MODIFY `cuenta_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `cuenta_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `posesiones`
 --
 ALTER TABLE `posesiones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `transacciones`
 --
 ALTER TABLE `transacciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 --
 -- Restricciones para tablas volcadas
 --
