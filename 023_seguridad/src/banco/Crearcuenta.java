@@ -55,9 +55,10 @@ public class Crearcuenta extends HttpServlet {
 		
 		HttpSession sesion = request.getSession();
 		
-		String email = (String)request.getParameter("email"); //$NON-NLS-1$
-		String pwd = (String)request.getAttribute("pwd"); //$NON-NLS-1$
-		Integer cliente_id = (Integer)request.getAttribute("cliente_id"); //$NON-NLS-1$
+		String email = (String)sesion.getAttribute("email"); //$NON-NLS-1$
+		String pwd = (String)sesion.getAttribute("pwd"); //$NON-NLS-1$
+		Integer cliente_id = (Integer)sesion.getAttribute("cliente_id"); //$NON-NLS-1$
+		System.out.println("cliente_id: "+cliente_id);
 		
 		// Intento conectarme a la base de datos.
 		
@@ -71,7 +72,7 @@ public class Crearcuenta extends HttpServlet {
 			Class.forName("com.mysql.jdbc.Driver");
 			conexion = DriverManager.getConnection("jdbc:mysql://localhost/banco","root","");
 
-			// Utilizo el procedimiento creado "crear_cuentas" para crear la cuenta en la tabla "cuentas".
+			// Utilizo el procedimiento creado "crear_cuenta" para crear la cuenta en la tabla "cuentas".
 			
 			cs1 = conexion.prepareCall("{call crear_cuenta(?,?,?)}");
 			cs1.setString(1, descripcion);
@@ -91,7 +92,7 @@ public class Crearcuenta extends HttpServlet {
 			
 			cs2.execute();
 			
-			System.out.println("cuenta_id"+cs2.getInt(2));
+			System.out.println("cuenta_id: "+cs2.getInt(2));
 			// Ahora debo recuperar el id de la cuenta creada, lo he buscado en internet (es el "registeOutParameter" que hay antes de ejcutar la consulta).
 			
 			Integer cuenta_id = cs2.getInt(2);
@@ -106,6 +107,8 @@ public class Crearcuenta extends HttpServlet {
 			
 			cs3.executeUpdate();
 			
+			response.sendRedirect("/023_seguridad/cuenta.jsp");
+			
 		}catch(SQLException e){
 			
 			e.printStackTrace();
@@ -116,6 +119,7 @@ public class Crearcuenta extends HttpServlet {
 		
 		}
 
+		
 		finally{
 			
 			try{

@@ -37,7 +37,7 @@ public class Privado extends HttpServlet {
 		
 		
 		
-		response.sendRedirect("/023_seguridad/cuenta.jsp");
+		response.sendRedirect("/023_seguridad/jsp/privado/cuenta.jsp");
 	}
 
 	/**

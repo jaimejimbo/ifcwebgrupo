@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-03-2017 a las 08:10:32
+-- Tiempo de generación: 01-04-2017 a las 13:47:02
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 7.1.1
 
@@ -51,11 +51,14 @@ SELECT clientes.nombre from clientes where clientes.cliente_id=iid$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `crear_cuenta` (IN `idesc` VARCHAR(500), IN `ifondos` DECIMAL(10,2), IN `inombre` VARCHAR(50))  NO SQL
 insert into cuentas(descripción, fondos, nombre) values(idesc, ifondos, inombre)$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `cuenta_id` (IN `inombre` VARCHAR(100), OUT `cuentas` INT)  NO SQL
-select cuentas.cuenta_id from cuentas where cuentas.nombre=inombre$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `cuenta_id` (IN `inombre` VARCHAR(100), OUT `cuenta_ide` INT(11))  NO SQL
+select cuenta_id into cuenta_ide from cuentas where cuentas.nombre=inombre$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `disociar_cuenta` (IN `icid` INT, IN `icuen` INT)  NO SQL
-delete from posesiones where posesiones.cliente_id=icid and posesiones.cuenta_id=icuen$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `disociar_cuenta` (IN `icid` INT)  NO SQL
+delete from posesiones where posesiones.cliente_id=icid$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `eliminar_cuenta` (IN `cuenta_ide` INT(11))  NO SQL
+delete from cuentas where cuenta_id=cuenta_ide$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `fondos_nombre_cuenta` (IN `inombre` VARCHAR(50))  NO SQL
 select cuentas.fondos from cuentas where cuentas.nombre=inombre$$
@@ -71,6 +74,12 @@ select cuentas.nombre from cuentas where cuentas.cuenta_id=(SELECT posesiones.cu
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `nuevo_cliente` (IN `inombre` VARCHAR(50), IN `iemail` VARCHAR(50), IN `idni` VARCHAR(20), IN `idir` VARCHAR(300), IN `ipwd` VARCHAR(500), IN `isalt` VARCHAR(500))  NO SQL
 INSERT into clientes(nombre, email, DNI, dirección, pwd, salt) values(inombre, iemail, idni, idir, ipwd, isalt)$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `seleccionar_cuentas` (IN `cuenta_ide` INT(11))  NO SQL
+select * from cuentas where cuenta_id=cuenta_ide$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `seleccionar_cuenta_id` (IN `cliente_id` INT(11))  NO SQL
+select cuenta_id from posesiones where cliente_id=cliente_id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `transacción` (IN `icid1` INT, IN `icid2` INT, IN `icu1` VARCHAR(100), IN `icu2` VARCHAR(100), IN `ifec` VARCHAR(50), IN `info` VARCHAR(500), IN `ican` DECIMAL(10,2))  NO SQL
 insert into transacciones(cliente1_id, cliente2_id, cuenta1_id, cuenta2_id, fecha, concepto, cantidad) values (icid1, icid2, (select cuentas.id from cuentas where cuentas.nombre=icu1), (select cuentas.id from cuentas where cuentas.nombre=icu2), ifec, info, ican)$$
@@ -108,7 +117,8 @@ INSERT INTO `clientes` (`cliente_id`, `nombre`, `email`, `DNI`, `dirección`, `p
 (5, '', 'falso@falso.com', '', '', '$2a$16$jGHXzrtLXO.qW7N6.d0fQ.SIzNRQGcRlJ.yYuKAEmAwVtdj7R4S3K', '$2a$16$jGHXzrtLXO.qW7N6.d0fQ.'),
 (6, '', 'uno@uno.es', '', '', '$2a$16$VnPSPzMZitmmY9NHfmDLY.7gNWj59DO9.11q/koo9Qyj2bgs0sRE2', '$2a$16$VnPSPzMZitmmY9NHfmDLY.'),
 (7, '', 'dos@dos.com', '', '', '$2a$16$abroEk9ozgqCApIV60hIPOwiy/1lIT9jt5q7XR6GHR4CVdUT1RTkO', '$2a$16$abroEk9ozgqCApIV60hIPO'),
-(8, '', 'tres@tres.com', '', '', '$2a$16$iIzRMk9oQjFolQYSfY/Wt.tmcQr.YOUlR.jrM1cQxjoJjn5tx/x1e', '$2a$16$iIzRMk9oQjFolQYSfY/Wt.');
+(8, '', 'tres@tres.com', '', '', '$2a$16$iIzRMk9oQjFolQYSfY/Wt.tmcQr.YOUlR.jrM1cQxjoJjn5tx/x1e', '$2a$16$iIzRMk9oQjFolQYSfY/Wt.'),
+(9, 'arturo', 'arturo@gmail.com', '99999999D', 'C/ Madrid', '$2a$16$EgUrkN/AxO1r5InTLuf9X.U5zkmfhzGo0PCQdqQCEJxoY0l0jV4Cy', '$2a$16$EgUrkN/AxO1r5InTLuf9X.');
 
 -- --------------------------------------------------------
 
@@ -129,7 +139,9 @@ CREATE TABLE `cuentas` (
 
 INSERT INTO `cuentas` (`cuenta_id`, `descripción`, `fondos`, `nombre`) VALUES
 (1, 'cuenta1', '5.00', 'cuenta1'),
-(2, 'cuenta2', '100005.00', 'cuenta2');
+(2, 'cuenta2', '100005.00', 'cuenta2'),
+(3, 'alfredo', '1234.00', 'alfredo'),
+(13, 'jubilacion', '1500.00', 'jubilacion');
 
 -- --------------------------------------------------------
 
@@ -138,10 +150,17 @@ INSERT INTO `cuentas` (`cuenta_id`, `descripción`, `fondos`, `nombre`) VALUES
 --
 
 CREATE TABLE `posesiones` (
-  `id` int(11) NOT NULL,
   `cliente_id` int(11) NOT NULL,
-  `cuenta_id` int(11) NOT NULL
+  `cuenta_id` int(11) NOT NULL,
+  `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `posesiones`
+--
+
+INSERT INTO `posesiones` (`cliente_id`, `cuenta_id`, `id`) VALUES
+(9, 13, 2);
 
 -- --------------------------------------------------------
 
@@ -229,12 +248,12 @@ ALTER TABLE `clientes`
 -- AUTO_INCREMENT de la tabla `cuentas`
 --
 ALTER TABLE `cuentas`
-  MODIFY `cuenta_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `cuenta_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT de la tabla `posesiones`
 --
 ALTER TABLE `posesiones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `transacciones`
 --
