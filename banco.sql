@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-04-2017 a las 13:47:02
+-- Tiempo de generación: 05-04-2017 a las 09:34:19
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 7.1.1
 
@@ -66,8 +66,8 @@ select cuentas.fondos from cuentas where cuentas.nombre=inombre$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_salt` (IN `iemail` VARCHAR(100))  NO SQL
 select clientes.salt from clientes where clientes.email=iemail$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `login` (IN `iemail` VARCHAR(50), IN `ipwd` VARCHAR(500), OUT `clientes` INT)  NO SQL
-select count(*) from clientes where clientes.email=iemail and clientes.pwd=ipwd$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `login` (IN `iemail` VARCHAR(50), IN `ipwd` VARCHAR(500))  NO SQL
+select * from clientes where clientes.email=iemail and clientes.pwd=ipwd$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `nombres_cuenta` (IN `icid` INT)  NO SQL
 select cuentas.nombre from cuentas where cuentas.cuenta_id=(SELECT posesiones.cuenta_id from posesiones where posesiones.cliente_id=icid)$$
@@ -118,7 +118,8 @@ INSERT INTO `clientes` (`cliente_id`, `nombre`, `email`, `DNI`, `dirección`, `p
 (6, '', 'uno@uno.es', '', '', '$2a$16$VnPSPzMZitmmY9NHfmDLY.7gNWj59DO9.11q/koo9Qyj2bgs0sRE2', '$2a$16$VnPSPzMZitmmY9NHfmDLY.'),
 (7, '', 'dos@dos.com', '', '', '$2a$16$abroEk9ozgqCApIV60hIPOwiy/1lIT9jt5q7XR6GHR4CVdUT1RTkO', '$2a$16$abroEk9ozgqCApIV60hIPO'),
 (8, '', 'tres@tres.com', '', '', '$2a$16$iIzRMk9oQjFolQYSfY/Wt.tmcQr.YOUlR.jrM1cQxjoJjn5tx/x1e', '$2a$16$iIzRMk9oQjFolQYSfY/Wt.'),
-(9, 'arturo', 'arturo@gmail.com', '99999999D', 'C/ Madrid', '$2a$16$EgUrkN/AxO1r5InTLuf9X.U5zkmfhzGo0PCQdqQCEJxoY0l0jV4Cy', '$2a$16$EgUrkN/AxO1r5InTLuf9X.');
+(9, 'arturo', 'arturo@gmail.com', '99999999D', 'C/ Madrid', '$2a$16$EgUrkN/AxO1r5InTLuf9X.U5zkmfhzGo0PCQdqQCEJxoY0l0jV4Cy', '$2a$16$EgUrkN/AxO1r5InTLuf9X.'),
+(10, 'Jaime', 'jaime2@jaime.net', '000555111K', 'tucasa', '$2a$16$HjAuxfyDXEo/F2V7DldgmuxM8tJWR7dQGs7tcgfpeD0K/lf0nBTt2', '$2a$16$HjAuxfyDXEo/F2V7Dldgmu');
 
 -- --------------------------------------------------------
 
@@ -243,7 +244,7 @@ ALTER TABLE `transacciones`
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `cliente_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `cliente_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT de la tabla `cuentas`
 --
