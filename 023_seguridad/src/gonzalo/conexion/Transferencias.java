@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.mysql.jdbc.PreparedStatement;
+
 /**
  * Servlet implementation class Transferencias
  */
@@ -46,7 +48,6 @@ public class Transferencias extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Estoy en post de transferencia");
 		HttpSession sesion = request.getSession();
 		
 		this.classurl = (String)request.getAttribute("classurl"); //$NON-NLS-1$
@@ -59,8 +60,10 @@ public class Transferencias extends HttpServlet {
 		String receptor = request.getParameter("receptor");
 		String cantidad = request.getParameter("cantidad");
 		String concepto = request.getParameter("concepto");
-		
-		System.out.println("Recupero datos de transferencia: " + receptor + cantidad + concepto);
+		String id_cuenta = request.getParameter("cuenta");
+		System.out.println("id_cuenta que recupero del transferir.jsp:" + id_cuenta);
+				
+		System.out.println("Recupero datos de transferencia: " + receptor + cantidad + concepto+ id_cuenta);
 		// Intento conectarme a la base de datos.
 		
 		
@@ -73,22 +76,30 @@ public class Transferencias extends HttpServlet {
 			
 			Class.forName("com.mysql.jdbc.Driver");
 			conexion = DriverManager.getConnection("jdbc:mysql://localhost/banco","root","");
-			cs = conexion.prepareCall("{call transacción(?,?,?,?,?,?,?)}");
-			cs.setInt(1, 1); //mi id, soy quien hago transferencia
 			
-			//ME DA FALLO. saco id del cliente receptor del dinero a partir de su nombre en variable receptor
+			System.out.println("llego aqui: " + receptor);
+			
+			//saco id del cliente receptor del dinero a partir de su nombre en variable receptor
 			st = conexion.createStatement();
-			rs = st.executeQuery("SELECT cliente_id FROM clientes where nombre='"+receptor+"'");
-			System.out.println(rs.getInt(1));
-			cs.setInt(2, rs.getInt(1)); //id de a quien transfiero
+			rs = st.executeQuery("SELECT cliente_id FROM clientes WHERE nombre='"+receptor+"'");
+			while (rs.next()){
+			System.out.println("id a quien transfiero " + rs.getInt(1));
 			
-			cs.setInt(3, 1); //mi id de cuenta con la que transfiero
+			//id de persona que transfiere, es decir, quien tiene iniciada sesion
+			int cliente_id= Integer.parseInt(sesion.getAttribute("cliente_id").toString());
+			System.out.println("id de cliente que transfiere, es decir, logueado: " +cliente_id);
+			
+			cs = conexion.prepareCall("{call transacción(?,?,?,?,?,?,?)}");
+			cs.setInt(1, cliente_id); //mi id, soy quien hago transferencia
+			cs.setInt(2, rs.getInt(1)); //id de a quien transfiero
+			cs.setInt(3, Integer.parseInt(id_cuenta)); //mi id de cuenta con la que transfiero
 			cs.setInt(4, 2); //cuenta del otro al que transfiero
 			Date fecha=new Date();
 			cs.setString(5, fecha.toString()); //fecha de transferencia
 			cs.setString(6, concepto); //concepto
 			cs.setString(7, cantidad); //cantidad que quiero transferir
 			cs.executeQuery();
+			}
 		}catch(SQLException e){
 	
 			e.printStackTrace();
