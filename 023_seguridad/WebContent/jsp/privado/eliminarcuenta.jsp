@@ -13,6 +13,8 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 		<link rel="stylesheet" href="../../css/custom.css">
+		<link rel="stylesheet" href="../../css/custom.css">
+		<link rel="stylesheet" href="../../css/font-awesome.min.css">
 		<link href="https://fonts.googleapis.com/css?family=Spirax" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Macondo" rel="stylesheet">
 		<title>Inicio</title>
@@ -88,7 +90,7 @@
 								<td><%=mostrar.getString(2)%></td>
 								<td><%=mostrar.getFloat(3)%></td>
 								<td><%=mostrar.getString(4)%></td>
-								<td><a href="eliminar.jsp?eliminado=<%=mostrar.getInt(1) %>">Eliminar</a></td>
+								<td><a class="fa fa-times" href="eliminar.jsp?eliminado=<%=mostrar.getInt(1) %>">Eliminar</a></td>
 							</tr>
 							<%
 						}
