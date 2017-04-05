@@ -21,17 +21,6 @@
 		<jsp:include page="header.jsp" />
 	  	<div class="col-lg-1 col-md-1 col-sm-1"></div>
 	  	<div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 main-bg">
-	  		<!-- contenido -->
-		</div>
-		<div id="output"></div>
-	    <!--[if lt IE 9]>
-	    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-	    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-	    <![endif]-->
-	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-	    
-	    <!-- Te lo añado aquí, Jaime. -->
 	    
 	    <%
 		
@@ -74,7 +63,7 @@
 				
 				// Pido que me muestre en la pantalla las cuentas de esos ids.
 				
-				out.print("<CENTER><table><tr><td>descripcion</td><td>fondos</td><td>nombre</td></tr>");
+				out.print("<table class='table table-striped'><thead><th>descripcion</th><th>fondos</th><th>nombre</th></thead><tbody>");
 				
 				while(rs.next()){
 					
@@ -103,10 +92,19 @@
 						<%
 					}
 				}
-					out.print("</table></CENTER>");		
+					out.print("</tbody></table>");		
 			}catch(Exception e){
 				e.printStackTrace();
 			}
 		%>
+		</div>
+		<div id="output"></div>
+	    <!--[if lt IE 9]>
+	    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+	    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	    <![endif]-->
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	   
   	</body>
 </html>
