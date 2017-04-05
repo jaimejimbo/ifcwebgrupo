@@ -41,12 +41,12 @@
 		   	}
  		%><%=nombre%></a></li>
 		      </ul>
-		      <form class="navbar-form navbar-right">
+		      <!-- <form class="navbar-form navbar-right">
 		        <div class="form-group">
 		          <input type="text" class="form-control" placeholder="Búsqueda">
 		        </div>
 		        <button type="submit" class="btn btn-default">Buscar</button>
-		      </form>
+		      </form> -->
 		    </div><!-- /.navbar-collapse -->
 		  </div><!-- /.container-fluid -->
 		</nav>
