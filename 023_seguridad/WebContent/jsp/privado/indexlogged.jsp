@@ -74,7 +74,7 @@
 				
 				// Pido que me muestre en la pantalla las cuentas de esos ids.
 				
-				out.print("<CENTER><table><tr><td>descripcion</td><td>fondos</td><td>nombre</td></tr>");
+				out.print("<CENTER><table border='1'><tr><td>Nombre</td><td>Fondos</td><td>Descripción</td></tr>");
 				
 				while(rs.next()){
 					
@@ -96,9 +96,9 @@
 					while(mostrar.next()){
 						%>
 						<tr>
-							<td><%=mostrar.getString(2)%></td>
-							<td><%=mostrar.getFloat(3)%></td>
 							<td><%=mostrar.getString(4)%></td>
+							<td><%=mostrar.getFloat(3)%></td>
+							<td><%=mostrar.getString(2)%></td>
 						</tr>
 						<%
 					}

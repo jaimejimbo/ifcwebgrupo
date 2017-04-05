@@ -66,46 +66,87 @@ public class Crearcuenta extends HttpServlet {
 		CallableStatement cs1 = null;
 		CallableStatement cs2 = null;
 		CallableStatement cs3 = null;
+		CallableStatement cs4 = null;
+		CallableStatement cs5 = null;
 				
 		try{
 					
 			Class.forName("com.mysql.jdbc.Driver");
 			conexion = DriverManager.getConnection("jdbc:mysql://localhost/banco","root","");
 
-			// Utilizo el procedimiento creado "crear_cuenta" para crear la cuenta en la tabla "cuentas".
+			// Voy a revisar que no exista una cuenta previa con es nombre asociada a ese cliente.
 			
-			cs1 = conexion.prepareCall("{call crear_cuenta(?,?,?)}");
-			cs1.setString(1, descripcion);
-			cs1.setFloat(2, fondos);
-			cs1.setString(3, nombrecuenta);
+			// Lo primero que quiero hacer es conocer las cuentas del cliente logueado (en la tabla "posesiones").
 			
-			cs1.executeUpdate();
-		
-			// Ahora tengo que asociar la cuenta creada al id del usuario logeado.
+			cs1 = conexion.prepareCall("{call seleccionar_cuenta_id(?)}");
+			cs1.setInt(1,cliente_id);
 			
-			// Primero cojo el id de la cuenta creada en la tabla "cuentas" con el procedimiento "cuenta_id".
+			ResultSet rs= cs1.executeQuery();
 			
-			cs2 = conexion.prepareCall("{call cuenta_id(?,?)}");
-			cs2.setString(1, nombrecuenta);
+			// Ahora quiero conocer el nombre de las cuentas de este cliente logueado (en la tabla "cuentas").
 			
-			cs2.registerOutParameter(2, java.sql.Types.INTEGER);
+			// Inicio una variable que indica previamente que no exite una cuenta con ese nombre.
 			
-			cs2.execute();
+			boolean encontrada = false;
 			
-			System.out.println("cuenta_id: "+cs2.getInt(2));
-			// Ahora debo recuperar el id de la cuenta creada, lo he buscado en internet (es el "registeOutParameter" que hay antes de ejcutar la consulta).
-			
-			Integer cuenta_id = cs2.getInt(2);
-			
-			
-			// Por último asocio la cuenta con el procedimiento "asociar_cuenta" creado.
-			
-			cs3 = conexion.prepareCall("{call asociar_cuenta(?,?)}");
-			
-			cs3.setInt(1, cliente_id);
-			cs3.setInt(2, cuenta_id);
-			
-			cs3.executeUpdate();
+			while(rs.next()){
+				
+				cs2 = conexion.prepareCall("{call seleccionar_cuentas(?)}");
+				cs2.setInt(1,rs.getInt(1));
+				
+				ResultSet mostrar = cs2.executeQuery();
+				
+				// Compruebo si el nombre de alguna cuenta de ese cliente coincide con el nombre nuevo que quiere emplear.
+				
+				while(mostrar.next()){
+					System.out.println("cuentas del usuario: "+mostrar.getString(4));
+					if(nombrecuenta.equals(mostrar.getString(4))) {
+						encontrada=true;
+					}
+					
+				
+					System.out.println("encontrada: "+encontrada);
+				
+					if (encontrada==false){
+				
+						// Utilizo el procedimiento creado "crear_cuenta" para crear la cuenta en la tabla "cuentas".
+						
+						cs3 = conexion.prepareCall("{call crear_cuenta(?,?,?)}");
+						cs3.setString(1, descripcion);
+						cs3.setFloat(2, fondos);
+						cs3.setString(3, nombrecuenta);
+						
+						cs3.executeUpdate();
+					
+						// Ahora tengo que asociar la cuenta creada al id del usuario logeado.
+						
+						// Primero cojo el id de la cuenta creada en la tabla "cuentas" con el procedimiento "cuenta_id".
+						
+						cs4 = conexion.prepareCall("{call cuenta_id(?,?)}");
+						cs4.setString(1, nombrecuenta);
+						
+						cs4.registerOutParameter(2, java.sql.Types.INTEGER);
+						
+						cs4.execute();
+						
+						System.out.println("cuenta_id: "+cs2.getInt(2));
+						// Ahora debo recuperar el id de la cuenta creada, lo he buscado en internet (es el "registeOutParameter" que hay antes de ejcutar la consulta).
+						
+						Integer cuenta_id = cs2.getInt(2);
+						
+						
+						// Por último asocio la cuenta con el procedimiento "asociar_cuenta" creado.
+						
+						cs5 = conexion.prepareCall("{call asociar_cuenta(?,?)}");
+						
+						cs5.setInt(1, cliente_id);
+						cs5.setInt(2, cuenta_id);
+						
+						cs5.executeUpdate();
+						
+					}
+				}
+			}	
 			
 			response.sendRedirect("/023_seguridad/jsp/privado/indexlogged.jsp");
 			
@@ -124,9 +165,11 @@ public class Crearcuenta extends HttpServlet {
 			
 			try{
 
-				cs1.close();
-				cs2.close();
-				cs3.close();
+				if(cs1!=null)cs1.close();
+				if(cs2!=null)cs2.close();
+				if(cs3!=null)cs3.close();
+				if(cs4!=null)cs4.close();
+				if(cs5!=null)cs5.close();
 				conexion.close();
 			
 			}catch(Exception e){

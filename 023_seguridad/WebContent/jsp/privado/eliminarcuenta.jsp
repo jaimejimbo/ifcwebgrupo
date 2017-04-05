@@ -64,7 +64,7 @@
 						
 						// Pido que me muestre en la pantalla las cuentas de esos ids.
 						
-						out.print("<CENTER><table><tr><td>descripcion</td><td>fondos</td><td>nombre</td><td>seleccionar</td></tr>");
+						out.print("<CENTER><table border='1'><tr><td>Nombre</td><td>Fondos</td><td>Descripción</td><td>seleccionar</td></tr>");
 						
 						while(rs.next()){
 							
@@ -86,9 +86,9 @@
 							while(mostrar.next()){
 								%>
 								<tr>
-									<td><%=mostrar.getString(2)%></td>
-									<td><%=mostrar.getFloat(3)%></td>
 									<td><%=mostrar.getString(4)%></td>
+									<td><%=mostrar.getFloat(3)%></td>
+									<td><%=mostrar.getString(2)%></td>
 									<td><a href="eliminar.jsp?eliminado=<%=mostrar.getInt(1) %>">Eliminar</a></td>
 								</tr>
 								<%
@@ -99,8 +99,6 @@
 						e.printStackTrace();
 					}
 				%>
-					<!-- Un botón para regresar al menú del usuario. -->
-					<p><a href="/023_seguridad/cuenta.jsp">Volver al menu de usario</a></p>
 			</div>
 		</div>
 		<div id="output"></div>
