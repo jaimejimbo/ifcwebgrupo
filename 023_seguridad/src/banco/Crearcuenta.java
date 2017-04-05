@@ -35,7 +35,7 @@ public class Crearcuenta extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doPost(request, response);
 	}
 
 	/**
@@ -107,7 +107,7 @@ public class Crearcuenta extends HttpServlet {
 			
 			cs3.executeUpdate();
 			
-			response.sendRedirect("/023_seguridad/cuenta.jsp");
+			response.sendRedirect("/023_seguridad/jsp/privado/indexlogged.jsp");
 			
 		}catch(SQLException e){
 			

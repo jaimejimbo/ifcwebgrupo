@@ -54,8 +54,12 @@ insert into cuentas(descripción, fondos, nombre) values(idesc, ifondos, inombre
 CREATE DEFINER=`root`@`localhost` PROCEDURE `cuenta_id` (IN `inombre` VARCHAR(100))  NO SQL
 select cuentas.cuenta_id from cuentas where cuentas.nombre=inombre$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `disociar_cuenta` (IN `icid` INT, IN `icuen` INT)  NO SQL
-delete from posesiones where posesiones.cliente_id=icid and posesiones.cuenta_id=icuen$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `disociar_cuenta` (IN `icid` INT)  NO SQL
+delete from posesiones where posesiones.cliente_id=icid$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `eliminar_cuenta` (IN `cuenta_ide` INT(11))  NO SQL
+delete from cuentas where cuenta_id=cuenta_ide$$
+
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `fondos_nombre_cuenta` (IN `inombre` VARCHAR(50))  NO SQL
 select cuentas.fondos from cuentas where cuentas.nombre=inombre$$
@@ -71,6 +75,12 @@ select cuentas.cuenta_id,cuentas.nombre from cuentas where cuentas.cuenta_id IN 
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `nuevo_cliente` (IN `inombre` VARCHAR(50), IN `iemail` VARCHAR(50), IN `idni` VARCHAR(20), IN `idir` VARCHAR(300), IN `ipwd` VARCHAR(500), IN `isalt` VARCHAR(500))  NO SQL
 INSERT into clientes(nombre, email, DNI, dirección, pwd, salt) values(inombre, iemail, idni, idir, ipwd, isalt)$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `seleccionar_cuentas` (IN `cuenta_ide` INT(11))  NO SQL
+select * from cuentas where cuenta_id=cuenta_ide$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `seleccionar_cuenta_id` (IN `cliente_id` INT(11))  NO SQL
+select cuenta_id from posesiones where cliente_id=cliente_id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `transacción` (IN `icid1` INT, IN `icid2` INT, IN `icu1` INT(100), IN `icu2` INT(100), IN `ifec` VARCHAR(50), IN `info` VARCHAR(500), IN `ican` DECIMAL(10,2))  NO SQL
 insert into transacciones(cliente1_id, cliente2_id, cuenta1_id, cuenta2_id, fecha, concepto, cantidad) values (icid1, icid2, icu1, icu2, ifec, info, ican)$$

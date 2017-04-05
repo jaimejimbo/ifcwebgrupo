@@ -79,7 +79,7 @@
 						} 
 					%> 
 				</div>
-				<p class="text-right"><input type="button" class="btn btn-primary" value="Enviar" onclick="onclick()" /></p>
+				<p class="text-right"><input type="submit" class="btn btn-primary" value="Enviar" /></p>
 			</form>
 		</div>
 		<div id="output"></div>

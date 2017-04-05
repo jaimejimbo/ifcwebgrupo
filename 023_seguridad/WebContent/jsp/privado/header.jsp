@@ -40,12 +40,12 @@
 		          </ul>
 		        </li>
 		      </ul>
-		      <form class="navbar-form navbar-right" action="/023_seguridad/Buscar" method="post">
+		      <!-- <form class="navbar-form navbar-right" action="/023_seguridad/Buscar" method="post">
 		        <div class="form-group">
 		          <input type="text" class="form-control" placeholder="Búsqueda">
 		        </div>
 		        <button type="submit" class="btn btn-default">Buscar</button>
-		      </form>
+		      </form>-->
 		    </div><!-- /.navbar-collapse -->
 		  </div><!-- /.container-fluid -->
 		</nav>
