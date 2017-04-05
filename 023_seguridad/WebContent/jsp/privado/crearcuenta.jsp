@@ -24,13 +24,13 @@
 				<div class="form-group">
 					<label for="nombrecuenta" class="fill-width">
 						<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">Nombre cuenta</div>
-						<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12"><input type="text" id="nombrecuenta" name="nombrecuenta" size="50" placeholder="Introduzca un nombre para la cuenta."></div>
+						<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12"><input type="text" id="nombrecuenta" name="nombrecuenta" placeholder="Introduzca un nombre para la cuenta."></div>
 					</label>
 				</div>
 				<div class="form-group">
 					<label for="descripcion" class="fill-width">
 						<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">Descripcion</div>
-						<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12"><input type="text" id="descripcion" name="descripcion" size="50" placeholder="Introduzca una descripcion para la cuenta."></div>
+						<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12"><input type="text" id="descripcion" name="descripcion" placeholder="Introduzca una descripcion para la cuenta."></div>
 					</label>
 				</div>
 				<div class="form-group">
