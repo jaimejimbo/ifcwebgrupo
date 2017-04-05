@@ -115,8 +115,8 @@ public class Registrar extends HttpServlet {
 				con.close();
 				
 				// Redirección al método "post" de "Privado.java".
-				
-				response.sendRedirect(request.getContextPath().concat("/Privado"));
+
+				response.sendRedirect(request.getContextPath().concat("/jsp/privado/indexlogged.jsp"));
 			}		
 		
 		}catch(SQLException e){
