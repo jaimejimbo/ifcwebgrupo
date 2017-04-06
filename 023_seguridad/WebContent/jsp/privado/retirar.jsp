@@ -3,10 +3,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<jsp:include page="../includes.jsp" />
 <title>Insert title here</title>
 </head>
 <body>
-
+<jsp:include page="header.jsp" />
+<jsp:include page="footer.jsp" />
 </body>
 </html>
