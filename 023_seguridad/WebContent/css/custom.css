@@ -38,6 +38,14 @@ body{
 	color: black !important;
 }
 
+div>label{
+	width: 100%;
+}
+
+label>div>input{
+	width: 100%;
+}
+
 .navbar-nav > li > .dropdown-menu>li:hover > a {
 	background-image: none;
 	background-color: black !important;

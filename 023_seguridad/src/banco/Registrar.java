@@ -108,15 +108,15 @@ public class Registrar extends HttpServlet {
 				
 				sesion.setAttribute("cliente_id", cliente_id);
 				sesion.setAttribute("email", email);
-				
+				sesion.setAttribute("nombre", nombre);
 				sesion.setAttribute("allowed", true);
 				
 				cs.close();
 				con.close();
 				
 				// Redirección al método "post" de "Privado.java".
-				
-				response.sendRedirect(request.getContextPath().concat("/Privado"));
+
+				response.sendRedirect(request.getContextPath().concat("/jsp/privado/indexlogged.jsp"));
 			}		
 		
 		}catch(SQLException e){
