@@ -97,8 +97,8 @@
 		</tr>
 		<%
 					}
-					out.print("</tbody></table>");
 				}
+				out.print("</tbody></table>");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
