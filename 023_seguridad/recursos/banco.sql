@@ -60,7 +60,6 @@ delete from posesiones where posesiones.cliente_id=icid$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `eliminar_cuenta` (IN `cuenta_ide` INT(11))  NO SQL
 delete from cuentas where cuenta_id=cuenta_ide$$
 
-
 CREATE DEFINER=`root`@`localhost` PROCEDURE `fondos_nombre_cuenta` (IN `inombre` VARCHAR(50))  NO SQL
 select cuentas.fondos from cuentas where cuentas.nombre=inombre$$
 
