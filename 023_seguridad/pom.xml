@@ -95,11 +95,11 @@
 				<targetPath></targetPath>
 			</resource>
 			<resource>
-				<directory>src/main/java</directory>
+				<directory>src</directory>
 				<targetPath>WEB-INF/classes</targetPath>
 			</resource>
 			<resource>
-				<directory>src/main/resources</directory>
+				<directory>recursos</directory>
 				<targetPath>WEB-INF/classes</targetPath>
 			</resource>
 		</resources>
