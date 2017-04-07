@@ -1,21 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	
+	<groupId>023_seguridad</groupId>
+	<artifactId>023_seguridad</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
 
-  <groupId>023_seguridad</groupId>
-  <artifactId>023_seguridad</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-
-	<name>Spring MVC con Hibernate ecommerce</name>
-	<description>Hibernate 4 con Spring 4 y con imagenes en PDF</description>
-
+	<name>Banco</name>
+	<description>Banco con seguridad</description>
 	<packaging>war</packaging>
-
-
-	<properties>
-		<springframework.version>4.3.7.RELEASE</springframework.version>
-		<hibernate.version>4.3.6.Final</hibernate.version>
-	</properties>
 
 	<dependencies>
 	<!-- JAVAX -->
@@ -74,35 +67,27 @@
 					<configuration>
 						<source>1.8</source>
 						<target>1.8</target>
+						<generatedSourcesDirectory>src/generated</generatedSourcesDirectory>
 					</configuration>
 				</plugin>
 
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-war-plugin</artifactId>
-					<version>2.4</version>
+					<version>3.0.0</version>
 					<configuration>
-						<failOnMissingWebXml>false</failOnMissingWebXml>
+						<webResources>
+							<webResource>
+								<directory>WebContent</directory>
+								<targetPath>WEB-INF/</targetPath>
+							</webResource>
+						</webResources>
 					</configuration>
 				</plugin>
-				
+	
 			</plugins>
 		</pluginManagement>
-		
-		<resources>
-			<resource>
-				<directory>WebContent</directory>
-				<targetPath></targetPath>
-			</resource>
-			<resource>
-				<directory>src</directory>
-				<targetPath>WEB-INF/classes</targetPath>
-			</resource>
-			<resource>
-				<directory>recursos</directory>
-				<targetPath>WEB-INF/classes</targetPath>
-			</resource>
-		</resources>
+		<sourceDirectory>src</sourceDirectory>
 	</build>
 
 </project>
