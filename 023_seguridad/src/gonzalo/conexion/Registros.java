@@ -107,13 +107,13 @@ public class Registros extends HttpServlet {
 					
 					// Independientemente de que hagamos la consulta tenemos que redireccionar a "cuenta.jsp".
 					
-					response.sendRedirect("/023_seguridad/cuenta.jsp");
+					response.sendRedirect("/banco/cuenta.jsp");
 					
 				}else{
 					
 					System.out.println("El registro fue completado con anterioridad.");
 					
-					response.sendRedirect("/023_seguridad/cuenta.jsp");
+					response.sendRedirect("/banco/cuenta.jsp");
 				}
 			}
 		
