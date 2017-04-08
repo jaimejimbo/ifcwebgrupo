@@ -121,7 +121,7 @@ public class Transferencias extends HttpServlet {
 				
 				e.printStackTrace();
 			}
-			response.sendRedirect("/banco/jsp/privado/eliminarcuenta.jsp");
+			response.sendRedirect("/banco/jsp/privado/indexlogged.jsp");
 		
 		}
 		
