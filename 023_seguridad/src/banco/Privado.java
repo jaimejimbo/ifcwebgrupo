@@ -88,7 +88,7 @@ public class Privado extends HttpServlet {
 
 			// Redirección a "cuenta.jsp" donde crearé el menú para acceder a las distintas operaciones que puede hacer el cliente logeado.
 	
-			response.sendRedirect("/023_seguridad/jsp/privado/cuenta.jsp");
+			response.sendRedirect("/banco/jsp/privado/cuenta.jsp");
 		
 		}
 		}catch(SQLException e){
