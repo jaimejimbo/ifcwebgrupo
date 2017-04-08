@@ -137,8 +137,6 @@ public class Crearcuenta extends HttpServlet {
 						
 			}
 			
-			response.sendRedirect("/023_seguridad/jsp/privado/indexlogged.jsp");
-			
 		}catch(SQLException e){
 			
 			e.printStackTrace();
@@ -163,6 +161,7 @@ public class Crearcuenta extends HttpServlet {
 				
 				e.printStackTrace();
 			}
+			response.sendRedirect("/banco/jsp/privado/indexlogged.jsp");
 		
 		}
 		
