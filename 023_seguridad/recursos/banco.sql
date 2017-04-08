@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-04-2017 a las 19:28:31
+-- Tiempo de generación: 08-04-2017 a las 13:23:14
 -- Versión del servidor: 10.1.21-MariaDB
--- Versión de PHP: 7.1.1
+-- Versión de PHP: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -110,7 +110,10 @@ CREATE TABLE `clientes` (
 --
 
 INSERT INTO `clientes` (`cliente_id`, `nombre`, `email`, `DNI`, `dirección`, `pwd`, `salt`) VALUES
-(1, 'arturo', 'arturo@gmail.com', '99999999', 'c/ madrid', '$2a$16$TCEgQQKU9Y4Y28lYRQ8Ipub72awFWDU7dvi5RhpOCsZunc2UpYIzG', '$2a$16$TCEgQQKU9Y4Y28lYRQ8Ipu');
+(1, 'arturo', 'arturo@gmail.com', '99999999', 'c/ madrid', '$2a$16$TCEgQQKU9Y4Y28lYRQ8Ipub72awFWDU7dvi5RhpOCsZunc2UpYIzG', '$2a$16$TCEgQQKU9Y4Y28lYRQ8Ipu'),
+(2, 'Jaime', 'jaime@jaime.net', '010101001', '01010101', '$2a$16$DOAlxOFuEIiHj7WYdZ9vLOCfk2ap3LstIgRNwO.Qu6a0Gf2Fgxqn6', '$2a$16$DOAlxOFuEIiHj7WYdZ9vLO'),
+(3, 'Prueba', 'prueba@prueba.es', 'prupruprueba', 'pruebapru', '$2a$16$yj.mGsyDLnlACsnNTR/FtuYGKcydvKHhzs5gkeQXzd8jt4XKLgabO', '$2a$16$yj.mGsyDLnlACsnNTR/Ftu'),
+(4, 'Esther', 'esther@esther.es', '0120210120', '1203012031', '$2a$16$89gFOtFlJHiLvaXAyUJxF.a.d58SfazPO8FeHHCz2HQ3Ye8AWZXsm', '$2a$16$89gFOtFlJHiLvaXAyUJxF.');
 
 -- --------------------------------------------------------
 
@@ -142,7 +145,9 @@ INSERT INTO `cuentas` (`cuenta_id`, `descripción`, `fondos`, `nombre`) VALUES
 (10, 'fundacion', '346546.00', 'fundacion'),
 (11, 'fundacion', '47856880.00', 'fundacion'),
 (12, 'fundacion', '24543666.00', 'fundacion'),
-(13, 'fundacion', '235346.00', 'fundacion');
+(13, 'fundacion', '235346.00', 'fundacion'),
+(15, '123', '123.00', 'Cuenta3'),
+(16, 'asdassda', '123.00', 'cuentas2');
 
 -- --------------------------------------------------------
 
@@ -237,17 +242,17 @@ ALTER TABLE `transacciones`
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `cliente_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `cliente_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `cuentas`
 --
 ALTER TABLE `cuentas`
-  MODIFY `cuenta_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `cuenta_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT de la tabla `posesiones`
 --
 ALTER TABLE `posesiones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `transacciones`
 --
