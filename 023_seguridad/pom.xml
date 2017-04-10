@@ -2,9 +2,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	
-	<groupId>023_seguridad</groupId>
-	<artifactId>023_seguridad</artifactId>
+	<groupId>banco</groupId>
+	<artifactId>banco</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+
 
 	<name>Banco</name>
 	<description>Banco con seguridad</description>
@@ -58,6 +59,8 @@
 	</dependencies>
 
 	<build>
+		<finalName>banco</finalName>
+		<outputDirectory>banco</outputDirectory>
 		<pluginManagement>
 			<plugins>
 				<plugin>
