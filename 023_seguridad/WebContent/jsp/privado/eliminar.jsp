@@ -38,7 +38,7 @@
 			cs2.setInt(1,eliminado);
 			cs2.executeUpdate();
 			
-			response.sendRedirect("/banco/jsp/privado/indexlogged.jsp");
+			response.sendRedirect(request.getContextPath().concat("/jsp/privado/indexlogged.jsp"));
 			
 			
 		}catch(ClassNotFoundException e){

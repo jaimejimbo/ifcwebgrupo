@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.ejb.EJBException;
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.ejb.SessionBean;
 import javax.ejb.SessionContext;
@@ -19,6 +20,7 @@ import org.mindrot.jbcrypt.BCrypt;
  * Session Bean implementation class Salt
  */
 @Stateless
+@LocalBean
 public class Salt implements SessionBean {
 	/**
 	 * 
