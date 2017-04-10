@@ -8,6 +8,9 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.mindrot.jbcrypt.BCrypt;
 
 public class Encriptacion implements Filter{
@@ -34,10 +37,12 @@ public class Encriptacion implements Filter{
 		String sqlurl = "jdbc:mysql://localhost/banco";
 		String sqluser = "root";
 		String sqlpwd = "";
-		request.setAttribute("classurl", classurl);
-		request.setAttribute("sqlurl", sqlurl);
-		request.setAttribute("sqluser", sqluser);
-		request.setAttribute("sqlpwd", sqlpwd);
+		HttpSession sesion = ((HttpServletRequest)request).getSession();
+		sesion.setAttribute("classurl", classurl);
+		sesion.setAttribute("sqlurl", sqlurl);
+		sesion.setAttribute("sqluser", sqluser);
+		sesion.setAttribute("sqlpwd", sqlpwd);
+		
 		Salt snejb = new Salt();
 		salt = snejb.hash(pwd, salt, email, classurl, sqlurl, sqluser, sqlpwd);
 		request.setAttribute("pwd", (String)BCrypt.hashpw(pwd, salt)); //$NON-NLS-1$

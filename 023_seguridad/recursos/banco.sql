@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-04-2017 a las 13:23:14
+-- Tiempo de generación: 10-04-2017 a las 21:25:48
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 5.6.30
 
@@ -69,6 +69,17 @@ select clientes.salt from clientes where clientes.email=iemail$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `login` (IN `iemail` VARCHAR(50), IN `ipwd` VARCHAR(500))  NO SQL
 select count(*) from clientes where clientes.email=iemail and clientes.pwd=ipwd$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `movimientos` (IN `icid` INT, IN `iname` VARCHAR(300))  NO SQL
+select 
+transacciones.fecha, clientes.nombre, transacciones.cantidad, transacciones.concepto 
+from 
+transacciones 
+
+left join clientes on clientes.nombre=iname
+
+where 
+transacciones.cuenta1_id=icid and transacciones.cliente1_id=clientes.cliente_id$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `nombres_cuenta` (IN `icid` INT)  NO SQL
 select cuentas.cuenta_id,cuentas.nombre from cuentas where cuentas.cuenta_id IN (SELECT posesiones.cuenta_id from posesiones where posesiones.cliente_id=icid)$$
 
@@ -112,8 +123,7 @@ CREATE TABLE `clientes` (
 INSERT INTO `clientes` (`cliente_id`, `nombre`, `email`, `DNI`, `dirección`, `pwd`, `salt`) VALUES
 (1, 'arturo', 'arturo@gmail.com', '99999999', 'c/ madrid', '$2a$16$TCEgQQKU9Y4Y28lYRQ8Ipub72awFWDU7dvi5RhpOCsZunc2UpYIzG', '$2a$16$TCEgQQKU9Y4Y28lYRQ8Ipu'),
 (2, 'Jaime', 'jaime@jaime.net', '010101001', '01010101', '$2a$16$DOAlxOFuEIiHj7WYdZ9vLOCfk2ap3LstIgRNwO.Qu6a0Gf2Fgxqn6', '$2a$16$DOAlxOFuEIiHj7WYdZ9vLO'),
-(3, 'Prueba', 'prueba@prueba.es', 'prupruprueba', 'pruebapru', '$2a$16$yj.mGsyDLnlACsnNTR/FtuYGKcydvKHhzs5gkeQXzd8jt4XKLgabO', '$2a$16$yj.mGsyDLnlACsnNTR/Ftu'),
-(4, 'Esther', 'esther@esther.es', '0120210120', '1203012031', '$2a$16$89gFOtFlJHiLvaXAyUJxF.a.d58SfazPO8FeHHCz2HQ3Ye8AWZXsm', '$2a$16$89gFOtFlJHiLvaXAyUJxF.');
+(3, 'Prueba', 'prueba@prueba.es', 'prupruprueba', 'pruebapru', '$2a$16$yj.mGsyDLnlACsnNTR/FtuYGKcydvKHhzs5gkeQXzd8jt4XKLgabO', '$2a$16$yj.mGsyDLnlACsnNTR/Ftu');
 
 -- --------------------------------------------------------
 
@@ -133,8 +143,7 @@ CREATE TABLE `cuentas` (
 --
 
 INSERT INTO `cuentas` (`cuenta_id`, `descripción`, `fondos`, `nombre`) VALUES
-(1, 'ahorro', '15000.00', 'ahorro'),
-(2, 'jubilacion', '800000.00', 'jubilacion'),
+(2, 'jubilacion', '800102.00', 'jubilacion'),
 (3, 'jubilacion', '800000.00', 'jubilacion'),
 (4, 'jubilacion', '70000.00', 'jubilacion'),
 (5, 'fundacion', '90000.00', 'fundacion'),
@@ -147,7 +156,8 @@ INSERT INTO `cuentas` (`cuenta_id`, `descripción`, `fondos`, `nombre`) VALUES
 (12, 'fundacion', '24543666.00', 'fundacion'),
 (13, 'fundacion', '235346.00', 'fundacion'),
 (15, '123', '123.00', 'Cuenta3'),
-(16, 'asdassda', '123.00', 'cuentas2');
+(16, 'asdassda', '123.00', 'cuentas2'),
+(18, 'asd', '21.00', 'huaheh');
 
 -- --------------------------------------------------------
 
@@ -166,7 +176,7 @@ CREATE TABLE `posesiones` (
 --
 
 INSERT INTO `posesiones` (`id`, `cliente_id`, `cuenta_id`) VALUES
-(1, 1, 1);
+(6, 2, 18);
 
 -- --------------------------------------------------------
 
@@ -184,6 +194,14 @@ CREATE TABLE `transacciones` (
   `concepto` varchar(500) NOT NULL,
   `cantidad` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `transacciones`
+--
+
+INSERT INTO `transacciones` (`id`, `cliente1_id`, `cliente2_id`, `cuenta1_id`, `cuenta2_id`, `fecha`, `concepto`, `cantidad`) VALUES
+(1, 2, 1, 18, 2, 'Sat Apr 08 16:19:55 CEST 2017', '100', '100.00'),
+(2, 2, 1, 18, 2, 'Sat Apr 08 16:20:22 CEST 2017', '2', '2.00');
 
 --
 -- Disparadores `transacciones`
@@ -242,22 +260,22 @@ ALTER TABLE `transacciones`
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `cliente_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `cliente_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `cuentas`
 --
 ALTER TABLE `cuentas`
-  MODIFY `cuenta_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `cuenta_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT de la tabla `posesiones`
 --
 ALTER TABLE `posesiones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `transacciones`
 --
 ALTER TABLE `transacciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- Restricciones para tablas volcadas
 --
