@@ -175,7 +175,7 @@ public class Crearcuenta extends HttpServlet {
 
 				e.printStackTrace();
 			}
-
+			
 			response.sendRedirect(request.getContextPath().concat("/jsp/privado/indexlogged.jsp"));
 		
 		}
