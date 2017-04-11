@@ -82,7 +82,6 @@
 						<webResources>
 							<webResource>
 								<directory>WebContent</directory>
-								<targetPath>WEB-INF/</targetPath>
 							</webResource>
 						</webResources>
 					</configuration>
