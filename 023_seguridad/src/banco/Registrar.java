@@ -13,9 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
-
-import org.mindrot.jbcrypt.BCrypt;
 
 /**
  * Servlet implementation class Registrar
@@ -54,12 +51,12 @@ public class Registrar extends HttpServlet {
 		String salt = (String)request.getAttribute("salt");
 		String pwd = (String)request.getAttribute("pwd");
 		
-		this.classurl = (String)request.getAttribute("classurl"); //$NON-NLS-1$
-		this.sqlurl = (String)request.getAttribute("sqlurl"); //$NON-NLS-1$
-		this.sqluser = (String)request.getAttribute("sqluser"); //$NON-NLS-1$
-		this.sqlpwd = (String)request.getAttribute("sqlpwd"); //$NON-NLS-1$
-		
 		HttpSession sesion = request.getSession();
+		
+		this.classurl = (String)sesion.getAttribute("classurl"); //$NON-NLS-1$
+		this.sqlurl = (String)sesion.getAttribute("sqlurl"); //$NON-NLS-1$
+		this.sqluser = (String)sesion.getAttribute("sqluser"); //$NON-NLS-1$
+		this.sqlpwd = (String)sesion.getAttribute("sqlpwd"); //$NON-NLS-1$
 			
 		Connection con = null;
 		CallableStatement cs = null;
@@ -111,8 +108,6 @@ public class Registrar extends HttpServlet {
 				sesion.setAttribute("nombre", nombre);
 				sesion.setAttribute("allowed", true);
 				
-				cs.close();
-				con.close();
 				
 				// Redirección al método "post" de "Privado.java".
 
@@ -137,11 +132,8 @@ public class Registrar extends HttpServlet {
 				con.close();
 				
 			}catch(Exception e){
-				
-				e.printStackTrace();
 			
 			}
-			response.sendRedirect(request.getContextPath().concat("/jsp/privado/indexlogged.jsp"));
 		}
 	}
 

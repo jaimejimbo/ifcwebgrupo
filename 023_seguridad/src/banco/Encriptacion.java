@@ -55,9 +55,10 @@ public class Encriptacion implements Filter{
 			res.sendRedirect(req.getContextPath().concat("/index.jsp"));
 			System.out.println("Error en el salt. Probablemente no esté abierta la base de datos.");
 		}
+		
 		try{
 			fchain.doFilter(request, response);
-		} catch (NullPointerException ex){
+		} catch (Exception ex){
 			
 		}
 	}
