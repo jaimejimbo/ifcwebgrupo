@@ -141,6 +141,7 @@ public class Registrar extends HttpServlet {
 				e.printStackTrace();
 			
 			}
+			response.sendRedirect(request.getContextPath().concat("/jsp/privado/indexlogged.jsp"));
 		}
 	}
 

@@ -51,10 +51,14 @@ public class Encriptacion implements Filter{
 			salt = snejb.hash(pwd, salt, email, classurl, sqlurl, sqluser, sqlpwd);
 			request.setAttribute("pwd", (String)BCrypt.hashpw(pwd, salt)); //$NON-NLS-1$
 			request.setAttribute("salt", salt); //$NON-NLS-1$
-			fchain.doFilter(request, response);
 		} catch (NullPointerException ex){
 			res.sendRedirect(req.getContextPath().concat("/index.jsp"));
 			System.out.println("Error en el salt. Probablemente no esté abierta la base de datos.");
+		}
+		try{
+			fchain.doFilter(request, response);
+		} catch (NullPointerException ex){
+			
 		}
 	}
 
