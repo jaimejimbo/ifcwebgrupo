@@ -31,13 +31,13 @@
 		    <!-- Collect the nav links, forms, and other content for toggling -->
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      <ul class="nav navbar-nav navbar-right">
-		        <li><a href="jsp/privado/indexlogged.jsp" class="hoverblack">
+		        <li><a href="<%=request.getContextPath()%>/jsp/privado/indexlogged.jsp" class="hoverblack">
 		 <%
 			nombre = (String)session.getAttribute("nombre");
 		   	if (nombre==null){
 		   		nombre = "Iniciar sesión";
 		   	} else {
-		   		response.sendRedirect("jsp/privado/indexlogged.jsp");
+		   		response.sendRedirect(request.getContextPath().concat("/jsp/privado/indexlogged.jsp"));
 		   	}
  		%><%=nombre%></a></li>
 		      </ul>
