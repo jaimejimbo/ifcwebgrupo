@@ -74,9 +74,9 @@
 			<td><%=mostrar.getFloat(3)%></td>
 			<td><%=mostrar.getString(2)%></td>
 			<td><a class="fa fa-times"
-				href="eliminar.jsp?eliminado=<%=mostrar.getInt(1)%>">Eliminar</a></td>
+				href="<%=request.getContextPath()%>/jsp/privado/eliminar.jsp?eliminado=<%=mostrar.getInt(1)%>">Eliminar</a></td>
 			<td><a class="fa fa-bars"
-				href="/023_seguridad/movimientos.php?cuentaid=<%=mostrar.getInt(1)%>">Movimientos</a></td>
+				href="<%=request.getContextPath()%>/movimientos.php?cuentaid=<%=mostrar.getInt(1)%>">Movimientos</a></td>
 		</tr>
 		<%
 					}
