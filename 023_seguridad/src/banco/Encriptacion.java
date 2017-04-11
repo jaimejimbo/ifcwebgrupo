@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -37,17 +38,24 @@ public class Encriptacion implements Filter{
 		String sqlurl = "jdbc:mysql://localhost/banco";
 		String sqluser = "root";
 		String sqlpwd = "";
-		HttpSession sesion = ((HttpServletRequest)request).getSession();
+		HttpServletRequest req = (HttpServletRequest)request;
+		HttpServletResponse res = (HttpServletResponse)response;
+		HttpSession sesion = req.getSession();
 		sesion.setAttribute("classurl", classurl);
 		sesion.setAttribute("sqlurl", sqlurl);
 		sesion.setAttribute("sqluser", sqluser);
 		sesion.setAttribute("sqlpwd", sqlpwd);
 		
 		Salt snejb = new Salt();
-		salt = snejb.hash(pwd, salt, email, classurl, sqlurl, sqluser, sqlpwd);
-		request.setAttribute("pwd", (String)BCrypt.hashpw(pwd, salt)); //$NON-NLS-1$
-		request.setAttribute("salt", salt); //$NON-NLS-1$
-		fchain.doFilter(request, response);
+		try{
+			salt = snejb.hash(pwd, salt, email, classurl, sqlurl, sqluser, sqlpwd);
+			request.setAttribute("pwd", (String)BCrypt.hashpw(pwd, salt)); //$NON-NLS-1$
+			request.setAttribute("salt", salt); //$NON-NLS-1$
+			fchain.doFilter(request, response);
+		} catch (NullPointerException ex){
+			res.sendRedirect(req.getContextPath().concat("/index.jsp"));
+			System.out.println("Error en el salt. Probablemente no esté abierta la base de datos.");
+		}
 	}
 
 	@Override
