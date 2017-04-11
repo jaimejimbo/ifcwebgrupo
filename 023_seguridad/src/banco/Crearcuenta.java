@@ -161,7 +161,10 @@ public class Crearcuenta extends HttpServlet {
 				
 				e.printStackTrace();
 			}
-			response.sendRedirect("/023_seguridad/jsp/privado/indexlogged.jsp");
+
+			//response.sendRedirect("/023_seguridad/jsp/privado/indexlogged.jsp");
+
+			response.sendRedirect(request.getContextPath().concat("/jsp/privado/indexlogged.jsp"));
 		
 		}
 		
