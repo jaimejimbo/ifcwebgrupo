@@ -28,7 +28,7 @@
 				<div class="form-group">
 					<% 
 						HttpSession sesion = request.getSession();
-					
+						int receptor_id=0;
 						try 
 						{ 
 						   // Conexion con bd 
@@ -45,14 +45,14 @@
 						      sentencia.execute();
 						      resultado = sentencia.getResultSet();
 						      	out.println("<div class=\"form-group\">");
-								out.println("<label for=\"cuenta\" class=\"fill-width\"><div class=\"col-lg-3 col-md-3 col-sm-12 col-xs-12\">Cuenta</div>");
+								out.println("<label for=\"cuenta\" class=\"fill-width\"><div class=\"col-lg-3 col-md-3 col-sm-12 col-xs-12\">Selecciona cuenta desde la que transferir</div>");
 								out.println("<div class=\"col-lg-9 col-md-9 col-sm-12 col-xs-12\"><select class='fill-width' id='cuenta' name='cuenta'>");	
 						
 						      // continuamos con el select 
 						      while (resultado.next()) 
 						      { 
 						         	out.println("<option value='"+resultado.getInt("cuenta_id")+"'>"+resultado.getString("nombre")+"</option>");//imprimimos el contenido del select  
-						    	  //EL PROCEDIMIENTO NOMBRES_CUENTA ESTA CON LIMIT 1 POR LO QUE DEVUELVE SOLO UNA CUENTA, HAY QUE PONERLO PARA TODAS
+						    	 
 						      } 
 						
 						 		out.println("</select>"); 
@@ -72,6 +72,7 @@
 						} 
 					%> 
 				</div>
+				
 				<p class="text-right"><input type="submit" class="btn btn-primary" value="Enviar" /></p>
 			</form>
 		</div>
