@@ -99,6 +99,8 @@ public class Registrar extends HttpServlet {
 				rs = cs.executeQuery();
 				
 				int cliente_id = rs.getRow();
+				System.out.println("En registrar");
+				System.out.println(cliente_id);
 				
 				// Voy a utilizar estas sesiones en "Privado.java" para conocer el resto de los datos del registro en la tabla "clientes"
 				// del cliente que inicia sesión.
