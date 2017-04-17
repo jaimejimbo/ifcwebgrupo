@@ -62,7 +62,7 @@ public class Crearcuenta extends HttpServlet {
 
 		String email = (String) sesion.getAttribute("email"); //$NON-NLS-1$
 		String pwd = (String) sesion.getAttribute("pwd"); //$NON-NLS-1$
-		Integer cliente_id = (Integer) sesion.getAttribute("cliente_id"); //$NON-NLS-1$
+		Integer cliente_id = (Integer)sesion.getAttribute("cliente_id"); //$NON-NLS-1$
 		System.out.println("cliente_id: " + cliente_id);
 
 		// Intento conectarme a la base de datos.
