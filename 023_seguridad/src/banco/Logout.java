@@ -33,7 +33,7 @@ public class Logout extends HttpServlet {
 		
 		sesion.invalidate();
 		
-		response.sendRedirect("/023_seguridad/index.jsp");
+		response.sendRedirect(request.getContextPath().concat("/index.jsp"));
 	}
 
 	/**

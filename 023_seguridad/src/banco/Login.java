@@ -43,12 +43,11 @@ public class Login extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		this.classurl = (String)request.getAttribute("classurl"); //$NON-NLS-1$
-		this.sqlurl = (String)request.getAttribute("sqlurl"); //$NON-NLS-1$
-		this.sqluser = (String)request.getAttribute("sqluser"); //$NON-NLS-1$
-		this.sqlpwd = (String)request.getAttribute("sqlpwd"); //$NON-NLS-1$
-		
 		HttpSession sesion = request.getSession();
+		this.classurl = (String)sesion.getAttribute("classurl"); //$NON-NLS-1$
+		this.sqlurl = (String)sesion.getAttribute("sqlurl"); //$NON-NLS-1$
+		this.sqluser = (String)sesion.getAttribute("sqluser"); //$NON-NLS-1$
+		this.sqlpwd = (String)sesion.getAttribute("sqlpwd"); //$NON-NLS-1$
 		
 		String email = request.getParameter("email"); //$NON-NLS-1$
 		String pwd = (String)request.getAttribute("pwd"); //$NON-NLS-1$
@@ -73,7 +72,7 @@ public class Login extends HttpServlet {
 			}
 			if(coinc==0){
 				sesion.setAttribute("cliente_id", null); //$NON-NLS-1$
-				response.sendRedirect(request.getContextPath().concat("../../login.jsp"));
+				response.sendRedirect("/banco/jsp/login.jsp");
 			}else if(coinc==1){
 				cs = con.prepareCall("call cliente_id_email(?)"); //$NON-NLS-1$
 				cs.setString(1, email);
@@ -95,7 +94,6 @@ public class Login extends HttpServlet {
 					con.close();
 				
 				}catch(Exception e){
-					
 					e.printStackTrace();
 				}
 				response.sendRedirect(request.getContextPath().concat("/jsp/privado/indexlogged.jsp"));

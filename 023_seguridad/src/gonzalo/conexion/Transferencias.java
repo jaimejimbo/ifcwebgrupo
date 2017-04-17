@@ -70,8 +70,9 @@ public class Transferencias extends HttpServlet {
 		Connection conexion = null;
 		CallableStatement cs = null;
 		Statement st = null;
+		Statement st2 = null;
 		ResultSet rs = null;
-		
+		ResultSet rs2 = null;
 		try{
 			
 			Class.forName("com.mysql.jdbc.Driver");
@@ -93,7 +94,13 @@ public class Transferencias extends HttpServlet {
 			cs.setInt(1, cliente_id); //mi id, soy quien hago transferencia
 			cs.setInt(2, rs.getInt(1)); //id de a quien transfiero
 			cs.setInt(3, Integer.parseInt(id_cuenta)); //mi id de cuenta con la que transfiero
-			cs.setInt(4, 2); //cuenta del otro al que transfiero
+			
+			st2 = conexion.createStatement();
+			rs2 = st2.executeQuery("SELECT cuenta_id FROM posesiones WHERE cliente_id='"+rs.getInt(1)+"' limit 1");
+			while (rs2.next()){
+				System.out.println("cuenta_id a quien transfiero " + rs2.getInt(1));
+				cs.setInt(4, rs2.getInt(1)); //cuenta "principal" del receptor al que transfiero
+			}
 			Date fecha=new Date();
 			cs.setString(5, fecha.toString()); //fecha de transferencia
 			cs.setString(6, concepto); //concepto
@@ -102,8 +109,7 @@ public class Transferencias extends HttpServlet {
 			}
 		}catch(SQLException e){
 	
-			e.printStackTrace();
-			
+			e.printStackTrace();			
 		}catch(ClassNotFoundException e){
 			
 			e.printStackTrace();
@@ -121,7 +127,7 @@ public class Transferencias extends HttpServlet {
 				
 				e.printStackTrace();
 			}
-			response.sendRedirect("/023_seguridad/jsp/privado/eliminarcuenta.jsp");
+			response.sendRedirect(request.getContextPath().concat("/jsp/privado/indexlogged.jsp"));
 		
 		}
 		

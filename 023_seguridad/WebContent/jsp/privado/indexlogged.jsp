@@ -7,24 +7,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-	crossorigin="anonymous">
-<link rel="stylesheet" href="../../css/custom.css">
-<link rel="stylesheet" href="../../css/custom.css">
-<link rel="stylesheet" href="../../css/font-awesome.min.css">
-<link href="https://fonts.googleapis.com/css?family=Spirax"
-	rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Macondo"
-	rel="stylesheet">
+<jsp:include page="../includes.jsp" />
 <title>Inicio</title>
 </head>
 <body>
@@ -91,14 +74,14 @@
 			<td><%=mostrar.getFloat(3)%></td>
 			<td><%=mostrar.getString(2)%></td>
 			<td><a class="fa fa-times"
-				href="eliminar.jsp?eliminado=<%=mostrar.getInt(1)%>">Eliminar</a></td>
+				href="<%=request.getContextPath()%>/jsp/privado/eliminar.jsp?eliminado=<%=mostrar.getInt(1)%>">Eliminar</a></td>
 			<td><a class="fa fa-bars"
-				href="movimientos.jsp?ver=<%=mostrar.getInt(1)%>">Movimientos</a></td>
+				href="<%=request.getContextPath()%>/movimientos.php?cuentaid=<%=mostrar.getInt(1)%>">Movimientos</a></td>
 		</tr>
 		<%
 					}
-					out.print("</tbody></table>");
 				}
+				out.print("</tbody></table>");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -112,12 +95,7 @@
 	    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 	    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	    <![endif]-->
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-		crossorigin="anonymous"></script>
+	<jsp:include page="footer.jsp"></jsp:include>
 
 </body>
 </html>
