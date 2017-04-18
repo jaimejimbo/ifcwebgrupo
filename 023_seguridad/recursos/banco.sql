@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-04-2017 a las 21:25:48
+-- Tiempo de generación: 18-04-2017 a las 16:50:14
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 5.6.30
 
@@ -62,6 +62,9 @@ delete from cuentas where cuenta_id=cuenta_ide$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `fondos_nombre_cuenta` (IN `inombre` VARCHAR(50))  NO SQL
 select cuentas.fondos from cuentas where cuentas.nombre=inombre$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_cuentas` (IN `cid` INT)  NO SQL
+select cuentas.cuenta_id, cuentas.descripción, cuentas.fondos, cuentas.nombre from cuentas where cuentas.cuenta_id in (select posesiones.cuenta_id from posesiones where posesiones.cliente_id=cid)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_salt` (IN `iemail` VARCHAR(100))  NO SQL
 select clientes.salt from clientes where clientes.email=iemail$$
@@ -176,7 +179,11 @@ CREATE TABLE `posesiones` (
 --
 
 INSERT INTO `posesiones` (`id`, `cliente_id`, `cuenta_id`) VALUES
-(6, 2, 18);
+(6, 2, 18),
+(7, 2, 4),
+(8, 3, 5),
+(9, 1, 10),
+(10, 1, 12);
 
 -- --------------------------------------------------------
 
@@ -270,7 +277,7 @@ ALTER TABLE `cuentas`
 -- AUTO_INCREMENT de la tabla `posesiones`
 --
 ALTER TABLE `posesiones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT de la tabla `transacciones`
 --
