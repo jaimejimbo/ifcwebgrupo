@@ -32,22 +32,10 @@
     <filter-name>encriptar</filter-name>
     <url-pattern>/registrar.php</url-pattern>
   </filter-mapping>
-  <servlet>
-    <servlet-name>Privado</servlet-name>
-    <servlet-class>Privado</servlet-class>
-  </servlet>
   <filter>
     <filter-name>controlacceso</filter-name>
     <filter-class>banco.Acceso</filter-class>
   </filter>
-  <filter-mapping>
-    <filter-name>controlacceso</filter-name>
-    <servlet-name>Privado</servlet-name>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>controlacceso</filter-name>
-    <url-pattern>/Privado</url-pattern>
-  </filter-mapping>
   <filter-mapping>
     <filter-name>controlacceso</filter-name>
     <url-pattern>/jsp/privado/*</url-pattern>
