@@ -1,10 +1,10 @@
-#Descarga: https://git-scm.com/download/win
+# Descarga: https://git-scm.com/download/win
 
-#Tutorial: https://try.github.io
+# Tutorial: https://try.github.io
 
-#plugin eclipse: https://www.eclipse.org/egit/
+# plugin eclipse: https://www.eclipse.org/egit/
 
-#Más info: https://git-scm.com/docs
+# Más info: https://git-scm.com/docs
 
 
 Se descarga una consola de git. Pinchando en el enlace del escritorio se abre. Luego se va a la carpeta que se quiera con:
