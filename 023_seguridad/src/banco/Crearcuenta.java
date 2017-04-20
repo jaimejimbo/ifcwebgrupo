@@ -63,7 +63,6 @@ public class Crearcuenta extends HttpServlet {
 		String email = (String) sesion.getAttribute("email"); //$NON-NLS-1$
 		String pwd = (String) sesion.getAttribute("pwd"); //$NON-NLS-1$
 		Integer cliente_id = (Integer)sesion.getAttribute("cliente_id"); //$NON-NLS-1$
-		System.out.println("cliente_id: " + cliente_id);
 
 		// Intento conectarme a la base de datos.
 
@@ -102,7 +101,6 @@ public class Crearcuenta extends HttpServlet {
 
 			}
 
-			System.out.println("encontrada: " + encontrada);
 
 			if (encontrada == false) {
 
@@ -122,26 +120,15 @@ public class Crearcuenta extends HttpServlet {
 				// Primero cojo el id de la cuenta creada en la tabla "cuentas"
 				// con el procedimiento "cuenta_id".
 
-				cs2 = conexion.prepareCall("{call cuenta_id(?,?)}");
+				cs2 = conexion.prepareCall("{call cuenta_id(?)}");
 				cs2.setString(1, nombrecuenta);
 
-				cs2.registerOutParameter(2, java.sql.Types.INTEGER);
+				rs = cs2.executeQuery();
+				rs.next();
+				int cuenta_id = rs.getInt(1);
 
-				cs2.execute();
-
-				System.out.println("cuenta_id: " + cs2.getInt(2));
-
-				// Ahora debo recuperar el id de la cuenta creada, lo he buscado
-				// en internet (es el "registeOutParameter" que hay antes de
-				// ejcutar la consulta).
-
-				Integer cuenta_id = cs2.getInt(2);
-
-				// Por último asocio la cuenta con el procedimiento
-				// "asociar_cuenta" creado.
 
 				cs3 = conexion.prepareCall("{call asociar_cuenta(?,?)}");
-
 				cs3.setInt(1, cliente_id);
 				cs3.setInt(2, cuenta_id);
 
