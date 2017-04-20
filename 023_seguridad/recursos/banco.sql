@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-04-2017 a las 22:43:28
+-- Tiempo de generación: 20-04-2017 a las 23:14:05
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 5.6.30
 
@@ -72,27 +72,27 @@ select clientes.salt from clientes where clientes.email=iemail$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `login` (IN `iemail` VARCHAR(50), IN `ipwd` VARCHAR(500))  NO SQL
 select count(*) from clientes where clientes.email=iemail and clientes.pwd=ipwd$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `movimientos_in` (IN `icid` INT, IN `iname` VARCHAR(300))  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `movimientos_in` (IN `icid` INT, IN `iclid` INT)  NO SQL
 select 
 transacciones.fecha, clientes.nombre, transacciones.cantidad, transacciones.concepto 
 from 
 transacciones 
 
-left join clientes on clientes.nombre=iname
+left join clientes on clientes.cliente_id=transacciones.cliente1_id
 
 where 
-(transacciones.cuenta2_id=icid and transacciones.cliente2_id=clientes.cliente_id)$$
+(transacciones.cuenta2_id=icid and transacciones.cliente2_id=iclid)$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `movimientos_out` (IN `icid` INT, IN `iname` VARCHAR(100))  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `movimientos_out` (IN `icid` INT, IN `iclid` INT)  NO SQL
 select 
 transacciones.fecha, clientes.nombre, transacciones.cantidad, transacciones.concepto 
 from 
 transacciones 
 
-left join clientes on clientes.nombre=iname
+left join clientes on clientes.cliente_id=transacciones.cliente2_id
 
 where 
-(transacciones.cuenta1_id=icid and transacciones.cliente1_id=clientes.cliente_id)$$
+(transacciones.cuenta1_id=icid and transacciones.cliente1_id=iclid)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `nombres_cuenta` (IN `icid` INT)  NO SQL
 select cuentas.cuenta_id,cuentas.nombre from cuentas where cuentas.cuenta_id IN (SELECT posesiones.cuenta_id from posesiones where posesiones.cliente_id=icid)$$
@@ -182,7 +182,7 @@ INSERT INTO `cuentas` (`cuenta_id`, `descripción`, `fondos`, `nombre`) VALUES
 (16, 'asdassda', '123.00', 'cuentas2'),
 (19, 'Prueba de creacion de cuenta', '55100.00', 'cuenta de prueba'),
 (20, 'Cuenta para los movimientos', '0.00', 'movimientos'),
-(21, 'Cuenta del banco', '-1000.00', 'cuenta del banco'),
+(21, 'Cuenta del banco', '-2000.00', 'cuenta del banco'),
 (22, '', '0.00', 'casa'),
 (23, 'lo que afano', '0.00', 'misrobos'),
 (24, 'ijpasdpiadsojpsa', '10.00', 'Cuenta de prueba'),
@@ -193,7 +193,7 @@ INSERT INTO `cuentas` (`cuenta_id`, `descripción`, `fondos`, `nombre`) VALUES
 (29, '123', '123.00', 'FalsaFalsa123'),
 (30, 'celo', '100.00', 'celocelo'),
 (31, 'prupru', '123.00', 'cuentaprupru'),
-(32, 'cjcjc', '100.00', 'prupru2cuenta');
+(32, 'cjcjc', '1100.00', 'prupru2cuenta');
 
 -- --------------------------------------------------------
 
@@ -269,7 +269,8 @@ INSERT INTO `transacciones` (`id`, `cliente1_id`, `cliente2_id`, `cuenta1_id`, `
 (23, 4, 13, 32, 32, 'Thu Apr 20 22:36:14 CEST 2017', '500', '500.00'),
 (24, 4, 13, 32, 32, 'Thu Apr 20 22:37:27 CEST 2017', '500', '500.00'),
 (25, 4, 13, 21, 32, 'Thu Apr 20 22:41:55 CEST 2017', '500', '500.00'),
-(26, 13, 4, 32, 21, 'Thu Apr 20 22:42:08 CEST 2017', '500', '500.00');
+(26, 13, 4, 32, 21, 'Thu Apr 20 22:42:08 CEST 2017', '500', '500.00'),
+(27, 4, 13, 21, 32, 'Thu Apr 20 22:49:21 CEST 2017', 'euritos', '1000.00');
 
 --
 -- Disparadores `transacciones`
@@ -343,7 +344,7 @@ ALTER TABLE `posesiones`
 -- AUTO_INCREMENT de la tabla `transacciones`
 --
 ALTER TABLE `transacciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 --
 -- Restricciones para tablas volcadas
 --

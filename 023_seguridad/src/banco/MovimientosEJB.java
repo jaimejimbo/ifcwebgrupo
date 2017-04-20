@@ -48,14 +48,14 @@ public class MovimientosEJB {
 		}
     }
     
-    public List<ResultSet> getMovs(int cuenta_id, String nombre){
+    public List<ResultSet> getMovs(int cuenta_id, int cliente_id){
     	
 		try {
 			pstmtin.setInt(1, cuenta_id);
-			pstmtin.setString(2, nombre);
+			pstmtin.setInt(2, cliente_id);
 			ResultSet rs1 = pstmtin.executeQuery();
 			pstmtout.setInt(1, cuenta_id);
-			pstmtout.setString(2, nombre);
+			pstmtout.setInt(2, cliente_id);
 			ResultSet rs2 = pstmtout.executeQuery();
 			List<ResultSet> out = new ArrayList<ResultSet>();
 			out.add(rs1);

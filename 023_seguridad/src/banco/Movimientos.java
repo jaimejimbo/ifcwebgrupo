@@ -32,13 +32,13 @@ public class Movimientos extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int cuenta_id = Integer.parseInt(request.getParameter("cuentaid"));
 		HttpSession sesion = request.getSession();
-		String nombre = (String) sesion.getAttribute("nombre");
+		Integer cliente_id = (Integer) sesion.getAttribute("cliente_id");
 		String classurl = (String) sesion.getAttribute("classurl");
 		String sqlurl = (String) sesion.getAttribute("sqlurl");
 		String sqluser = (String) sesion.getAttribute("sqluser");
 		String sqlpwd = (String) sesion.getAttribute("sqlpwd");
 		MovimientosEJB mejb = new MovimientosEJB(classurl, sqlurl, sqluser, sqlpwd);
-		List<ResultSet> rs = mejb.getMovs(cuenta_id, nombre);
+		List<ResultSet> rs = mejb.getMovs(cuenta_id, cliente_id);
 		sesion.setAttribute("datos", rs);
 		response.sendRedirect(request.getContextPath().concat("/jsp/privado/movimientos.jsp"));
 	}
