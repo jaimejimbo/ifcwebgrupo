@@ -2,6 +2,7 @@
 <%@page import="java.sql.Connection"%>
 <%@page import="java.sql.CallableStatement"%>
 <%@page import="java.sql.ResultSet"%>
+<%@ page import="java.util.List" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -11,9 +12,13 @@
 <title>Movimientos</title>
 </head>
 <body>
+<%
+	List<ResultSet> rsl = (List<ResultSet>) session.getAttribute("datos");
+	%>
 	<jsp:include page="header.jsp" />
 	<div class="col-lg-1 col-md-1 col-sm-1"></div>
 	<div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 main-bg">
+		<h3 class="text-center">Entradas</h3>
 		<table class="table table-striped">
 			<thead>
 				<th>Fecha</th>
@@ -23,7 +28,7 @@
 			</thead>
 			<tbody>
 				<%
-					ResultSet rs = (ResultSet) session.getAttribute("datos");
+					ResultSet rs = rsl.get(0);
 					while (rs.next()) {
 				%>
 				<tr>
@@ -35,6 +40,30 @@
 				<%
 					}
 				%>
+			</tbody>
+		</table>
+		<h3 class="text-center">Salidas</h3>
+		<table class="table table-striped">
+			<thead>
+			<th>Fecha</th>
+			<th>Destinatario</th>
+			<th>Cantidad</th>
+			<th>Concepto</th>
+			</thead>
+			<tbody>
+			<%
+				rs = rsl.get(1);
+				while (rs.next()) {
+			%>
+			<tr>
+				<td><%=rs.getString(1)%></td>
+				<td><%=rs.getString(2)%></td>
+				<td><%=rs.getFloat(3)%></td>
+				<td><%=rs.getString(4)%></td>
+			</tr>
+			<%
+				}
+			%>
 			</tbody>
 		</table>
 	</div>

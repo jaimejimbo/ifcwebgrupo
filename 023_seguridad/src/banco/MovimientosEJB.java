@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -23,7 +25,8 @@ public class MovimientosEJB {
      */
 	private static final long serialVersionUID = 2697837237897559165L;
 	private Connection con = null;
-	private PreparedStatement pstmt = null;
+	private PreparedStatement pstmtin = null;
+	private PreparedStatement pstmtout = null;
 	
     public MovimientosEJB(String classurl, String sqlurl, String sqluser, String sqlpwd) {
 
@@ -36,7 +39,8 @@ public class MovimientosEJB {
 		}
     	try {
 			con = DriverManager.getConnection(sqlurl, sqluser, sqlpwd);
-			pstmt = con.prepareStatement("call movimientos(?, ?)");
+			pstmtin = con.prepareStatement("call movimientos_in(?, ?)");
+			pstmtout = con.prepareStatement("call movimientos_out(?, ?)");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Error1");
@@ -44,13 +48,19 @@ public class MovimientosEJB {
 		}
     }
     
-    public ResultSet getMovs(int cuenta_id, String nombre){
+    public List<ResultSet> getMovs(int cuenta_id, String nombre){
     	
 		try {
-			pstmt.setInt(1, cuenta_id);
-			pstmt.setString(2, nombre);
-			ResultSet rs = pstmt.executeQuery();
-			return rs;
+			pstmtin.setInt(1, cuenta_id);
+			pstmtin.setString(2, nombre);
+			ResultSet rs1 = pstmtin.executeQuery();
+			pstmtout.setInt(1, cuenta_id);
+			pstmtout.setString(2, nombre);
+			ResultSet rs2 = pstmtout.executeQuery();
+			List<ResultSet> out = new ArrayList<ResultSet>();
+			out.add(rs1);
+			out.add(rs2);
+			return out;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println("ERROR2");
