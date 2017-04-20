@@ -32,7 +32,7 @@
 		        <span class="icon-bar"></span>
 		        <span class="icon-bar"></span>
 		      </button>
-                <img src="/img/evilWhite.png" alt="" height="40" style="vertical-align: bottom">
+				<img src="/img/evilWhite.png" alt="" height="40" style="vertical-align: bottom">
             </div>
 		
 		    <!-- Collect the nav links, forms, and other content for toggling -->

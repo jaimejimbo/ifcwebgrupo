@@ -2,6 +2,7 @@ package banco;
 
 import java.io.IOException;
 import java.sql.ResultSet;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -37,7 +38,7 @@ public class Movimientos extends HttpServlet {
 		String sqluser = (String) sesion.getAttribute("sqluser");
 		String sqlpwd = (String) sesion.getAttribute("sqlpwd");
 		MovimientosEJB mejb = new MovimientosEJB(classurl, sqlurl, sqluser, sqlpwd);
-		ResultSet rs = mejb.getMovs(cuenta_id, nombre);
+		List<ResultSet> rs = mejb.getMovs(cuenta_id, nombre);
 		sesion.setAttribute("datos", rs);
 		response.sendRedirect(request.getContextPath().concat("/jsp/privado/movimientos.jsp"));
 	}
