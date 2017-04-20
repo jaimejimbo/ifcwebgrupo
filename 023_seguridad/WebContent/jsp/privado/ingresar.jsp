@@ -12,6 +12,9 @@
 		<jsp:include page="header.jsp" />
 	  	<div class="col-lg-1 col-md-1 col-sm-1"></div>
 	  	<div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 main-bg">
+			<%
+				session.setAttribute("inverso", true);
+			%>
 			<form action="../../Transferencias" method="post">
 				<input type="text" id="receptor" name="receptor" placeholder="Introduzca nombre cliente a enviar dinero." style="display:none" value="Banco" />
 				<div class="form-group">
