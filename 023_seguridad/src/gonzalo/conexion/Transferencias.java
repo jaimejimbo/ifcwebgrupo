@@ -61,6 +61,7 @@ public class Transferencias extends HttpServlet {
         CallableStatement cs = null;
         CallableStatement st = null;
         CallableStatement st2 = null;
+        CallableStatement st3 = null;
         ResultSet rs = null;
         ResultSet rs2 = null;
         try {
@@ -79,24 +80,31 @@ public class Transferencias extends HttpServlet {
                 int cliente_id = Integer.parseInt(sesion.getAttribute("cliente_id").toString());
 
 
-                st2 = conexion.prepareCall("call seleccionar_cuenta_id(?)");
-                st2.setInt(1, cliente_id);
-                rs2 = st2.executeQuery();
+                st3 = conexion.prepareCall("call seleccionar_cuenta_id(?)");
+                boolean inverso = false;
+                try {
+                    inverso = (Boolean) sesion.getAttribute("inverso");
+                } catch (Exception ex) {
+
+                }
+
+                st3.setInt(1, objid);
+
+                rs2 = st3.executeQuery();
                 int cuentadestid = -1;
                 while (rs2.next()) {
                     cuentadestid = rs2.getInt(1);
                 }
-                if (cuentadestid==-1){
+                if (cuentadestid == -1) {
                     sesion.setAttribute("errormsg", "El cliente objetivo no tiene cuentas.");
+                    System.out.println("Clienteid" + cliente_id);
+                    System.out.println("objid" + objid);
+                    System.out.println("cuenta cliente" + id_cuenta);
+                    System.out.println("cuenta destino" + cuentadestid);
                     request.getRequestDispatcher(request.getContextPath().concat("/jsp/privado/transferir.jsp")).forward(request, response);
+                    return;
                 }
                 cs = conexion.prepareCall("{call transacción(?,?,?,?,?,?,?)}");
-                boolean inverso = false;
-                try{
-                    inverso = (Boolean)sesion.getAttribute("inverso");
-                } catch (Exception ex) {
-
-                }
                 if (inverso) {
                     cs.setInt(2, cliente_id); //mi id, soy quien hago transferencia
                     cs.setInt(1, objid); //id de a quien transfiero

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-04-2017 a las 20:46:56
+-- Tiempo de generación: 20-04-2017 a las 22:43:28
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 5.6.30
 
@@ -40,7 +40,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `cliente_id_dni` (IN `idni` VARCHAR(
 select clientes.cliente_id from clientes where clientes.DNI=idni$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `cliente_id_email` (IN `iemail` VARCHAR(50))  NO SQL
-select clientes.cliente_id from clientes where clientes.email=iemail$$
+select clientes.cliente_id from clientes where clientes.email like iemail$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `cliente_id_nombre` (IN `inombre` VARCHAR(50))  NO SQL
 select clientes.cliente_id from clientes where clientes.nombre=inombre$$
@@ -51,8 +51,8 @@ SELECT clientes.nombre from clientes where clientes.cliente_id=iid$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `crear_cuenta` (IN `idesc` VARCHAR(500), IN `ifondos` DECIMAL(10,2), IN `inombre` VARCHAR(50))  NO SQL
 insert into cuentas(descripción, fondos, nombre) values(idesc, ifondos, inombre)$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `cuenta_id` (IN `inombre` VARCHAR(100), OUT `cuenta_ide` INT(11))  NO SQL
-select cuentas.cuenta_id into cuenta_ide from cuentas where cuentas.nombre=inombre$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `cuenta_id` (IN `inombre` VARCHAR(100))  NO SQL
+select cuentas.cuenta_id from cuentas where cuentas.nombre=inombre$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `disociar_cuenta` (IN `icid` INT)  NO SQL
 delete from posesiones where posesiones.cliente_id=icid$$
@@ -103,8 +103,8 @@ INSERT into clientes(nombre, email, DNI, dirección, pwd, salt) values(inombre, 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `seleccionar_cuentas` (IN `cuenta_ide` INT(11))  NO SQL
 select * from cuentas where cuenta_id=cuenta_ide$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `seleccionar_cuenta_id` (IN `cliente_id` INT(11))  NO SQL
-select cuenta_id from posesiones where cliente_id=cliente_id$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `seleccionar_cuenta_id` (IN `icid` INT(11))  NO SQL
+select posesiones.cuenta_id from posesiones where posesiones.cliente_id=icid$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `transacción` (IN `icid1` INT, IN `icid2` INT, IN `icu1` INT(100), IN `icu2` INT(100), IN `ifec` VARCHAR(50), IN `info` VARCHAR(500), IN `ican` DECIMAL(10,2))  NO SQL
 insert into transacciones(cliente1_id, cliente2_id, cuenta1_id, cuenta2_id, fecha, concepto, cantidad) values (icid1, icid2, icu1, icu2, ifec, info, ican)$$
@@ -138,7 +138,15 @@ INSERT INTO `clientes` (`cliente_id`, `nombre`, `email`, `DNI`, `dirección`, `p
 (1, 'arturo', 'arturo@gmail.com', '99999999', 'c/ madrid', '$2a$16$TCEgQQKU9Y4Y28lYRQ8Ipub72awFWDU7dvi5RhpOCsZunc2UpYIzG', '$2a$16$TCEgQQKU9Y4Y28lYRQ8Ipu'),
 (2, 'Jaime', 'jaime@jaime.net', '010101001', '01010101', '$2a$16$DOAlxOFuEIiHj7WYdZ9vLOCfk2ap3LstIgRNwO.Qu6a0Gf2Fgxqn6', '$2a$16$DOAlxOFuEIiHj7WYdZ9vLO'),
 (3, 'Prueba', 'prueba@prueba.es', 'prupruprueba', 'pruebapru', '$2a$16$yj.mGsyDLnlACsnNTR/FtuYGKcydvKHhzs5gkeQXzd8jt4XKLgabO', '$2a$16$yj.mGsyDLnlACsnNTR/Ftu'),
-(4, 'Banco', 'banco@banco.net', '123123123', '123123231', '$2a$16$4k6NCrRCqGVCPVFQRCb70ebe0zzW/PBneardcr2lNdpgXb1i05geq', '$2a$16$4k6NCrRCqGVCPVFQRCb70e');
+(4, 'Banco', 'banco@banco.net', '123123123', '123123231', '$2a$16$4k6NCrRCqGVCPVFQRCb70ebe0zzW/PBneardcr2lNdpgXb1i05geq', '$2a$16$4k6NCrRCqGVCPVFQRCb70e'),
+(6, 'soy muy malo', 'elmalo@kk.com', '000', 'mi casa', '$2a$16$6xX5HD0jwRIm8qiIT3RpuuAAaJJIbYvIzlHyacuGc7v2smv8.eTBm', '$2a$16$6xX5HD0jwRIm8qiIT3Rpuu'),
+(7, 'Minerva McGonagall', 'aliciapa@gmail.com', '', '', '$2a$16$BP3WMXCmziPthDlkT9BooeY56jpb.mLxDVm6zAV5t0U9cD6SlcQBa', '$2a$16$BP3WMXCmziPthDlkT9Booe'),
+(8, 'Falso123', 'falso@falso2.com', '', '', '$2a$16$MoQuYoyiowOl1KA.rc9Ih.65hPIZlZB9AjXzYG.5LDKcp2HOiBHiu', '$2a$16$MoQuYoyiowOl1KA.rc9Ih.'),
+(9, 'PruebaRegistro', 'pruebaregistro@prueba.es', '', '', '$2a$16$XyOevqtTw2Skng/X.yW4Q.Ob9Fz721TWXXmg4oioUdegysQTU7ZAS', '$2a$16$XyOevqtTw2Skng/X.yW4Q.'),
+(10, 'Culote', 'culo@culo.net', '', '', '$2a$16$f8.xyWc9vBPFvSp2Gn8Ctu0CDgoG77L7RizDmjJ6Aix0Ph6Wnq67i', '$2a$16$f8.xyWc9vBPFvSp2Gn8Ctu'),
+(11, 'celo', 'celo@celo.celo', '', '', '$2a$16$vq7VpdRLy7hiUS2HV1ZLhePMTgUCwL72occltyUvqv3qKCO0jP1oS', '$2a$16$vq7VpdRLy7hiUS2HV1ZLhe'),
+(12, 'regist', 'regist@regist.net', '', '', '$2a$16$XO7qahi1q3OHRiUa3WT1yeXcJ1JAPjfvM8PetojzVUzw/NnFPW5nu', '$2a$16$XO7qahi1q3OHRiUa3WT1ye'),
+(13, 'prupru2', 'prupru2@prupru.es', '', '', '$2a$16$Ryt0TrJ4HBS4lB3UXNCzo.cQf3aBvKkPFHqZiMCsV7INHhpWeU.li', '$2a$16$Ryt0TrJ4HBS4lB3UXNCzo.');
 
 -- --------------------------------------------------------
 
@@ -174,7 +182,18 @@ INSERT INTO `cuentas` (`cuenta_id`, `descripción`, `fondos`, `nombre`) VALUES
 (16, 'asdassda', '123.00', 'cuentas2'),
 (19, 'Prueba de creacion de cuenta', '55100.00', 'cuenta de prueba'),
 (20, 'Cuenta para los movimientos', '0.00', 'movimientos'),
-(21, 'Cuenta del banco', '-1000.00', 'cuenta del banco');
+(21, 'Cuenta del banco', '-1000.00', 'cuenta del banco'),
+(22, '', '0.00', 'casa'),
+(23, 'lo que afano', '0.00', 'misrobos'),
+(24, 'ijpasdpiadsojpsa', '10.00', 'Cuenta de prueba'),
+(25, 'askdpjsa', '1.00', 'Cuenta de prueba 3'),
+(26, 'Prueba de creacion', '100.00', 'PruebaCreacion'),
+(27, 'nuevas', '234.67', 'Tarjeta de Tungsteno'),
+(28, 'prueba de las restricciones', '100.00', 'pruebarestriccciones'),
+(29, '123', '123.00', 'FalsaFalsa123'),
+(30, 'celo', '100.00', 'celocelo'),
+(31, 'prupru', '123.00', 'cuentaprupru'),
+(32, 'cjcjc', '100.00', 'prupru2cuenta');
 
 -- --------------------------------------------------------
 
@@ -198,7 +217,12 @@ INSERT INTO `posesiones` (`id`, `cliente_id`, `cuenta_id`) VALUES
 (9, 1, 10),
 (10, 1, 12),
 (11, 2, 19),
-(13, 4, 21);
+(13, 4, 21),
+(16, 2, 26),
+(18, 7, 28),
+(20, 11, 30),
+(21, 12, 31),
+(22, 13, 32);
 
 -- --------------------------------------------------------
 
@@ -235,7 +259,17 @@ INSERT INTO `transacciones` (`id`, `cliente1_id`, `cliente2_id`, `cuenta1_id`, `
 (13, 4, 2, 21, 21, 'Thu Apr 20 20:41:34 CEST 2017', 'Prueba banco hacia afuera', '100.00'),
 (14, 4, 2, 21, 4, 'Thu Apr 20 20:44:05 CEST 2017', 'Prueba sacar dinero', '1000.00'),
 (15, 2, 4, 4, 21, 'Thu Apr 20 20:45:37 CEST 2017', 'Prueba sacar dinero', '10000.00'),
-(16, 4, 2, 21, 4, 'Thu Apr 20 20:46:00 CEST 2017', 'Prueba ingresar dinero', '10000.00');
+(16, 4, 2, 21, 4, 'Thu Apr 20 20:46:00 CEST 2017', 'Prueba ingresar dinero', '10000.00'),
+(17, 4, 11, 30, 30, 'Thu Apr 20 22:14:04 CEST 2017', 'regalito', '500.00'),
+(18, 4, 12, 31, 31, 'Thu Apr 20 22:20:22 CEST 2017', 'rico', '500.00'),
+(19, 4, 13, 32, 32, 'Thu Apr 20 22:24:10 CEST 2017', 'Ingreso', '100.00'),
+(20, 4, 13, 32, 32, 'Thu Apr 20 22:27:22 CEST 2017', 'prueba', '500.00'),
+(21, 4, 13, 32, 32, 'Thu Apr 20 22:32:20 CEST 2017', '500', '500.00'),
+(22, 4, 13, 32, 32, 'Thu Apr 20 22:34:56 CEST 2017', '500', '500.00'),
+(23, 4, 13, 32, 32, 'Thu Apr 20 22:36:14 CEST 2017', '500', '500.00'),
+(24, 4, 13, 32, 32, 'Thu Apr 20 22:37:27 CEST 2017', '500', '500.00'),
+(25, 4, 13, 21, 32, 'Thu Apr 20 22:41:55 CEST 2017', '500', '500.00'),
+(26, 13, 4, 32, 21, 'Thu Apr 20 22:42:08 CEST 2017', '500', '500.00');
 
 --
 -- Disparadores `transacciones`
@@ -294,22 +328,22 @@ ALTER TABLE `transacciones`
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `cliente_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `cliente_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT de la tabla `cuentas`
 --
 ALTER TABLE `cuentas`
-  MODIFY `cuenta_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `cuenta_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 --
 -- AUTO_INCREMENT de la tabla `posesiones`
 --
 ALTER TABLE `posesiones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT de la tabla `transacciones`
 --
 ALTER TABLE `transacciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 --
 -- Restricciones para tablas volcadas
 --
