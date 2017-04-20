@@ -1,4 +1,42 @@
-		<nav class="navbar navbar-default">
+<div class="row carousel-row">
+    <div class="col-xs-8 col-xs-offset-2 slide-row">
+        <div class="carousel slide slide-carousel" id="carousel-1" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#carousel-1" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel-1" data-slide-to="1"></li>
+                <li data-target="#carousel-1" data-slide-to="2"></li>
+            </ol>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                <div class="item active">
+                    <img src="http://lorempixel.com/150/150?rand=96" alt="Image">
+                </div>
+                <div class="item">
+                    <img src="http://lorempixel.com/150/150?rand=83" alt="Image">
+                </div>
+                <div class="item">
+                    <img src="http://lorempixel.com/150/150?rand=25" alt="Image">
+                </div>
+            </div>
+        </div>
+        <div class="slide-content">
+            <h4>Example product</h4>
+            <p>
+                Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+                sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat
+            </p>
+        </div>
+        <div class="slide-footer">
+                    <span class="pull-right buttons">
+                        <button class="btn btn-sm btn-default"><i class="fa fa-fw fa-eye"></i> Show</button>
+                        <button class="btn btn-sm btn-primary"><i class="fa fa-fw fa-shopping-cart"></i> Buy</button>
+                    </span>
+        </div>
+    </div>
+</div>
+        <nav class="navbar navbar-default">
 		  <div class="container-fluid">
 		    <!-- Brand and toggle get grouped for better mobile display -->
 		    <div class="navbar-header">

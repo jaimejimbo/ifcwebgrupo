@@ -14,10 +14,15 @@
 		<link rel="stylesheet" href="css/custom.css">
 		<link href="https://fonts.googleapis.com/css?family=Spirax" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Macondo" rel="stylesheet">
-		<title>Inicio</title>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <style>
+            .mySlides {display:none;}
+        </style>
+
+        <title>Inicio</title>
 	</head>
 	<body>
-		<nav class="navbar navbar-default">
+		<nav class="navbar navbar-inverse" style="border: 0">
 		  <div class="container-fluid">
 		    <!-- Brand and toggle get grouped for better mobile display -->
 		    <div class="navbar-header">
@@ -27,8 +32,8 @@
 		        <span class="icon-bar"></span>
 		        <span class="icon-bar"></span>
 		      </button>
-		      <a class="navbar-brand custombrand" href="#">Banco</a>
-		    </div>
+                <img src="/img/evilWhite.png" alt="" height="40" style="vertical-align: bottom">
+            </div>
 		
 		    <!-- Collect the nav links, forms, and other content for toggling -->
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -53,10 +58,35 @@
 		  </div><!-- /.container-fluid -->
 		</nav>
 	  	<div class="col-lg-4 col-md-3 col-sm-2 col-xs-1"></div>
-	  	<div class="col-lg-4 col-md-6 col-sm-8 col-xs-10 main-bg">
-	  		Aquí irían los datos públicos.
-		</div>
-		<div id="output"></div>
+	  	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 main-bg">
+
+            <div class="row carousel-row">
+                <div class="col-xs-8 col-xs-offset-2 slide-row">
+                    <div class="carousel slide slide-carousel" id="carousel-1" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                            <li data-target="#carousel-1" data-slide-to="0" class="active"></li>
+                            <li data-target="#carousel-1" data-slide-to="1"></li>
+                            <li data-target="#carousel-1" data-slide-to="2"></li>
+                        </ol>
+
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <img src="/img/tarjetaN.png" alt="Image">
+                            </div>
+                            <div class="item">
+                                <img src="/img/evilbuilding.png" alt="Image">
+                            </div>
+                            <div class="item">
+                                <img src="/img/cartera.png" alt="Image">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="output"></div>
 		<script>
 			function publico(){
 				$.post("Publico", {}, function(data){
