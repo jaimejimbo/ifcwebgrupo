@@ -2,6 +2,8 @@
     pageEncoding="ISO-8859-1"%>
 <%!String nombre;%>
 <!DOCTYPE html>
+
+
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
