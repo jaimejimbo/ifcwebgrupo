@@ -127,7 +127,6 @@ public class Crearcuenta extends HttpServlet {
 				rs.next();
 				int cuenta_id = rs.getInt(1);
 
-
 				cs3 = conexion.prepareCall("{call asociar_cuenta(?,?)}");
 				cs3.setInt(1, cliente_id);
 				cs3.setInt(2, cuenta_id);
