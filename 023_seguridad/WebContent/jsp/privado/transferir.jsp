@@ -12,6 +12,13 @@
 		<jsp:include page="header.jsp" />
 	  	<div class="col-lg-1 col-md-1 col-sm-1"></div>
 	  	<div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 main-bg">
+			<%
+				String msg = null;
+				msg = (String)session.getAttribute("errormsg");
+				if (msg != null){
+			%>
+			<%=msg%>
+			<%}%>
 			<form action="../../Transferencias" method="post">
 				<div class="form-group">
 					<label for="receptor" class="fill-width"><div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">Receptor</div>
